@@ -1,0 +1,172 @@
+﻿<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Admin/Home/Index">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-syringe"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Hệ thống tiêm chủng</div>
+
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="/Admin/Home/Index">
+            <i class="fas underline"></i>
+            <span>VACCINE PHÒNG COVID-19</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Hệ thống
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Cài đặt</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Tài khoản:</h6>
+                <a class="collapse-item" href="/Admin/Login/Login">Đăng xuất</a>
+                @*<a class="collapse-item" href="register.html">Đăng ký</a>
+                    <a class="collapse-item" href="forgot-password.html">Quên mật khẩu</a>*@
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Quản lý</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @*<h6 class="collapse-header">Tùy chọn:</h6>
+                    <a class="collapse-item" href="/Admin/About/Index">Giới thiệu</a>
+                    <a class="collapse-item" href="/Admin/Footer/Index">Footer</a>
+                    <a class="collapse-item" href="/Admin/Menu/Index">Menu</a>
+                    <a class="collapse-item" href="/Admin/Slide/Index">Slide</a>
+                    <a class="collapse-item" href="/Admin/FeedBack/Index">Phản hồi</a>
+                    <div class="collapse-divider"></div>*@
+                <h6 class="collapse-header">Phân quyền:</h6>
+                <a class="collapse-item" href="/Admin/User/Index">Người dùng</a>
+                <a class="collapse-item" href="/Admin/UserGroup/Index">Nhóm người dùng</a>
+                <h6 class="collapse-header">Chức năng:</h6>
+                <a class="collapse-item" href="/Home/Search">Tra cứu thông tin tiêm</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Chức năng
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Nghiệp vụ kho</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Nhập kho:</h6>
+                <a class="collapse-item" href="/Admin/Nhaptuncc/Index">Nhập từ nhà cung cấp</a>
+                <a class="collapse-item" href="/Admin/Capphat/Index1">Nhập cấp phát</a>
+                @*<a class="collapse-item" href="/Admin/Nhaptuncc/Index">Nhập trả lại</a>*@
+                <h6 class="collapse-header">Xuất kho:</h6>
+                <a class="collapse-item" href="/Admin/Capphat/Index">Cấp phát vaccine, vật tư</a>
+                @*<a class="collapse-item" href="/Admin/Capphat/Index">Xuất sử dụng</a>
+                    <a class="collapse-item" href="/Admin/Capphat/Index">Xuất trả lại</a>
+                    <a class="collapse-item" href="/Admin/Capphat/Index">Xuất hủy vaccine, vật tư</a>*@
+                <a class="collapse-item" href="/Admin/Lo/Index1">Tồn kho:</a>
+                <a class="collapse-item" href="/Admin/Dutru/Index">Dự trù vaccine:</a>
+                @*<h6 class="collapse-item" href="/Admin/Capphat/Index">Kế hoạch vaccine:</h6>*@
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Tables -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTables"
+           aria-expanded="true" aria-controls="collapseTables">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Số liệu vaccine</span>
+        </a>
+        <div id="collapseTables" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Báo cáo:</h6>
+                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Tình hình sử dụng vaccine</a>*@
+                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Sổ quản lý vaccine</a>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Số lượng nhập tồn theo lô</a>*@
+                <a class="collapse-item" href="/Admin/Vattuyte/Index">Sử dụng bơm kim tiêm</a>
+                <a class="collapse-item" href="/Admin/Vattuyte/Index">Sử dụng vaccine</a>
+                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Cấp phát vaccine</a>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Tổng hợp tồn vaccine</a>*@
+                <h6 class="collapse-header">Truy xuất số liệu:</h6>
+                <a class="collapse-item" href="/Admin/Vattuyte/Index">Tồn kho</a>
+                <a class="collapse-item" href="/Admin/Vattuyte/Index">Truy xuất theo lô</a>
+                <h6 class="collapse-header">Nhập số liệu vaccine:</h6>
+                <a class="collapse-item" href="/Admin/Vattuyte/Index">Báo cáo tồn kho tuyến xã</a>
+                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Báo cáo hủy tuyến xã</a>*@
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Charts -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCharts"
+           aria-expanded="true" aria-controls="collapseCharts">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Số liệu tiêm chủng</span>
+        </a>
+        <div id="collapseCharts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Báo cáo:</h6>
+                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Kết quả tiêm chủng</a>
+                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Triệu chứng sau tiêm</a>
+                @*<h6 class="collapse-header">Biểu đồ:</h6>
+                    <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Tỉ lệ tiêm vaccine</a>
+                    <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Số ca mắc bệnh sau tiêm</a>
+                    <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Tiến độ tiêm chủng</a>*@
+                <h6 class="collapse-header">Nhập số liệu tiêm chủng:</h6>
+                <a class="collapse-item" href="/Admin/Phieutiem/Index">Kết quả tiêm chủng</a>
+                <a class="collapse-item" href="/Admin/Phieutiem/Index">Triệu chứng sau tiêm</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+    <!-- Sidebar Message -->
+    @*<div class="sidebar-card">
+            <img class="sidebar-card-illustration mb-2" src="/Assets/Admin/img/undraw_rocket.svg" alt="">
+            <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
+            <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+        </div>*@
+
+</ul>

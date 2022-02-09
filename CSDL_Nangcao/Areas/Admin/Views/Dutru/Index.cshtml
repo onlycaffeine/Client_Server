@@ -1,0 +1,207 @@
+﻿@using PagedList.Mvc;
+@using Model1
+@model  ModelCollection
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:blue; font-size:x-large">
+        Nhập phiếu lĩnh
+    </b>
+}
+
+<div class="row">
+    <div class="col-lg-offset-1" style="padding:10px">
+        <div class="panel-heading" style="color:blue; font-size:large">
+            Danh sách phiếu lĩnh chưa được duyệt
+        </div>
+        <hr />
+
+        @{
+            DateTime date;
+            date = DateTime.Today;
+        }
+
+        <div class="panel-body">
+            @using (Html.BeginForm("Index", "Dutru", FormMethod.Get))
+            {
+                <div class="form-group">
+                    <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                        @*Mã: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:174px; margin:0 0 10px 10px", @class = "form-control" })
+                            <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 30px">Tìm kiếm</button></p>*@
+                        <a class="btn btn-primary" href="/Admin/Dutru/Index1" style=" margin:0 0 0 30px">Xem toàn bộ phiếu lĩnh</a>
+                    </div>
+
+                </div>
+            }
+            <hr />
+
+            @if (Model.PhieulinhDTOs.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên điểm tiêm</th>
+                                <th>Ngày yêu cầu</th>
+                                @*<th></th>*@
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.PhieulinhDTOs)
+                            {
+                                <tr id="row_@item.Sophieulinh">
+                                    <td>@item.Sophieulinh</td>
+                                    <td>@item.Tendiemtiem</td>
+                                    <td>@item.Ngayyeucau</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Ngày yêu cầu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert alert-danger" style="width:210px">Không tìm thấy dữ liệu</div>
+            }
+
+        </div>
+    </div>
+
+    <div class="col-lg-pull-3" style="padding:10px">
+
+        <div class="section group">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Payment", "Dutru", FormMethod.Post))
+                {
+                    <div class="panel-heading" style="color:blue; font-size:large">
+                        Thông tin chi tiết phiếu lĩnh
+                        <button type="submit" class="btn btn-primary" style=" margin:0 0 0 36px">Thêm phiếu</button>
+                    </div>
+                    <hr />
+
+                    <div class="form-group" style="">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+
+                            <label style=" box-sizing:border-box; flex-wrap:nowrap">Mã phiếu lĩnh</label>
+                            <p><input name="sophieu" class="form-control" style="width:200px;margin:0 16px" /></p>
+
+                            <label style="">Đơn vị lĩnh</label>
+                            <p>@Html.DropDownList("madt", null, new { @style = "width:200px; margin:0 16px", @class = "form-control", @name = "madt" })</p>
+                        </div>
+
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            <label>Ngày yêu cầu</label>
+                            <p><input type="datetime" name="ngayyc" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 16px" /></p>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="section group" style="display:contents">
+            <b class="panel-heading" style="color:black; font-size:large">
+                Danh sách chi tiết phiếu lĩnh
+                <a class="btn btn-primary" href="/Admin/Dutru/Create" style=" margin:0 0 0 36px">Thêm</a>
+            </b>
+            <hr />
+            @if (Model.DonglinhDTOs.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tên vật tư</th>
+                                <th>Số liều đề xuất</th>
+                                <th>Số liều duyệt</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.DonglinhDTOs)
+                            {
+                                <tr>
+                                    <td>@item.Tenthuoc</td>
+                                    <td>@item.SLyeucau.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>@item.SLcapphat.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>
+                                        <a href="/Admin/Dutru/Edit/@item.Madonglinh">Sửa</a>
+                                        |
+                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Madonglinh }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xoá bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.Madonglinh + "').remove()",
+                                       HttpMethod = "Delete"
+                                   })
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tên vật tư</th>
+                                <th>Số liều đề xuất</th>
+                                <th>Số liều duyệt</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert alert-danger" style="width:210px">Không tìm thấy dữ liệu</div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section jsfooter{
+    <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "yyyy/mm/dd"
+            });
+        });
+    </script>
+
+}

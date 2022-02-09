@@ -1,0 +1,6 @@
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\onlineshop-master\Common\bin\Debug\Common.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\onlineshop-master\Common\bin\Debug\Common.pdb
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\onlineshop-master\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\onlineshop-master\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\onlineshop-master\Common\obj\Debug\Common.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\onlineshop-master\Common\obj\Debug\Common.pdb

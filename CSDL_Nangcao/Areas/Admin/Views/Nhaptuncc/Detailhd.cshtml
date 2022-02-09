@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Model1.EF.Lo>
+@{
+    ViewBag.Title = "Index11";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    Nhập từ nhà cung cấp
+}
+
+<div class="row">
+
+    <div class="col-lg-pull-3" style="padding:10px">
+
+        <div class="section group">
+            <b class="panel-heading" style="color:black; font-size:large">
+                Danh sách lô/ Vật tư
+                <a class="btn btn-primary" href="/Admin/Lo/Create" style=" margin:0 0 0 36px">Thêm</a>
+            </b>
+            <hr />
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>Số hóa đơn</td>
+                            <td>Mã lô</td>
+                            <td>Số liều</td>
+                            <td>Số lượng nhập</td>
+                            <td>Đơn giá</td>
+                            <td>Thành tiền</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.Where(item => item != null))
+                            {
+                                <tr>
+                                    <td>@item.Sohoadon</td>
+                                    <td>@item.Malo</td>
+                                    <td>@item.Solieutrenmotcai.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>@item.SLnhap.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>@item.Dongia.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>@((item.Dongia.GetValueOrDefault(0) * item.SLnhap.GetValueOrDefault(0)).ToString("N0"))</td>
+                                    <td>
+                                        <a href="/Admin/Nhaptuncc/Edit/@item.Malo">Sửa</a>
+                                        |
+                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Malo }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xoá bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.Malo + "').remove()",
+                                       HttpMethod = "Delete"
+                                   })
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />

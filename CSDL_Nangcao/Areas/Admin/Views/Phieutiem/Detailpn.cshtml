@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Model1.EF.Chitietphhieutiem>
+@{
+    ViewBag.Title = "Index111";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:blue; font-size:x-large">
+        Thông tin chi tiết phiếu tiêm
+    </b>
+}
+
+<div class="row">
+
+    <div class="col-lg-pull-3" style="padding:10px">
+
+        <div class="section group">
+            <b class="panel-heading" style="color:black; font-size:large">
+                Danh sách các lần tiêm
+                @*<a class="btn btn-primary" href="/Admin/Chitietphieutiem/Create" style=" margin:0 0 0 36px">Thêm</a>*@
+                <a class="btn btn-primary" href="/Admin/Phieutiem/CreateCT/@Session["sophieutiem"]" style=" margin:0 0 0 36px">Thêm</a>
+            </b>
+            <hr />
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            @*<td>Số phiếu tiêm</td>*@
+                            <td>Mũi số</td>
+                            <td>Điểm tiêm</td>
+                            <td>Mã lô</td>
+                            <td>Loại vaccine</td>
+                            <td>Triệu chứng</td>
+                            <td>Ghi chú</td>
+                            <td>Ngày tiêm</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.Where(item => item != null))
+                            {
+                                <tr>
+                                    @*<td>@item.Sophieutiem</td>*@
+                                    <td>@item.Loaimui</td>
+                                    <td>@item.Tendiemtiem</td>
+                                    <td>@item.Malo</td>
+                                    <td>@item.Tenthuoc</td>
+                                    <td>@item.Trieuchung</td>
+                                    <td>@item.Ghichu</td>
+                                    <td>@item.Ngaytiem</td>
+
+                                    <td>
+                                        <a href="/Admin/Chitietphieutiem/Edit/@item.Machitietphieutiem">Sửa</a>
+                                        |
+                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Machitietphieutiem }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xoá bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.Machitietphieutiem + "').remove()",
+                                       HttpMethod = "Delete"
+                                   })
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />

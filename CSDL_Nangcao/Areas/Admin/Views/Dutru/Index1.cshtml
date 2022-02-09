@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Model1.DTO.PhieulinhDTO>
+@{
+    ViewBag.Title = "Index11";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    Phiếu lĩnh
+}
+
+<div class="row">
+
+    <div class="col-lg-pull-3" style="padding:10px">
+
+        <div class="section group">
+            <b class="panel-heading" style="color:black; font-size:large">
+                Danh sách phiếu lĩnh
+                <a class="btn btn-primary" href="/Admin/Dutru/Create" style=" margin:0 0 0 36px">Thêm</a>
+            </b>
+            <hr />
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tên điểm tiêm</th>
+                            <th>Ngày yêu cầu</th>
+                            <th>Tình trạng</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Tendiemtiem</td>
+                                    <td>@item.Ngayyeucau</td>
+                                    <td>@item.Tentt</td>
+                                    <td>
+                                        <a href="/Admin/Dutru/Edithd/@item.Sophieulinh">Sửa</a>
+                                        |
+                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Sophieulinh }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xoá bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.Sophieulinh + "').remove()",
+                                       HttpMethod = "Delete"
+                                   })|
+                                        <a href="/Admin/Dutru/Detailhd/@item.Sophieulinh">Chi tiết</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />

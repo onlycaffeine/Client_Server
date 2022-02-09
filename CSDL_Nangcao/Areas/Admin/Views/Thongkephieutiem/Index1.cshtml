@@ -1,0 +1,198 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Model1.DTO.DiemtiemDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:blue; font-size:x-large">
+        Thống kê số liệu tiêm chủng
+    </b>
+}
+
+@{
+    DateTime date;
+    date = DateTime.Today;
+}
+
+<div class="row">
+    <div class="col-lg-pull-3" style="padding:10px">
+        <div class="section group">
+            <div class="col-md-12" style="display: flex">
+                @using (Html.BeginForm("Thongkethanhpho", "Thongkephieutiem", FormMethod.Get))
+                {
+                    <div class="panel-heading" style="color:blue; font-size:large">
+                        Thống kê toàn thành phố
+                    </div>
+                    <hr />
+
+                    <div class="form-group" style="">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            Từ ngày:
+                            <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="a" />
+                            Đến
+                            <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />
+                            Mật khẩu
+                            <input type="password" value="thanhpho" class="form-control" style="width:100px; margin:0 8px" name="passtp" />
+                            <input type="submit" value="Thống kê toàn thành phố" class="btn btn-primary" style=" margin:0 0 0 176px" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="section group">
+            <div class="col-md-12" style="display: flex">
+                @using (Html.BeginForm("Thongkequan", "Thongkephieutiem", FormMethod.Get))
+                {
+                    <div class="panel-heading" style="color:blue; font-size:large">
+                        Thống kê theo quận
+                    </div>
+                    <hr />
+
+                    <div class="form-group" style="">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            Từ ngày:
+                            <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="a" />
+                            Đến
+                            <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />
+                            Mã quận
+                            <input type="text" value="q001" class="form-control" style="width:100px; margin:0 8px" name="maquan" />
+                            Mật khẩu
+                            <input type="password" value="q001" class="form-control" style="width:100px; margin:0 8px" name="passquan" />
+                            <input type="submit" value="Thống kê theo quận" class="btn btn-primary" style=" margin:0 0 0 30px" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-offset-1" style="padding:10px">
+            <div class="panel-heading" style="color:blue; font-size:large">
+                Tìm kiếm thông tin điểm tiêm
+            </div>
+            <hr />
+
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "Thongkephieutiem", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            Tên điểm tiêm: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:190px; margin:0 10px 10px 10px", @class = "form-control" })
+                            Tên quận: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:190px; margin:0 10px 10px 10px", @class = "form-control" })
+                            <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 215px">Tìm kiếm</button></p>
+                        </div>
+                    </div>
+                }
+
+                <hr />
+            </div>
+
+            <div class="section group">
+                <div class="col-md-12" style="display: flex">
+                    @using (Html.BeginForm("Edithd", "Thongkephieutiem", FormMethod.Get))
+                    {
+                        <div class="panel-heading" style="color:blue; font-size:large">
+                            Thống kê từng địa phương
+                        </div>
+                        <hr />
+
+                        <div class="form-group" style="">
+                            <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                Từ ngày:
+                                <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="a" />
+                                Đến
+                                <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />
+                                Mã điểm tiêm
+                                <input type="text" value="dt001" class="form-control" style="width:113px; margin:0 8px" name="id" />
+                                Mật khẩu
+                                <input type="password" value="dt001" class="form-control" style="width:100px; margin:0 8px" name="passdt" />
+                                <input type="submit" value="Thống kê" class="btn btn-primary" style=" margin:0 0 0 44px" />
+                            </div>
+
+
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+            <div class="col-lg-pull-3" style="padding:10px">
+                <div class="section group" style="display:contents">
+                    <b class="panel-heading" style="color:black; font-size:large">
+                        Kết quả tìm kiếm
+                    </b>
+                    <hr />
+                    @if (Model.Count() > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã điểm tiêm</th>
+                                        <th>Tên điểm tiêm</th>
+                                        <th>Tên người đứng đầu</th>
+                                        <th>Mã quận</th>
+                                        <th>Tên quận</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Madiemtiem</td>
+                                            <td>@item.Tendiemtiem</td>
+                                            <td>@item.Tennguoidungdau</td>
+                                            <td>@item.Maquan</td>
+                                            <td>@item.Tenquan</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã điểm tiêm</th>
+                                        <th>Tên điểm tiêm</th>
+                                        <th>Tên người đứng đầu</th>
+                                        <th>Mã quận</th>
+                                        <th>Tên quận</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="alert alert-danger" style="width:210px">Không tìm thấy dữ liệu</div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+        @section jsfooter{
+            <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+
+            <script>
+                $(function () {
+                    $(".datepicker").datepicker({
+                        dateFormat: "yyyy/mm/dd"
+                    });
+                });
+            </script>
+
+        }

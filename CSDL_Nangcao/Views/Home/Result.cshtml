@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Model1.PhieutiemViewModel>
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="text text-center">
+                <h6>
+                    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+                </h6>
+                <h4>Độc lập - Tự do - Hạnh phúc</h4>
+            </div>
+            <h4 class="text-center" style="font-weight: bold;">CHỨNG NHẬN TIÊM CHỦNG COVID-19</h4>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Họ và tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Số CCCD</th>
+                                <th>Số điện thoại</th>
+                                <th scope="col">Mũi số</th>
+                                <th scope="col">Thời gian tiêm</th>
+                                <th scope="col">Tên vắc xin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Phieutiem.Tennguoidan</td>
+                                    <td>@item.Phieutiem.Ngaysinh</td>
+                                    <td>@item.Phieutiem.CCCD</td>
+                                    <td>@item.Phieutiem.SDT</td>
+                                    <td>@item.Chitietphhieutiem.Loaimui</td>
+                                    <td>@item.Chitietphhieutiem.Ngaytiem</td>
+                                    <td>@item.Chitietphhieutiem.Tenthuoc</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

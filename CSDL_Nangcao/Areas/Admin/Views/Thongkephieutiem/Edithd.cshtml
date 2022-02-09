@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Model1.DTO.ThongkephieutiemQuanDTO>
+@{
+    ViewBag.Title = "Index1";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:blue; font-size:x-large">
+        Thống kê số liệu tiêm chủng
+    </b>
+}
+
+@{
+    int tongslasta1 = 0; int tongslasta2 = 0; int tongslastra3 = 0; int tongslpfi1 = 0; int tongslpfi2 = 0; int tongslpfi3 = 0;
+    int tongslvero1 = 0; int tongslvero2 = 0; int tongslvero3 = 0; int tongsl = 0; int tongsltcnhe = 0; int tongsltcnang = 0;
+}
+
+@foreach (var item in Model)
+{
+    tongslasta1 += item.SLastra1; tongslasta2 += item.SLastra2; tongslastra3 += item.SLastra3; tongslpfi1 += item.SLpfi1; tongslpfi2 += item.SLpfi2;
+    tongslpfi3 += item.SLpfi3; tongsl += item.SLtiem; tongsltcnhe += item.SLtcnhe; tongsltcnang += item.SLtcnang;
+}
+
+@{
+    DateTime date;
+    date = DateTime.Today;
+}
+
+<div class="row">
+
+    <div class="col-lg-pull-3" style="padding:10px">
+
+        <div class="section group">
+            <b class="panel-heading" style="color:black; font-size:large">
+                Báo cáo số liệu địa phương
+            </b>
+            <hr />
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" style="background-color:honeydew">
+                    <thead>
+                        <tr>
+                            <th rowspan="3" style="width:20%;align-items:center">Tên điểm tiêm</th>
+                            <th colspan="9" style="text-align:center">Miễn dịch cơ bản</th>
+                            <th rowspan="3" style="width:20%;align-items:center">Số người đủ 3 mũi</th>
+                            <th colspan="2">Phản ứng sau tiêm</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="3">AstraZeneca</th>
+                            <th colspan="3">Pfizer </th>
+                            <th colspan="3">Vero Cell</th>
+                            <th rowspan="2">Nhẹ</th>
+                            <th rowspan="2">Nghiêm trọng </th>
+                        </tr>
+
+                        <tr>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr id="row_@item.Madiemtiem">
+                            <td>@item.Madiemtiem</td>
+                            <td>@item.SLastra1</td>
+                            <td>@item.SLastra2</td>
+                            <td>@item.SLastra3</td>
+                            <td>@item.SLpfi1</td>
+                            <td>@item.SLpfi2</td>
+                            <td>@item.SLpfi3</td>
+                            <td>@item.SLvero1</td>
+                            <td>@item.SLvero2</td>
+                            <td>@item.SLvero3</td>
+                            <td>@item.SLtiem</td>
+                            <td>@item.SLtcnhe</td>
+                            <td>@item.SLtcnang</td>
+
+                        </tr>
+                        }
+                    </tbody>
+
+                    @*<tfoot>
+                        <tr>
+                            <td>Tổng</td>
+                            <td>@Html.Raw(tongslasta1)</td>
+                            <td>@Html.Raw(tongslasta2)</td>
+                            <td>@Html.Raw(tongslastra3)</td>
+                            <td>@Html.Raw(tongslpfi1)</td>
+                            <td>@Html.Raw(tongslpfi2)</td>
+                            <td>@Html.Raw(tongslpfi3)</td>
+                            <td>@Html.Raw(tongslvero1)</td>
+                            <td>@Html.Raw(tongslvero2)</td>
+                            <td>@Html.Raw(tongslvero3)</td>
+                            <td>@Html.Raw(tongsl)</td>
+                            <td>@Html.Raw(tongsltcnhe)</td>
+                            <td>@Html.Raw(tongsltcnang)</td>
+                        </tr>
+                    </tfoot>*@
+
+                </table>
+
+            </div>
+        </div>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />

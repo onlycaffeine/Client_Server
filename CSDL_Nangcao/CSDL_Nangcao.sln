@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSDL_Nangcao", "CSDL_Nangcao.csproj", "{32A4919A-CE04-47D2-B756-BCB3CC5A55CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model1", "..\Model1\Model1.csproj", "{F3C45875-C861-447C-8809-FB47D8B6080D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\onlineshop-master\Common\Common.csproj", "{BF028B59-B47E-47DD-ABB0-564EDD43E51A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32A4919A-CE04-47D2-B756-BCB3CC5A55CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A4919A-CE04-47D2-B756-BCB3CC5A55CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A4919A-CE04-47D2-B756-BCB3CC5A55CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A4919A-CE04-47D2-B756-BCB3CC5A55CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C45875-C861-447C-8809-FB47D8B6080D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C45875-C861-447C-8809-FB47D8B6080D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C45875-C861-447C-8809-FB47D8B6080D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C45875-C861-447C-8809-FB47D8B6080D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF028B59-B47E-47DD-ABB0-564EDD43E51A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF028B59-B47E-47DD-ABB0-564EDD43E51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF028B59-B47E-47DD-ABB0-564EDD43E51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF028B59-B47E-47DD-ABB0-564EDD43E51A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9DC4BED-280C-431A-A815-87F76442F8CC}
+	EndGlobalSection
+EndGlobal

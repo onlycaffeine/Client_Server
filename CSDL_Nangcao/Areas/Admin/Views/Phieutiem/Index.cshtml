@@ -1,0 +1,182 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Model1.EF.Phieutiem>
+@*@model IEnumerable<Model1.EF.Phieutiem>*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:blue; font-size:x-large">
+        Thêm phiếu tiêm mới
+    </b>
+}
+
+@{
+    DateTime date;
+    date = DateTime.Today;
+}
+
+<div class="row">
+
+    <div class="col-lg-pull-3" style="padding:10px">
+
+        <div class="section group">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Create", "Phieutiem", FormMethod.Post))
+                {
+                    <div class="panel-heading" style="color:blue; font-size:large">
+                        Nhập thông tin phiếu tiêm
+                        <button type="submit" class="btn btn-primary" style=" margin:0 0 0 36px">Thêm</button>
+                    </div>
+                    <hr />
+
+                    <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+
+                        <label style="">Mã phiếu tiêm</label>
+                        <p><input name="sophieutiem" class="form-control" style="width:100px;margin:0 16px" /></p>
+
+                        <label>Tên người dân</label>
+                        <p><input name="tennd" class="form-control" style="width:150px;margin:0 16px" /></p>
+
+                        <label>CCCD</label>
+                        <p><input name="cccd" class="form-control" style="width:100px;margin:0 16px" /></p>
+
+                        <label>SĐT</label>
+                        <p><input name="sdt" class="form-control" style="width:100px;margin:0 16px" /></p>
+
+                        <label>Ngày sinh</label>
+                        <p><input type="datetime" name="ngaysinh" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 16px" /></p>
+
+                    </div>
+
+                }
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-offset-1" style="padding:10px">
+            <div class="panel-heading" style="color:blue; font-size:large">
+                Tìm kiếm thông tin phiếu tiêm
+            </div>
+            <hr />
+
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "Phieutiem", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            @*Tên người dân: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:150px; margin:0 10px 10px 10px", @class = "form-control" })*@
+
+                            CCCD: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:150px; margin:0 10px 10px 10px", @class = "form-control" })
+
+                            @*Thời gian:
+                                <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="a" />
+                                Đến
+                                <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />*@
+
+                            <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 30px">Tìm kiếm</button></p>
+                        </div>
+
+                        <div>
+
+                        </div>
+                    </div>
+                }
+
+                <hr />
+
+            </div>
+        </div>
+
+        <div class="section group" style="display:contents">
+            <b class="panel-heading" style="color:black; font-size:large">
+                Kết quả tìm kiếm
+            </b>
+            <hr />
+            @if (Model.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã phiếu</th>
+                                <th>Tên người dân</th>
+                                <th>CCCD</th>
+                                <th>SĐT</th>
+                                <th>Ngày sinh</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Sophieu</td>
+                                    <td>@item.Tennguoidan</td>
+                                    <td>@item.CCCD</td>
+                                    <td>@item.SDT</td>
+                                    <td>@item.Ngaysinh</td>
+                                    <td>
+                                        <a href="/Admin/Phieutiem/Edithd/@item.Sophieu">Sửa</a>
+                                        |
+                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Sophieu }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xoá bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.Sophieu + "').remove()",
+                                       HttpMethod = "Delete"
+                                   })|
+                                        <a href="/Admin/Phieutiem/Detailpn/@item.Sophieu">Chi tiết</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                </div>
+
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã phiếu</th>
+                                <th>Tên người dân</th>
+                                <th>CCCD</th>
+                                <th>SDT</th>
+                                <th>Ngày sinh</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert alert-danger" style="width:210px">Không tìm thấy dữ liệu</div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section jsfooter{
+    <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "yyyy/mm/dd"
+            });
+        });
+    </script>
+
+}

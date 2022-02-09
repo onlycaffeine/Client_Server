@@ -1,0 +1,137 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Model1.DTO.DiemtiemDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        @*<link rel="stylesheet" href="~/Assets/Client/css/style.css">*@
+        <link rel="stylesheet" href="~/Assets/Client/css/main.css">
+        <script src="~/assets/Client/js/page1.js"></script>
+
+        <style>
+            .ul.pagination {
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+            }
+
+            ul.pagination li {
+                display: inline;
+            }
+
+                ul.pagination li a {
+                    color: black;
+                    float: left;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                    transition: background-color .3s;
+                }
+
+                    ul.pagination li a.active {
+                        background-color: #4CAF50;
+                        color: white;
+                    }
+
+                    ul.pagination li a:hover:not(.active) {
+                        background-color: #ddd;
+                    }
+        </style>
+
+    </head>
+
+<body>
+    <div class="all">
+
+        <div class="block">
+
+            <div class="panel panel-default">
+                <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
+                    Tra cứu điểm tiêm theo địa bàn
+                </div>
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                    {
+                        <div class="row form-group">
+                            <div class="col-lg-12" style="display:flex">
+                                <form class="col-md-4">
+                                    <select name="subject" id="subject" style="height:35px;width:175px; margin-right:18px">
+                                        <option value="" selected="selected">Tỉnh/Thành phố</option>
+                                    </select>
+                                    <br><br>
+                                    <select name="topic" id="topic" style="margin-right:18px;height:35px;width:175px">
+                                        <option value="" selected="selected">Quận/Huyện</option>
+                                    </select>
+                                    <br><br>
+                                    <select name="searchString" id="searchString" style="margin-right:18px;height:35px;width:175px">
+                                        <option value="" selected="selected">Phường/Thị xã</option>
+                                    </select>
+                                    <br><br>
+                                </form>
+
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <table class="m-table">
+                        <thead>
+                            <tr>
+                                <th style="width:50px;font-weight:bold; padding-top: 14px">Tên điểm tiêm</th>
+                                <th class="text-align-left" style="width:10px;font-weight:bold; padding-top: 14px">Tỉnh/Thành phố</th>
+                                <th class="text-align-left" style="width:10px;font-weight:bold; padding-top: 14px">Quận/Huyện</th>
+                                <th class="text-align-left" style="width:10px;font-weight:bold; padding-top: 14px">Xã/Phường</th>
+                                <th class="text-align-left" style="width:100px;font-weight:bold; padding-top: 14px">Số nhà, tên đường</th>
+                                <th class="text-align-left" style="width:130px;font-weight:bold; padding-top: 14px">Người đứng đầu cơ sở tiêm chủng</th>
+                                <th class="text-align-left" style="width:5px;font-weight:bold; padding-top: 14px">Số bàn tiêm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Madiemtiem">
+                                    <td style=" padding-top: 14px">@item.Tendiemtiem</td>
+                                    <td style=" padding-top: 14px">@item.Tenthanhpho</td>
+                                    <td style=" padding-top: 14px">@item.Tenquan</td>
+                                    <td style=" padding-top: 14px">@item.Tenphuong</td>
+                                    <td style=" padding-top: 14px">@item.Diachi</td>
+                                    <td style=" padding-top: 14px">@item.Tennguoidungdau</td>
+                                    <td style=" padding-top: 14px">@item.Sobantiem</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                    <div id="container" style="margin-left: 20px">
+                        <p></p>
+                        <p></p>
+                        <div class="pagination" style="margin-left: 4px; display:flex; justify-content:space-between">
+                            <div>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)( tổng số @Model.PageCount trang ) </div>
+                            <div style="margin-right:560px">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))</div>
+                            @*<div>f</div>*@
+                        </div>
+                    </div>
+
+                    
+
+                @*</div>*@
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
+</body>
