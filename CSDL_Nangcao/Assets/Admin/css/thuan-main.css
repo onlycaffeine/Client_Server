@@ -1,0 +1,89 @@
+﻿html {
+    scroll-behavior: smooth;
+}
+
+.lable-thuan {
+    margin-left: 13px;
+    box-sizing: border-box;
+    flex-wrap: nowrap
+}
+
+.sroll-bottom {
+    top: calc(50% - 0px);
+    background: #f53d68;
+}
+
+thead {
+    background-color: #ccc;
+}
+
+.alert {
+    position: unset;
+}
+
+input {
+    position: unset;
+}
+
+.red-row {
+    background-color: tomato !important;
+}
+
+.yellow-row {
+    background-color: yellow !important;
+}
+
+.table {
+    color: black;
+}
+
+.container-fluid {
+    color: black;
+}
+
+.table-bordered td {
+    border: unset;
+}
+
+.table-bordered th {
+    border: unset;
+}
+
+.icon-delete {
+    background-image: url('../../../Admin/')
+}
+
+thead {
+    background-color: #ccc;
+    font-weight:bold;
+}
+
+table {
+    text-align: center;
+    background-color: aliceblue;
+}
+
+.table-hover tbody tr:hover {
+    color: #FF6633;
+    background-color: #EEE;
+}
+
+.table-hover tbody .red-row:hover {
+    color: white;
+}
+
+.table-hover tbody .yellow-row:hover {
+    color: #FF6633;
+}
+
+.thuan-body-content {
+    padding: 10px;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important;
+    background-color: white;
+    border-radius: 5px;
+    border-top-color: #FACE9C;
+    border-style: solid;
+    border-right-color: white;
+    border-left-color: white;
+    border-bottom-color: white
+}

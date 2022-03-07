@@ -15,6 +15,7 @@ namespace Model1.EF
             Chitietphhieutiems = new HashSet<Chitietphhieutiem>();
             Phieulinhs = new HashSet<Phieulinh>();
             Phieuxuats = new HashSet<Phieuxuat>();
+            Phieuxuattralais = new HashSet<Phieuxuattralai>();
         }
 
         [Key]
@@ -51,5 +52,8 @@ namespace Model1.EF
         public virtual ICollection<Phieuxuat> Phieuxuats { get; set; }
 
         public virtual Phuong Phuong { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Phieuxuattralai> Phieuxuattralais { get; set; }
     }
 }

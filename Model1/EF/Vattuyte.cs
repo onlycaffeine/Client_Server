@@ -14,6 +14,7 @@ namespace Model1.EF
         {
             Donglinhs = new HashSet<Donglinh>();
             Loes = new HashSet<Lo>();
+            //Phieudangkies = new HashSet<Phieudangky>();
         }
 
         [Key]
@@ -38,5 +39,7 @@ namespace Model1.EF
         public virtual Loaivattuyte Loaivattuyte { get; set; }
 
         public virtual Nhasanxuat Nhasanxuat { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<Phieudangky> Phieudangkies { get; set; }
     }
 }

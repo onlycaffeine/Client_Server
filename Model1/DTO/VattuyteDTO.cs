@@ -27,6 +27,14 @@ namespace Model1.DTO
 
         public string Maloaivattu { get; set; }
 
+        public string Tenloaivattu { get; set; }
+
+        public string Tennsx { get; set; }
+
+        public int Tongsoluong { get; set; }
+
+        public int Slyeucau { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chitietphhieutiem> Chitietphhieutiems { get; set; }
 

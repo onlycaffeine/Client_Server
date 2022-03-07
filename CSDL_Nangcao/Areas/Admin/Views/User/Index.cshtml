@@ -1,82 +1,226 @@
-﻿@model IEnumerable<Model1.EF.Nhanvien>
+﻿@model IEnumerable<Model1.DTO.NhanvienDTO>
 @{
     ViewBag.Title = "Quản lý người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @section header{
-    Danh sách người dùng
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        .table-responsive {
+            height: 362px;
+        }
+    </style>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Quản lý người dùng
+    </b>
 }
 
-<div class="row">
 
-    <div class="col-lg-12">
+@section jsFooter{
+    <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Assets/Admin/css/lib/combobox.js"></script>
+    <script src="~/Assets/Admin/js/controller/userController.js"></script>
+}
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Danh sách người dùng
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+</head>
 
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                @using (Html.BeginForm("Index", "User", FormMethod.Get))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="row form-group">
-                        <div class="col-lg-12">
-                            <div class="col-md-4">
-                                <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" />
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                                <a class="btn btn-primary" href="/Admin/User/Create">Thêm mới</a>
+<body>
+    <div class="row">
+
+        <div class="col-lg-12 thuan-body-content">
+
+            <div class="panel panel-default">
+                <b class="panel-heading" style="color:coral; font-size:large">
+                    Danh sách người dùng
+                </b>
+                <hr>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    @using (Html.BeginForm("Index", "User", FormMethod.Get))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row form-group" style="display:flex">
+                            <div class="col-lg-12" style="display:flex">
+                                <div class="col-md-4">
+                                    <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" placeholder="Tìm kiếm theo tên nhân viên" />
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i><b style="font-size: 14px;
+                            margin-left: 5px;"> Tìm kiếm</b></button>
+                                    <a class="btn btn-primary" id="btnAddEmployee" href="#">
+                                        <i class="fas fa-plus"></i><b style="font-size: 14px;
+                            margin-left: 5px;"> Thêm mới</b>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-
-                                <th>Tài khoản</th>
-                                <th>Tên</th>
-                                @*<th>Email</th>*@
-                                <th>Trạng thái</th>
-                                <th>#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr id="row_@item.Manhanvien">
-
-                                    <td>@item.Taikhoan</td>
-                                    <td>@item.Tennhanvien </td>
-                                    @*<td>@item.Email</td>*@
-                                    <td><a href="#" class="btn-active" data-id="@item.Manhanvien">@Html.Raw(item.Trangthai)</a></td>
-                                    <td>
-                                        <a href="/Admin/User/Edit/@item.Manhanvien">Sửa</a>
-                                        |
-                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Manhanvien }, new AjaxOptions
-                                   {
-                                       Confirm = "Bạn có muốn xoá bản ghi này?",
-                                       OnComplete = "$('#row_" + @item.Manhanvien + "').remove()",
-                                       HttpMethod = "Delete"
-                                   })
-                                    </td>
-                                </tr>
-                            }
+                    }
 
 
-                        </tbody>
-                    </table>
+                    @using (Html.BeginForm("MultiDelete", "User", FormMethod.Post))
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Mã nhân viên</th>
+                                        <th>Tên</th>
+                                        <th>SDT</th>
+                                        <th>Trạng thái</th>
+                                        <th>Chức vụ</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@{int i = 0;}*@
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.Manhanvien">
+                                            <td>
+                                                <input type="checkbox" name="employeeIdsToDelete" id="employeeIdsToDelete" value="@item.Manhanvien" />
+                                            </td>
+                                            @*@{ViewBag.arr[i] = @item.Manhanvien; i += 1;}*@
+                                            <td>@item.Manhanvien</td>
+                                            <td>@item.Tennhanvien </td>
+                                            <td>@item.SDT</td>
+                                            <td><a href="#" class="btn-active" data-id="@item.Manhanvien">@Html.Raw(item.Trangthai ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                                            <td>@item.Tennhom</td>
+                                            <td style="text-align: center">
+                                                <a title="Cập nhật" href="/Admin/User/Edit/@item.Manhanvien"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
+                                                @Ajax.ActionLink(" ", "Deletehd", new { @id = item.Manhanvien }, new AjaxOptions
+                                                { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Manhanvien + "').remove()", },
+                                                new { @class = "fas fa-trash", @title = "Xóa" })
+                                                |<a title="Chi tiết" href="/Admin/User/Detail/@item.Manhanvien"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
 
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <input type="submit" value="Xóa bản ghi đã chọn" style="" />
+                    }
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.table-responsive -->
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-body -->
         </div>
     </div>
-</div>
+
+    <div id="dlgPopup" class="m-dialog">
+        <div class="m-row">
+            <div class="m-popup" style="height: 400px; width: 700px ">
+                <div class="m-popup-header">
+                    <div class="m-popup-header-title">Đóng Form thông tin chung</div>
+                    <div id="btnCloseDialog" class="m-popup-close"><i class="fas fa-times"></i></div>
+                    <hr />
+                </div>
+                <div class="m-popup-content">
+                    @*<div style="width: 100%;">
+
+                            <div class="m-row m-row-flex">
+                                <div class="m-col m-col-w50">
+                                    <div class="m-label">Ngày sinh</div>
+                                    <input class="m-input" type="date" id="dtDateOfBirth">
+                                </div>
+                                <div class="m-col m-col-w50">
+                                    <div class="m-label">Giới tính</div>
+                                    <select id="cbxGender" class="m-combobox" name="" id="">
+                                        <option value="1">Nam</option>
+                                        <option value="0">Nữ</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="m-row m-row-flex">
+                                <div class="m-col m-col-w50">
+                                    <div class="m-label">Phòng ban</div>
+                                    <div id="cbxDepartment" class="mcombobox">
+                                        <input class="m-combobox" type="text" class="m-combobox-input">
+                                        <button tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
+                                        <div class="m-combobox-data">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>*@
+                    @*, @class = "myClass"*@
+                    @using (Html.BeginForm("Create", "User", FormMethod.Post, new { style = " width: 698px" }))
+                    {
+                        <div class="form-group" style="">
+                            <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Mã nhân viên:</label>
+                                <p><input name="maphieu" class="form-control" style="width:130px;margin:0 16px" /></p>
+
+                                <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Họ và tên:</label>
+                                <p><input name="tennv" class="form-control" style="width:130px;margin:0 16px" /></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="">
+                            <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                <label style="margin-left:24px">Ngày sinh:</label>
+                                <p><input type="date" name="ngaynhap" class="form-control" style="width:145px; margin:0 41px" /></p>
+                                @*name="ngaynhap"*@
+                                <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Số điện thoại:</label>
+                                <p><input name="sdt" class="form-control" style="width:130px;margin:0 16px" /></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="">
+                            <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Mã nhóm:</label>
+                                @*<p><input name="manhom" class="form-control" style="width:130px;margin:0 16px 0 43px" /></p>*@
+                                <p>@Html.DropDownList("nhomnv", null, new { @style = "width:130px; margin:0 16px 0 43px", @class = "form-control", @name = "nhomnv" })</p>
+
+                                <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Trạng thái:</label>
+                                @*<p><input name="trangthai" class="form-control" style="width:130px;margin:0 16px" /></p>*@
+                                <select name="trangthai" id="trangthai" style="margin:0 18px 0 18px;height:35px;width:175px">
+                                    <option value="true">Kích hoạt</option>
+                                    <option value="false">Khóa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
+                        align-items: center; justify-content: end; margin:49px 0 0 0; width:699px">
+                            <button id="btnCancel" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
+                            <button id="btnSave" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm mới</button>
+                        </div>
+
+                    }
+
+                </div>
+                @*<div class="m-popup-footer">
+                        <button id="btnCancel" class='m-btn m-btn-nobackground'>Hủy</button>
+                        <button id="btnSave" class='m-btn'>Lưu</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</body>

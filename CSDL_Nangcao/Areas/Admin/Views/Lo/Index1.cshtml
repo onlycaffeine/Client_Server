@@ -5,56 +5,203 @@
 }
 
 @section header{
-    Danh sách tồn kho
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Tồn kho
+    </b>
 }
 
-<div class="row">
+@section jsFooter{
+    <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Assets/Admin/css/lib/combobox.js"></script>
+    <script src="~/Assets/Admin/js/controller/tonkho.js"></script>
+}
 
-    <div class="col-lg-pull-3" style="padding:10px">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        /*.table-responsive {
+            height: 212px;
+        }*/
+    </style>
+    @{
+        DateTime date = DateTime.Today;
+        DateTime datedefault = Convert.ToDateTime("08/13/2000");
+        string dateformated = date.Day.ToString() + "/" + date.Month.ToString() + "/" + date.Year.ToString();
+    }
+</head>
 
-        <div class="section group">
-            <b class="panel-heading" style="color:black; font-size:large">
-                Danh sách lô/ Vật tư
-                @*<a class="btn btn-primary" href="/Admin/Lo/Create" style=" margin:0 0 0 36px">Danh sách lô đã xuất nhưng chưa nhập kho</a>*@
-            </b>
-            <hr />
+<body>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <td>Mã lô</td>
-                            <td>Mã vật tư</td>
-                            <td>Tên vật tư</td>
-                            <td>Số liều trên lọ</td>
-                            <td>Số lượng tồn</td>
-                            <td>Tên kho chứa</td>
-                            <td>Đơn giá</td>
-                            <td>Thành tiền</td>
-                            @*<td></td>*@
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model.Where(item => item != null))
+
+    <div class="row">
+
+        <div class="col-lg-pull-3 thuan-body-content">
+
+            <div class="section group">
+                <b class="panel-heading" style="color:coral; font-size:large">
+                    Danh sách vắc xin/Vật tư còn trong kho
+                </b>
+
+                @using (Html.BeginForm("Index1", "Lo", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <div class="form-group" style=" display:flex;  width:100%;">
+                            @*@Html.TextBox("SearchString", null, new { @style = " height:38px; width:184px; margin:10px 0 0px 2px", @class = "form-control", @placeholder = "Tìm kiếm vật tư" })*@
+                            <label style="margin-left: 1px;line-height: 55px;margin-right:10px">Tên vật tư </label>
+                            @Html.DropDownList("nguon", null, "Tất cả", new { @style = " height:38px; width:184px; margin:10px 0 0px 2px", @class = "form-control", @name = "nguon", @id = "nguon" })
+                            <label style="margin-left: 17px;line-height: 55px;margin-right:10px">Hạn sử dụng </label>
+                            <select name="topic" id="topic" class="form-control" style="height:38px; width:184px; margin:10px 0 0px 2px">
+                                <option value="0">Tất cả</option>
+                                <option value="1">Sắp hết hạn</option>
+                                <option value="2">Đã hết hạn</option>
+                                <option value="3">Chưa hết hạn</option>
+                            </select>
+                            <p style="margin-top: -18px;">
+                                <button title="Tìm kiếm" class="btn" type="submit" style="color:white; background-color:royalblue; margin-left:10px; margin-top:28px">
+                                    <i class="fas fa-search" style="margin-right:0px"></i><b style="font-size: 14px;
+                                 margin-left: 5px;"> Tìm kiếm</b>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                }
+                <hr style="margin-top:-17px" />
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <td>Mã lô</td>
+                                <td>Mã vật tư</td>
+                                <td>Tên vật tư</td>
+                                <td>Số liều trên lọ</td>
+                                <td>Số liều tồn</td>
+                                <td>Hạn sử dụng</td>
+                                <td>Tên kho chứa</td>
+                                <td>Nhà sản xuất</td>
+                                <td>Nguồn nhập</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
                             {
-                                <tr>
-                                    <td>@item.Malo</td>
-                                    <td>@item.Mavattu</td>
-                                    <td>@item.Tenvattu</td>
-                                    <td>@item.Solieutrenmotcai.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>@item.SLnhap.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>@item.Tenkho</td>
-                                    <td>@item.Dongia.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>@((item.Dongia.GetValueOrDefault(0) * item.SLnhap.GetValueOrDefault(0)).ToString("N0"))</td>
-                                </tr>
+                                foreach (var item in Model.Where(item => item != null))
+                                {
+                                    <tr id="row_@item.Malo">
+                                        @{DateTime a = @item.HSD;
+                                            string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                            //int i = 0;
+                                            //string btnadd = "btnAddEmployee" + i.ToString();
+                                            string btnadd = "btnAddEmployee" + item.Malo;
+                                            //i += 1;
+                                        }
+                                        <td>@item.Malo</td>
+                                        <td>@item.Mavattu</td>
+                                        <td>@item.Tenvattu</td>
+                                        <td>@item.Solieutrenmotcai.GetValueOrDefault(0).ToString("N0")</td>
+                                        <td>@item.SLnhap.GetValueOrDefault(0).ToString("N0")</td>
+                                        <td>@Html.Raw(b)</td>
+                                        <td>@item.Tenkho</td>
+                                        <td>@item.Tennsx</td>
+                                        <td>@item.Tennguon</td>
+                                        <td><a id="@Html.Raw(btnadd)" title="Thêm lô" class="btn btn-primary" style=" margin:0 0 0 16px"><i class="fas fa-pen"></i></a></td>
+                                    </tr>
+                                }
                             }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    @foreach (var item in Model.Where(item => item != null))
+    {
+        string pop = "dlgPopup" + item.Malo;
+        string save = "btnSave" + item.Malo;
+        string close = "btnCloseDialog" + item.Malo;
+        string cancel = "btnCancel" + item.Malo;
+
+        <div id="@Html.Raw(pop)" class="m-dialog">
+            <div class="m-row">
+                <div class="m-popup" style="height: 400px; width: 931px ">
+                    <div class="m-popup-header">
+                        <div class="m-popup-header-title">Đóng Form thông tin chung</div>
+                        <div id="@Html.Raw(close)" class="m-popup-close"><i class="fas fa-times"></i></div>
+                        <hr />
+                    </div>
+                    <div class="m-popup-content">
+                        @using (Html.BeginForm("Create", "Nhaptuncc", FormMethod.Post, new { style = " width: 931px" }))
+                        {
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Mã lô:</label>
+                                    <p><input value="@item.Malo" name="malo" class="form-control" style="width:130px;margin:0 16px" readonly /></p>
+
+                                    <label style="margin-left:24px">Số liều/lọ:</label>
+                                    <p><input value="0" type="number" name="solieu" class="form-control" style="width:145px; margin:0 0px 0 19px" /></p>
+
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Chỉ thị nhiệt độ:</label>
+                                    <select name="machithinhietdo" id="machithinhietdo" style="margin:0 18px 0 18px;height:35px;width:175px">
+                                        <option value="ctnd001">Tốt</option>
+                                        <option value="ctnd003">Bình thường</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style="margin-left:24px; width: 100px;">Đơn giá:</label>
+                                    <p><input value="0" type="number" name="dongia" class="form-control" style="width:145px;margin-left: -30px;" /></p>
+
+                                    <label style=" margin-left:24px;width: 130px; box-sizing:border-box; flex-wrap:nowrap">Số liều nhập:</label>
+                                    <p><input value="0" name="slnhap" type="number" class="form-control" style="width:130px;margin:0 16px" /></p>
+
+                                    <label style="margin-left:24px">Hạn sử dụng:</label>
+                                    <p><input type="date" name="hsd" class="form-control" style="width:145px; margin:0 41px" /></p>
+                                    @*@Html.ValidationMessage("HSD", "", "text-danger")*@
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" width: 100px; margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Tên vật tư:</label>
+                                    @*<p>@Html.DropDownList("mavattu", null, new { @style = "width:130px; margin:0 16px 0 0px", @class = "form-control", @name = "mavattu" })</p>*@
+
+                                    <label style="width: 130px;margin-left:24px">Ngày sản xuất:</label>
+                                    <p><input type="date" name="nsx" class="form-control" style="width:145px; margin-left: 0px;" /></p>
+                                    @*@Html.ValidationMessage("NSX", "", "text-danger")*@
+
+                                    <label style=" margin-left:7px;width: 140px; box-sizing:border-box; flex-wrap:nowrap">Chỉ thị đông băng:</label>
+                                    <select name="machithidongbang" id="machithidongbang" style="margin: 0 18px 0 18px;height: 35px;width: 175px">
+                                        <option value="ctdb001">Tốt</option>
+                                        <option value="ctdb003">Bình thường</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
+                        align-items: center; justify-content: end; margin:49px 0 0 0; width:929px">
+                                <button id="@Html.Raw(cancel)" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
+                                <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm mới</button>
+                            </div>
                         }
 
-                    </tbody>
-                </table>
+                    </div>
 
+                </div>
             </div>
         </div>
-        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    }
+
+</body>

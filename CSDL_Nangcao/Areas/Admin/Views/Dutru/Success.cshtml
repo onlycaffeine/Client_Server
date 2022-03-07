@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Phiếu dự trù vaccine
+    </b>
+}
+<div class="alert alert-success" style="width:345px">
+    Bạn vừa thêm phiếu dự trù thành công.
+</div>
+
+<div>
+    @Html.ActionLink("Quay lại phiếu dự trù", "Index")
+</div>

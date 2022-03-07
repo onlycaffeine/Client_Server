@@ -19,9 +19,11 @@ namespace Model1.EF
         [StringLength(10)]
         public string Mathuoc { get; set; }
 
-        public int? SLyeucau { get; set; }
+        public int SLyeucau { get; set; }
+        //public int? SLyeucau { get; set; }
 
-        public int? SLcapphat { get; set; }
+        public int SLcapphat { get; set; }
+        //public int? SLcapphat { get; set; }
 
         public virtual Phieulinh Phieulinh { get; set; }
 

@@ -5,31 +5,37 @@
 }
 
 @section header{
-
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        .table-responsive {
+            height: 258px;
+        }
+    </style>
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Trang chủ
+    </b>
 }
 
 <div class="col-lg-12">
 
-    <div class="panel panel-default">
-        <div class="panel-heading" style="color:black; font-size:large">
+    <div class="panel panel-default thuan-body-content">
+        <b class="panel-heading" style="color:coral; font-size:large">
             Thông số của hệ thống
-        </div>
-
+        </b>
+        <br />
         <br />
 
         <ul>
-            </font>
-            <li>Số lô vaccine hết hạn <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong1 lô</ span > </a></li>
-            <li>Số lô vaccine sắp hết hạn <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong1 lô</ span > </a> (có hạn dùng dưới <input type="number" value="30" style="width:50px" name="ngay" /> ngày)</li>
-            <li>Chênh lệch giữa phiếu xuất và phiếu cấp phát: <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong3 phiếu</ span > </a></li>
-            <li>Số vaccine dưới mức tối thiểu: <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong1 vaccine</ span > </a></li>
-            <li>Số vaccine trên mức tối đa: <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong1 vaccine</ span > </a></li>
-            <li>Phiếu đã xuất nhưng tuyến dưới chưa xác nhận nhập kho: <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
-            <li>Phiếu đã xuất nhưng tuyến dưới mới xác nhận một phần: <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
-            <li>Phiếu được cấp nhưng chưa xác nhận nhập kho: <a href="/gio-hang" title="Xem giỏ hàng" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
-        </ul></li>
+            <li>Số lô vaccine hết hạn <a href="/gio-hang" title="Xem số lô hết hạn" rel="nofollow"> @ViewBag.soluong1 lô</ span > </a></li>
+            <li>Số lô vaccine sắp hết hạn <a href="/gio-hang" title="Xem số lô sắp hết hạn" rel="nofollow"> @ViewBag.soluong1 lô</ span > </a> (có hạn dùng dưới <input type="number" value="30" style="width:50px" name="ngay" /> ngày)</li>
+            <li>Chênh lệch giữa phiếu xuất và phiếu cấp phát: <a href="/gio-hang" title="Xem phiếu xuất/ phiếu cấp phát" rel="nofollow"> @ViewBag.soluong3 phiếu</ span > </a></li>
+            @*<li>Số vaccine dưới mức tối thiểu: <a href="/gio-hang" title="Xem số lượng dưới tối thiểu" rel="nofollow"> @ViewBag.soluong1 vaccine</ span > </a></li>
+            <li>Số vaccine trên mức tối đa: <a href="/gio-hang" title="Xem số lượng trên tối đa" rel="nofollow"> @ViewBag.soluong1 vaccine</ span > </a></li>*@
+            <li>Phiếu đã xuất nhưng tuyến dưới chưa xác nhận nhập kho: <a href="/gio-hang" title="Xem chưa xác nhận nhập kho" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
+            @*<li>Phiếu đã xuất nhưng tuyến dưới mới xác nhận một phần: <a href="/gio-hang" title="Xem xác nhận nhập 1 phần" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
+            <li>Phiếu được cấp nhưng chưa xác nhận nhập kho: <a href="/gio-hang" title="Xem chưa nhập kho từ ncc" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>*@
+        </ul>
 
     </div>
 </div>
-</div>
-        </div>

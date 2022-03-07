@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Model1.EF.Dongxuattralai>
+@{
+    ViewBag.Title = "Index11";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Xuất trả lại
+    </b>
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+</head>
+<body>
+
+    <div class="row">
+
+        <div class="col-lg-pull-3 thuan-body-content" style="padding:10px">
+
+            <div class="section group">
+                <b class="panel-heading" style="color:black; font-size:large; color:coral">
+                    Danh sách lô/ Vật tư
+                    <a class="btn btn-primary" href="/Admin/Dongxuat/Create" style=" margin:0 0 0 36px">Thêm</a>
+                </b>
+                <hr />
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <td>Số phiếu xuất</td>
+                                <td>Mã lô</td>
+                                <td>Tên vật tư</td>
+                                <td>Số lượng xuất</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model.Where(item => item != null))
+                                {
+                                    <tr id="row_@item.Madongxuattralai">
+                                        <td>@item.Sophieuxuat</td>
+                                        <td>@item.Malo</td>
+                                        <td>@item.Tenvattu</td>
+                                        <td>@item.SLxuat</td>
+                                        <td>
+                                            <a title="Sửa" href="/Admin/Xuattralai/Edit/@item.Madongxuattralai"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
+                                            @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuattralai }, new AjaxOptions
+                                            { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuattralai + "').remove()", },
+                                            new { @class = "fas fa-trash", @title = "Xóa" })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+        </div>
+    </div>
+    <div style="margin-top:19px">
+        @Html.ActionLink("Quay lại phiếu xuất trả lại", "Index")
+    </div>
+</body>
+</html>

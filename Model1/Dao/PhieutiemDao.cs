@@ -20,6 +20,12 @@ namespace Model1.Dao
             db = new CSDL_NangcaoDbContext();
         }
 
+        public long Sldong()
+        {
+            long a = db.Phieutiems.LongCount();
+            return a;
+        }
+
         public string Insert(Phieutiem entity)
         {
             db.Phieutiems.Add(entity);
@@ -81,11 +87,16 @@ namespace Model1.Dao
         {
             var model = (from a in db.Phieutiems
                         join b in db.Chitietphhieutiems on a.Sophieu equals b.Sophieutiem
+                        join c in db.Loes on b.Malo equals c.Malo
+                        join d in db.Vattuytes on c.Mavattu equals d.Mavattu
+                        join e in db.Diemtiems on b.Madiemtiem equals e.Madiemtiem
                         where (a.CCCD == cccd && a.SDT == sdt && a.Tennguoidan.Contains(ten))
                         select new PhieutiemViewModel
                         {
                             Phieutiem = a,
-                            Chitietphhieutiem = b
+                            Chitietphhieutiem = b,
+                            tenthuoc = d.Tenvattu,
+                            tendiemtiem = e.Tendiemtiem
                         }).ToList();
             return model;
         }

@@ -10,6 +10,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 {
     public class LoController : Controller
     {
+        CSDL_NangcaoDbContext db = new CSDL_NangcaoDbContext();
+
         // GET: Admin/Lo
         [HasCredential(RoleID = "TONKHO")]
         public ActionResult Index(string ctdb = "", string ctnd = "")
@@ -27,6 +29,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var dao = new LoDao();
             var model = dao.ListAllPaging1(ctdb, ctnd);
 
+            var nguons = from n in db.Vattuytes where n.Maloaivattu == "lvt001" select n;
+            ViewBag.nguon = new SelectList(nguons, "Mavattu", "Tenvattu");
             //ViewBag.SearchString = searchString;
             return View(model);
         }

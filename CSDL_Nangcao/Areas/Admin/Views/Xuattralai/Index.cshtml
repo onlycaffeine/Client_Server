@@ -1,0 +1,254 @@
+﻿@using PagedList.Mvc;
+@using Model1
+@model  ModelCollection
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        .table-responsive {
+            height: 195px;
+        }
+    </style>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Xuất trả lại
+    </b>
+}
+
+@section jsfooter{
+    <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Assets/Admin/css/lib/combobox.js"></script>
+    <script src="~/Assets/Admin/js/controller/nhaptuncc.js"></script>
+    <script>
+        document.getElementById('nsx').value = "2000-08-13";
+        document.getElementById('hsd').value = "2000-08-13";</script>
+}
+<head>
+</head>
+
+<body>
+    <div class="row">
+
+        <div class="col-lg-offset-1 thuan-body-content" style="margin-right: 10px;height: 485px">
+            <hr style=" margin-top: 55px" />
+            @{
+                DateTime date = DateTime.Today;
+                DateTime datedefault = Convert.ToDateTime("08/13/2000");
+                string dateformated = date.Day.ToString() + "/" + date.Month.ToString() + "/" + date.Year.ToString();
+            }
+
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "Xuattralai", FormMethod.Get))
+                {
+                    <div class="form-group">
+
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            Từ
+                            <input type="date" value="@Html.Raw(date)" class="form-control" style="width:138px; margin:0 8px" name="a" />
+                            @*<input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 8px" name="a" />*@
+                            Đến
+                            <input type="date" value="@Html.Raw(date)" class="form-control" style="width:138px; margin:0 8px" name="b" />
+                        </div>
+
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            @Html.TextBox("SearchString", null, new { @style = " height:38px; width:184px; margin:0 0 0px 26px", @class = "form-control", @placeholder = "Tìm kiếm phiếu xuất" })
+                            <p>
+                                <button title="Tìm kiếm" class="btn" type="submit" style="color:white; background-color:royalblue; margin-left:10px; margin-top:18px"><i class="fas fa-search" style="margin-right:0px"></i></button>
+                            </p>
+                        </div>
+                    </div>
+                }
+
+                <hr style="margin-top:-2px" />
+                <b class="panel-heading" style="color:coral; font-size:medium">
+                    Danh sách phiếu đã xuất
+                </b>
+                <hr style="margin-top:15px;margin-bottom: unset" />
+                @if (Model.Phieuxuattralais.Count() > 0)
+                {
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày lập</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.Phieuxuattralais)
+                                {
+                                    <tr id="row_@item.Sophieuxuat">
+                                        @{DateTime a = @item.Ngayxuat;
+                                            string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        }
+                                        <td>@item.Sophieuxuat</td>
+                                        <td style="width: 98px">@Html.Raw(b)</td>
+                                        <td style="text-align: center">
+                                            <a title="Cập nhật" href="/Admin/Xuattralai/Edithd/@item.Sophieuxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
+                                            @Ajax.ActionLink(" ", "Deletehd", new { @id = item.Sophieuxuat }, new AjaxOptions
+                                            { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Sophieuxuat + "').remove()", },
+                                            new { @class = "fas fa-trash", @title = "Xóa" })
+                                            |<a title="Chi tiết" href="/Admin/Xuattralai/Detailhd/@item.Sophieuxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày lập</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-danger" style="width:210px; margin-top: -150px">Không tìm thấy dữ liệu</div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-pull-3 thuan-body-content" style="height:485px">
+            @using (Html.BeginForm("MultiDelete", "Xuattralai", FormMethod.Post))
+            {
+                <div class="section group">
+                    <div class="col-md-12">
+
+                        <div class="panel-heading" style="color:coral; font-weight:bold; font-size:large">
+                            Thông tin phiếu xuất
+                            @*<a id="btnAddEmployee" title="Thêm lô" class="btn btn-primary" style=" margin:0 0 0 16px"><i class="fas fa-plus"></i></a>*@
+                            <button title="Thêm phiếu xuất" type="submit" class="btn btn-primary" style=" margin:0 0 0 36px"><i class="fas fa-save"></i><b style="font-size: 14px;
+                            margin-left: 5px;"> Lưu</b></button>
+                        </div>
+                        <hr />
+
+                        <div class="form-group" style="">
+                            <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+
+                                <label style=" box-sizing:border-box; flex-wrap:nowrap">Mã phiếu xuất</label>
+                                <p><input value="@ViewBag.mahoadonauto" name="sophieu" class="form-control" style="width:100px;margin:0 16px" readonly /></p>
+
+                                <label style="">Đơn vị xuất</label>
+                                <p><input type="text" value="@ViewBag.tendt" class="form-control" style="width:165px; margin:0 16px" readonly /></p>
+                            </div>
+                            <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                <label>Ngày xuất</label>
+                                <p><input type="text" value="@Html.Raw(dateformated)" class="form-control" style="width:105px; margin:0 43px" readonly /></p>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="section group" style="display:contents">
+                    <b class="panel-default" style="color: coral; font-size: medium">
+                        Danh sách vaccine/ Vật tư
+
+                    </b>
+                    <hr style="margin-bottom: unset;" />
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tên vật tư</th>
+                                    <th>Mã lô</th>
+                                    <th>Ngày nhập</th>
+                                    <th style="width:170px">Số lượng xuất</th>
+                                    <th>Hạn sử dụng</th>
+                                    @*<th>Mã dòng xuất</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="my_table">
+                                @foreach (var item in Model.DongxuatDTOs)
+                                {
+                                    if (item.HSD < DateTime.Now)
+                                    {
+                                        <tr id="2-@item.Malo" class="red-row">
+                                            @{DateTime a = @item.Ngayxuat;
+                                                string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                            }
+                                            <td>@item.Tenthuoc</td>
+                                            <td>@item.Malo</td>
+                                            <td>@Html.Raw(b)</td>
+                                            <td><input class="form-control" value="0" name="dsslhuy" id="dsslhuy" type="number" style="width:80px;margin-top: -5px;margin-left: 30px; color:black; background-color:tomato" /></td>
+                                            @{DateTime c = @item.HSD;
+                                                string d = c.Day.ToString() + "/" + c.Month.ToString() + "/" + c.Year.ToString();
+                                            }
+                                            <td style="width:138px">@Html.Raw(d)</td>
+                                        </tr>
+                                    }
+
+                                    else if ((item.HSD - DateTime.Now).TotalDays < 31)
+                                    {
+                                        <tr id="2-@item.Malo" class="yellow-row">
+                                            @{DateTime a = @item.Ngayxuat;
+                                                string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                            }
+                                            <td>@item.Tenthuoc</td>
+                                            <td>@item.Malo</td>
+                                            <td>@Html.Raw(b)</td>
+                                            <td><input class="form-control" value="0" name="dsslhuy" id="dsslhuy" type="number" style="width:80px;margin-top: -5px;margin-left: 30px; color:black; background-color:yellow" /></td>
+                                            @{DateTime c = @item.HSD;
+                                                string d = c.Day.ToString() + "/" + c.Month.ToString() + "/" + c.Year.ToString();
+                                            }
+                                            <td style="width:138px">@Html.Raw(d)</td>
+                                        </tr>
+                                    }
+
+                                    else
+                                    {
+                                        <tr id="2-@item.Malo" class="2">
+                                            @{DateTime a = @item.Ngayxuat;
+                                                string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                            }
+                                            <td>@item.Tenthuoc</td>
+                                            <td>@item.Malo</td>
+                                            <td>@Html.Raw(b)</td>
+                                            <td><input class="form-control" value="0" name="dsslhuy" id="dsslhuy" type="number" style="width:80px;margin-top: -5px;margin-left: 30px; color:black" /></td>
+                                            @{DateTime c = @item.HSD;
+                                                string d = c.Day.ToString() + "/" + c.Month.ToString() + "/" + c.Year.ToString();
+                                            }
+                                            <td style="width:138px">@Html.Raw(d)</td>
+                                            @*<td style="width:118px">@item.Madongxuat</td>*@
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>

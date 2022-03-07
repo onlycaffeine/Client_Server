@@ -15,6 +15,11 @@ namespace Model1.Dao
         {
             db = new CSDL_NangcaoDbContext();
         }
+        public long Sldong()
+        {
+            long a = db.Hoadonnhaps.LongCount();
+            return a;
+        }
 
         public string Insert(Hoadonnhap order)
         {

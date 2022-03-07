@@ -1,0 +1,94 @@
+﻿@model Model1.EF.Dongxuattralai
+
+@{
+    ViewBag.Title = "Edit";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Phiếu nhập trả lại
+    </b>
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+</head>
+<body>
+
+    <div class="row">
+
+        <div class="col-lg-pull-3 thuan-body-content">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal" style="width:250px">
+                    <b class="panel-heading" style="color:coral; font-size:large">
+                        Chi tiết phiếu nhập trả lại
+                    </b>
+                    <hr />
+                    <div class="form-group">
+                        <label class="lable-thuan">Mã phiếu nhập trả lại</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Sophieuxuat, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Sophieuxuat, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Mã dòng nhập trả lại</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Madongxuattralai, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Madongxuattralai, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Mã lô</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Malo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Malo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Tên vật tư</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Tenvattu, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Tenvattu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Số lượng xuất</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SLxuat, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.SLxuat, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Số lượng nhập</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SLnhap, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SLnhap, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Cập nhật" class="btn btn-primary" style=" margin:10px 0 0 0" />
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div style="margin-top:19px">
+        @Html.ActionLink("Quay lại phiếu nhập trả lại", "Index")
+    </div>
+</body>
+</html>

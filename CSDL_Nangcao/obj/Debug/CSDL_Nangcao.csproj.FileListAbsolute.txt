@@ -67,3 +67,4 @@ D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.Mvc.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.Mvc.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\ASPSnippets.SmsAPI.dll

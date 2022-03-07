@@ -4,71 +4,109 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+
 @section header{
-    <b class="panel-heading" style="color:blue; font-size:x-large">
+    <b class="panel-heading" style="color:black; font-size:x-large">
         Thông tin chi tiết phiếu tiêm
     </b>
 }
 
-<div class="row">
+@section jsfooter{
+    <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
+    <script src="~/Assets/Admin/js/controller/nhaptuncc.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "yyyy/mm/dd"
+            });
+        });
+    </script>
 
-    <div class="col-lg-pull-3" style="padding:10px">
+}
 
-        <div class="section group">
-            <b class="panel-heading" style="color:black; font-size:large">
-                Danh sách các lần tiêm
-                @*<a class="btn btn-primary" href="/Admin/Chitietphieutiem/Create" style=" margin:0 0 0 36px">Thêm</a>*@
-                <a class="btn btn-primary" href="/Admin/Phieutiem/CreateCT/@Session["sophieutiem"]" style=" margin:0 0 0 36px">Thêm</a>
-            </b>
-            <hr />
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        /*.table-responsive {
+            height: 212px;
+        }*/
+    </style>
+    @{
+        DateTime date = DateTime.Today;
+        DateTime datedefault = Convert.ToDateTime("08/13/2000");
+        string dateformated = date.Day.ToString() + "/" + date.Month.ToString() + "/" + date.Year.ToString();
+    }
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            @*<td>Số phiếu tiêm</td>*@
-                            <td>Mũi số</td>
-                            <td>Điểm tiêm</td>
-                            <td>Mã lô</td>
-                            <td>Loại vaccine</td>
-                            <td>Triệu chứng</td>
-                            <td>Ghi chú</td>
-                            <td>Ngày tiêm</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model.Where(item => item != null))
+</head>
+<body>
+    <div class="row">
+
+        <div class="col-lg-pull-3 thuan-body-content">
+
+            <div class="section group">
+                <b class="panel-heading" style="color:coral; font-size:large">
+                    Danh sách các lần tiêm
+                    <a class="btn btn-primary" href="/Admin/Phieutiem/CreateCT/@Session["sophieutiem"]" style=" margin:0 0 0 36px">Thêm</a>
+                </b>
+                <hr />
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                @*<td>Số phiếu tiêm</td>*@
+                                <td>Mũi số</td>
+                                <td>Điểm tiêm</td>
+                                <td>Mã lô</td>
+                                <td>Loại vaccine</td>
+                                <td>Triệu chứng</td>
+                                <td>Ghi chú</td>
+                                <td>Ngày tiêm</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
                             {
-                                <tr>
-                                    @*<td>@item.Sophieutiem</td>*@
-                                    <td>@item.Loaimui</td>
-                                    <td>@item.Tendiemtiem</td>
-                                    <td>@item.Malo</td>
-                                    <td>@item.Tenthuoc</td>
-                                    <td>@item.Trieuchung</td>
-                                    <td>@item.Ghichu</td>
-                                    <td>@item.Ngaytiem</td>
+                                foreach (var item in Model.Where(item => item != null))
+                                {
+                                    <tr id="row_@item.Machitietphieutiem">
+                                        <td>@item.Loaimui</td>
+                                        <td>@item.Tendiemtiem</td>
+                                        <td>@item.Malo</td>
+                                        <td>@item.Tenthuoc</td>
+                                        <td>@item.Trieuchung</td>
+                                        <td>@item.Ghichu</td>
+                                        <td>@item.Ngaytiem</td>
 
-                                    <td>
-                                        <a href="/Admin/Chitietphieutiem/Edit/@item.Machitietphieutiem">Sửa</a>
-                                        |
-                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Machitietphieutiem }, new AjaxOptions
-                                   {
-                                       Confirm = "Bạn có muốn xoá bản ghi này?",
-                                       OnComplete = "$('#row_" + @item.Machitietphieutiem + "').remove()",
-                                       HttpMethod = "Delete"
-                                   })
-                                    </td>
-                                </tr>
+                                        <td style="text-align: center">
+                                            <a title="Cập nhật" href="/Admin/Chitietphieutiem/Edit/@item.Machitietphieutiem"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
+                                            @Ajax.ActionLink(" ", "Delete", new { @id = item.Machitietphieutiem }, new AjaxOptions
+                                            { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Machitietphieutiem + "').remove()", },
+                                            new { @class = "fas fa-trash", @title = "Xóa" })
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
+                </div>
             </div>
         </div>
-        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    </div>
+
+    <div style="margin-top:5px">
+        @Html.ActionLink("Quay lại phiếu tiêm", "Index")
+    </div>
+</body>
+</html>

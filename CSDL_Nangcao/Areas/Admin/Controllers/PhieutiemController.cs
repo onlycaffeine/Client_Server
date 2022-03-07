@@ -21,7 +21,15 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var dao = new PhieutiemDao();
             var model = dao.ListAllPaging(searchString, page, pageSize);
 
+            long sldonghoadon = dao.Sldong() + 1;
+            string mahoadonauto = "pt00" + sldonghoadon.ToString();
+            if (sldonghoadon > 9)
+            {
+                mahoadonauto = "pt0" + sldonghoadon.ToString();
+            }
+
             ViewBag.SearchString = searchString;
+            ViewBag.mahoadonauto = mahoadonauto;
             return View(model);
         }
 
@@ -77,7 +85,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             try
             {
                 var id = new PhieutiemDao().Insert(order);
-                return Redirect("/hoan-thanh");
+                return View("~/Areas/Admin/Views/Phieutiem/Succcess.cshtml");
             }
             catch (Exception ex)
             {
@@ -129,6 +137,11 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         {
             new PhieutiemDao().Delete(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Success()
+        {
+            return View("~/Areas/Admin/Views/Phieutiem/Success.cshtml");
         }
     }
 }

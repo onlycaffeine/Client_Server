@@ -20,7 +20,7 @@ namespace Model1.EF
         public string Sohoadon { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? Ngaynhap { get; set; }
+        public DateTime Ngaynhap { get; set; } // DateTime?
 
         [StringLength(100)]
         public string Diadiem { get; set; }

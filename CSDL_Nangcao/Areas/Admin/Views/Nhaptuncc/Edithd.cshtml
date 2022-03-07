@@ -1,5 +1,4 @@
 ﻿@model Model1.EF.Hoadonnhap
-@*@model Model1.DTO.HoadonnhapDTO*@
 @{
     ViewBag.Title = "Index";
 
@@ -7,70 +6,88 @@
 }
 
 @section header{
-    Nhập từ nhà cung cấp
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Nhập từ nhà cung cấp
+    </b>
 }
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+</head>
 
+<body>
+    <div class="row">
 
+        <div class="col-lg-pull-3 thuan-body-content">
+            @using (Html.BeginForm("Edithd", "Nhaptuncc", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(Model => Model.Sohoadon)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm("Edithd", "Nhaptuncc", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(Model => Model.Sohoadon)
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal" style="width:340px">
+                    <b class="panel-heading" style="color:coral; font-size:large">Thông tin phiếu nhập</b>
+                    <hr />
 
-    <div class="form-horizontal" style="width:340px">
-        <h4>Cập nhật chi tiết phiếu nhập</h4>
-        <hr />
+                    <div class="form-group">
+                        <label class="lable-thuan">Số hóa đơn</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Sohoadon, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Sohoadon, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sohoadon, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Sohoadon, new { htmlAttributes = new { @class = "form-control"} })
-                @Html.ValidationMessageFor(model => model.Sohoadon, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="lable-thuan">Nhà cung cấp</label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Mancc, null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Mancc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Mancc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Mancc, null, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Mancc, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="lable-thuan">Nguồn</label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Manguon, null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Manguon, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Manguon, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Manguon, null, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Manguon, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="lable-thuan">Kho nhập</label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Makhonhap, null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Makhonhap, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Makhonhap, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Makhonhap, null, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Makhonhap, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="lable-thuan">Ngày nhập</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Ngaynhap, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Ngaynhap, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ngaynhap, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ngaynhap, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ngaynhap, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Lưu" class="btn btn-primary" style=" margin:10px 0 0 0" />
+                        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu" class="btn btn-primary" style=" margin:10px 0 0 0" />
-            </div>
-
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Quay lại phiếu nhập", "Index")
-</div>
+    <div style="margin-top:13px">
+        @Html.ActionLink("Quay lại phiếu nhập", "Index")
+    </div>
+</body>
+</html>

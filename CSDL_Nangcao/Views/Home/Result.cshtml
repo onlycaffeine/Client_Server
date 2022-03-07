@@ -16,13 +16,13 @@
             <h4 class="text-center" style="font-weight: bold;">CHỨNG NHẬN TIÊM CHỦNG COVID-19</h4>
             <div class="row">
                 <div class="col-12">
-                    <table class="table table-bordered">
-                        <thead>
+                    <table class="table table-bordered" style="text-align:center">
+                        <thead style="font-weight:bold; text-align:center">
                             <tr>
                                 <th>Họ và tên</th>
                                 <th>Ngày sinh</th>
-                                <th>Số CCCD</th>
-                                <th>Số điện thoại</th>
+                                <th>Số lô</th>
+                                <th>Tên điểm tiêm</th>
                                 <th scope="col">Mũi số</th>
                                 <th scope="col">Thời gian tiêm</th>
                                 <th scope="col">Tên vắc xin</th>
@@ -32,13 +32,19 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    @{DateTime a = @item.Chitietphhieutiem.Ngaytiem;
+                                        string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+
+                                        DateTime c = @item.Phieutiem.Ngaysinh;
+                                        string d = c.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                    }
                                     <td>@item.Phieutiem.Tennguoidan</td>
-                                    <td>@item.Phieutiem.Ngaysinh</td>
-                                    <td>@item.Phieutiem.CCCD</td>
-                                    <td>@item.Phieutiem.SDT</td>
-                                    <td>@item.Chitietphhieutiem.Loaimui</td>
-                                    <td>@item.Chitietphhieutiem.Ngaytiem</td>
-                                    <td>@item.Chitietphhieutiem.Tenthuoc</td>
+                                    <td style="text-align:center">@Html.Raw(d)</td>
+                                    <td>@item.Chitietphhieutiem.Malo</td>
+                                    <td>@item.tendiemtiem</td>
+                                    <td style="text-align:center">@item.Chitietphhieutiem.Loaimui</td>
+                                    <td style="text-align:center">@Html.Raw(b)</td>
+                                    <td>@item.tenthuoc</td>
                                 </tr>
                             }
                         </tbody>

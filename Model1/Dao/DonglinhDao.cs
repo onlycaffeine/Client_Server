@@ -16,6 +16,12 @@ namespace Model1.Dao
             db = new CSDL_NangcaoDbContext();
         }
 
+        public long Sldong()
+        {
+            long a = db.Donglinhs.LongCount();
+            return a;
+        }
+
         public string Insert(Donglinh order)
         {
             db.Donglinhs.Add(order);
@@ -114,15 +120,17 @@ namespace Model1.Dao
             return listLinks.OrderByDescending(x => x.Mathuoc);
         }
 
-        public IEnumerable<DonglinhDTO> ListAllPagingWithSohd(Phieulinh hd)
+        public IEnumerable<DonglinhDTO> ListAllPagingWithSohd(string hd)
         {
             List<DonglinhDTO> listLinks = new List<DonglinhDTO>();
 
             var model = from l in db.Donglinhs
                         join c in db.Phieulinhs on l.Sophieulinh equals c.Sophieulinh
+                        join d in db.Diemtiems on c.Madiemtiem equals d.Madiemtiem
                         join p in db.Vattuytes on l.Mathuoc equals p.Mavattu
-                        where l.Sophieulinh == hd.Sophieulinh
-                        select new { l.Mathuoc, p.Tenvattu, l.SLyeucau, l.SLcapphat, l.Sophieulinh, l.Madonglinh};
+                        join q in db.Trangthais on c.Matt equals q.Matrangthai
+                        where l.Sophieulinh == hd
+                        select new { l.Mathuoc, p.Tenvattu, l.SLyeucau, l.SLcapphat, l.Sophieulinh, l.Madonglinh, d.Tendiemtiem, c.Matt, q.Tentrangthai};
 
             foreach (var item in model)
             {
@@ -131,6 +139,32 @@ namespace Model1.Dao
                 temp.Madonglinh = item.Madonglinh;
                 temp.Mathuoc = item.Mathuoc;
                 temp.Tenthuoc = item.Tenvattu;
+                temp.SLcapphat = item.SLcapphat;
+                temp.SLyeucau = item.SLyeucau;
+                temp.Tendiemtiem = item.Tendiemtiem;
+                temp.Trangthai = item.Tentrangthai;
+                listLinks.Add(temp);
+            }
+
+            return listLinks.OrderByDescending(x => x.Mathuoc);
+        }
+
+        public IEnumerable<Donglinh> ListAllPagingWithSohd1(string hd)
+        {
+            List<Donglinh> listLinks = new List<Donglinh>();
+
+            var model = from l in db.Donglinhs
+                        join c in db.Phieulinhs on l.Sophieulinh equals c.Sophieulinh
+                        join p in db.Vattuytes on l.Mathuoc equals p.Mavattu
+                        where l.Sophieulinh == hd
+                        select new { l.Mathuoc, p.Tenvattu, l.SLyeucau, l.SLcapphat, l.Sophieulinh, l.Madonglinh };
+
+            foreach (var item in model)
+            {
+                Donglinh temp = new Donglinh();
+                temp.Sophieulinh = item.Sophieulinh;
+                temp.Madonglinh = item.Madonglinh;
+                temp.Mathuoc = item.Mathuoc;
                 temp.SLcapphat = item.SLcapphat;
                 temp.SLyeucau = item.SLyeucau;
                 listLinks.Add(temp);

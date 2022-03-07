@@ -6,65 +6,199 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        @*<link rel="stylesheet" href="~/Assets/Client/css/style.css">*@
-        <link rel="stylesheet" href="~/Assets/Client/css/main.css">
-        <script src="~/assets/Client/js/page1.js"></script>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Assets/Client/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Client/css/page/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="~/assets/Client/js/page1.js"></script>
 
-        <style>
-            .ul.pagination {
-                display: inline-block;
-                padding: 0;
-                margin: 0;
-            }
+    <style>
+    </style>
 
-            ul.pagination li {
-                display: inline;
-            }
-
-                ul.pagination li a {
-                    color: black;
-                    float: left;
-                    padding: 8px 16px;
-                    text-decoration: none;
-                    transition: background-color .3s;
-                }
-
-                    ul.pagination li a.active {
-                        background-color: #4CAF50;
-                        color: white;
-                    }
-
-                    ul.pagination li a:hover:not(.active) {
-                        background-color: #ddd;
-                    }
-        </style>
-
-    </head>
+</head>
 
 <body>
+    @{
+        string[] ngaythang = new string[31];
+        DateTime date = DateTime.Today; int m = date.Month; int d = date.Day;
+
+        for (int i = 30; i > 0; i--)
+        {
+            ngaythang[i] = d.ToString() + "/" + m.ToString();
+            d--;
+            if (d <= 0)
+            {
+                m--;
+                if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)
+                {
+                    d += 31;
+                }
+                else if (m == 2)
+                {
+                    d += 28;
+                }
+                else
+                {
+                    d += 30;
+                }
+            }
+        }
+    }
+
     <div class="all">
+        <div style="display:flex">
+            <div class="block">
+                <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
+                    Dữ liệu tiêm từng địa phương
+                </div>
+                <canvas id="MeSeStatusCanvas1" style="max-height:328px; max-width:600px"></canvas>
+                <script>
+                    var MeSeContext = document.getElementById("MeSeStatusCanvas1").getContext("2d");
+                    var MeSeData = {
+                        labels: [
+                            "Hà Nội",
+                            "Quảng Ninh",
+                            "Vĩnh Phúc",
+                            "Huế",
+                            "Hồ Chí Minh",
+                            "Đà Nẵng",
+                            "Nghệ An",
+                        ],
+                        datasets: [{
+                            label: "Đã tiêm",
+                            data: [100, 75, 55, 11, 90, 65, 40],
+                            backgroundColor: ["#669911", "#119966", "#669911", "#119966", "#669911", "#119966", "#669911"],
+                            hoverBackgroundColor: ["#66A2EB", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56"]
+                        }]
+                    };
+
+                    var MeSeChart = new Chart(MeSeContext, {
+                        type: 'horizontalBar',
+                        data: MeSeData,
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    ticks: {
+                                        min: 10
+                                    }
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="block" style="margin-left:7px; margin-right:25px">
+                <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
+                    Dữ liệu tiêm từng địa phương
+                </div>
+                <canvas id="MeSeStatusCanvas" style="max-height:328px; max-width:600px"></canvas>
+                <script>
+                    var MeSeContext = document.getElementById("MeSeStatusCanvas").getContext("2d");
+                    var MeSeData = {
+                        labels: [
+                            "Hà Nội",
+                            "Quảng Ninh",
+                            "Vĩnh Phúc",
+                            "Huế",
+                            "Hồ Chí Minh",
+                            "Đà Nẵng",
+                            "Nghệ An",
+                        ],
+                        datasets: [{
+                            label: "Đã tiêm",
+                            data: [100, 75, 55, 11, 90, 65, 40],
+                            backgroundColor: ["#669911", "#119966", "#669911", "#119966", "#669911", "#119966", "#669911"],
+                            hoverBackgroundColor: ["#66A2EB", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56"]
+                        }]
+                    };
+
+                    var MeSeChart = new Chart(MeSeContext, {
+                        type: 'horizontalBar',
+                        data: MeSeData,
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    ticks: {
+                                        min: 1
+                                    }
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+
+                        }
+                    });
+                </script>
+            </div>
+
+        </div>
+        <div class="block">
+            <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
+                Dữ liệu tiêm theo ngày
+            </div>
+
+            <canvas id="myChart" style="max-width:1200px; max-height:370px"></canvas>
+            <script>
+                var xValues = ["@Html.Raw(ngaythang[1])", "@Html.Raw(ngaythang[2])", "@Html.Raw(ngaythang[3])", "@Html.Raw(ngaythang[4])", "@Html.Raw(ngaythang[5])", "@Html.Raw(ngaythang[6])",
+                               "@Html.Raw(ngaythang[7])", "@Html.Raw(ngaythang[8])", "@Html.Raw(ngaythang[9])", "@Html.Raw(ngaythang[10])", "@Html.Raw(ngaythang[11])", "@Html.Raw(ngaythang[12])",
+                               "@Html.Raw(ngaythang[13])", "@Html.Raw(ngaythang[14])", "@Html.Raw(ngaythang[15])", "@Html.Raw(ngaythang[16])", "@Html.Raw(ngaythang[17])", "@Html.Raw(ngaythang[18])",
+                               "@Html.Raw(ngaythang[19])", "@Html.Raw(ngaythang[20])", "@Html.Raw(ngaythang[21])", "@Html.Raw(ngaythang[22])", "@Html.Raw(ngaythang[23])", "@Html.Raw(ngaythang[24])",
+                               "@Html.Raw(ngaythang[25])", "@Html.Raw(ngaythang[26])", "@Html.Raw(ngaythang[27])", "@Html.Raw(ngaythang[28])", "@Html.Raw(ngaythang[29])", "@Html.Raw(ngaythang[30])"
+                                ];
+                var yValues = [@ViewBag.sltiem[0], @ViewBag.sltiem[1], @ViewBag.sltiem[2], @ViewBag.sltiem[3], @ViewBag.sltiem[4], @ViewBag.sltiem[5],
+                               @ViewBag.sltiem[6], @ViewBag.sltiem[7], @ViewBag.sltiem[8], @ViewBag.sltiem[9], @ViewBag.sltiem[10], @ViewBag.sltiem[11],
+                               @ViewBag.sltiem[12], @ViewBag.sltiem[13], @ViewBag.sltiem[14], @ViewBag.sltiem[15], @ViewBag.sltiem[16], @ViewBag.sltiem[17],
+                               @ViewBag.sltiem[18], @ViewBag.sltiem[19], @ViewBag.sltiem[20], @ViewBag.sltiem[21], @ViewBag.sltiem[22], @ViewBag.sltiem[23],
+                               @ViewBag.sltiem[24], @ViewBag.sltiem[25], @ViewBag.sltiem[26], @ViewBag.sltiem[27], @ViewBag.sltiem[28], @ViewBag.sltiem[29],];
+                new Chart("myChart", {
+                    type: "line",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            fill: false,
+                            lineTension: 0,
+                            backgroundColor: "rgba(0,0,255,1.0)",
+                            borderColor: "rgba(0,0,255,0.1)",
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        scales: {
+                            yAxes: [{ ticks: { min: 0, max: 10 } }],
+                        }
+                    }
+                });
+            </script>
+        </div>
 
         <div class="block">
-
             <div class="panel panel-default">
                 <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
                     Tra cứu điểm tiêm theo địa bàn
                 </div>
 
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         <div class="row form-group">
                             <div class="col-lg-12" style="display:flex">
                                 <form class="col-md-4">
+                                    @*<input name="cc" id="cc" value=" @ViewBag.sltiem[30]" style="height:35px;width:175px; margin-right:18px ">*@
                                     <select name="subject" id="subject" style="height:35px;width:175px; margin-right:18px">
                                         <option value="" selected="selected">Tỉnh/Thành phố</option>
                                     </select>
@@ -106,7 +240,7 @@
                                     <td style=" padding-top: 14px">@item.Tenthanhpho</td>
                                     <td style=" padding-top: 14px">@item.Tenquan</td>
                                     <td style=" padding-top: 14px">@item.Tenphuong</td>
-                                    <td style=" padding-top: 14px">@item.Diachi</td>
+                                    <td style="        padding-top: 14px">@item.Diachi</td>
                                     <td style=" padding-top: 14px">@item.Tennguoidungdau</td>
                                     <td style=" padding-top: 14px">@item.Sobantiem</td>
                                 </tr>
@@ -121,17 +255,11 @@
                         <div class="pagination" style="margin-left: 4px; display:flex; justify-content:space-between">
                             <div>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)( tổng số @Model.PageCount trang ) </div>
                             <div style="margin-right:560px">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))</div>
-                            @*<div>f</div>*@
                         </div>
                     </div>
-
-                    
-
-                @*</div>*@
-                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.panel-body -->
             </div>
         </div>
     </div>
 </body>
+</html>

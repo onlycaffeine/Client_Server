@@ -13,8 +13,6 @@ namespace CSDL_Nangcao
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
-
             routes.MapRoute(
               name: "Cart",
               url: "gio-hang",
@@ -43,6 +41,12 @@ namespace CSDL_Nangcao
                defaults: new { controller = "Nhaptuncc", action = "Success", id = UrlParameter.Optional },
               namespaces: new[] { "CSDL_Nangcao.Controllers" }
             );
+
+            //routes.MapRoute(
+            //name: "Default1",
+            //url: "{controller}/{action}/{id}/{id2}",
+            //new { action = "Index" }
+            //);
 
             routes.MapRoute(
             name: "Default",

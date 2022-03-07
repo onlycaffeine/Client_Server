@@ -5,72 +5,84 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+
 @section header{
-    <b class="panel-heading" style="color:blue; font-size:x-large">
+    <b class="panel-heading" style="color:black; font-size:x-large">
         Cập nhật phiếu tiêm
     </b>
 }
+<html>
+<head>
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    @{
+        DateTime date;
+        date = DateTime.Today;
+    }
+</head>
+<body>
 
-@{
-    DateTime date;
-    date = DateTime.Today;
-}
+    <div class="row">
 
-<div class="section group">
-    <div class="col-md-12">
-        @using (Html.BeginForm("Edithd", "Phieutiem", FormMethod.Post))
-        {
-            <div class="panel-heading" style="color:blue; font-size:large">
-                Nhập thông tin phiếu tiêm
+        <div class="col-lg-pull-3 thuan-body-content">
+            @using (Html.BeginForm("Edithd", "Phieutiem", FormMethod.Post))
+            {
+                <b class="panel-heading" style="color:coral; font-size:large">
+                    Thông tin phiếu tiêm
+                </b>
                 <button type="submit" class="btn btn-primary" style=" margin:0 0 0 36px">Cập nhật</button>
-            </div>
-            <hr />
+                <hr />
 
-            <div class="form-group" style="  width:290px;align-items:center">
+                <div class="form-group" style="  width:290px;align-items:center">
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Sophieu, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Sophieu, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Sophieu, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="lable-thuan">Số phiếu</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Sophieu, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Sophieu, "", new { @class = "text-danger" })
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Tên người dân</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Tennguoidan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Tennguoidan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">CCCD</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CCCD, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">SDT</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Ngày sinh</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Ngaysinh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Ngaysinh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Tennguoidan, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Tennguoidan, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Tennguoidan, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            }
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CCCD, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CCCD, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Ngaysinh, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Ngaysinh, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Ngaysinh, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-
-        }
     </div>
 
-</div>
+    <div>
+        @Html.ActionLink("Quay lại phiếu tiêm", "Index")
+    </div>
+</body>
+</html>

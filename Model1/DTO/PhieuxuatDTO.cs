@@ -10,7 +10,9 @@ namespace Model1.DTO
     {
         public string Sophieuxuat { get; set; }
 
-        public DateTime? Ngayxuat { get; set; }
+        public DateTime Ngayxuat { get; set; }
+
+        public DateTime Ngaynhap { get; set; }
 
         public string Khoxuat { get; set; }
 

@@ -20,9 +20,9 @@ namespace Model1.DTO
 
         public string SDK_gnpk { get; set; }
 
-        public DateTime? NSX { get; set; }
+        public DateTime NSX { get; set; } //DateTime?
 
-        public DateTime? HSD { get; set; }
+        public DateTime HSD { get; set; } // DateTime?
 
         public string Nongdo { get; set; }
 
@@ -49,6 +49,10 @@ namespace Model1.DTO
         public string Tenvattu { get; set; }
 
         public string Tenkho { get; set; }
+
+        public string Tennsx { get; set; }
+
+        public string Tennguon { get; set; }
     }
 }
 

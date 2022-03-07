@@ -27,6 +27,17 @@
         Hệ thống
     </div>
 
+    @{
+        var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+        @*if (session .Maquyen == null)
+            {
+                <div class="alert alert-danger">
+                    Bạn không có quyền truy cập.
+                </div>
+            }*@
+        string q = session.Maquyen;
+    }
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -45,114 +56,173 @@
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Quản lý</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @*<h6 class="collapse-header">Tùy chọn:</h6>
-                    <a class="collapse-item" href="/Admin/About/Index">Giới thiệu</a>
-                    <a class="collapse-item" href="/Admin/Footer/Index">Footer</a>
-                    <a class="collapse-item" href="/Admin/Menu/Index">Menu</a>
-                    <a class="collapse-item" href="/Admin/Slide/Index">Slide</a>
-                    <a class="collapse-item" href="/Admin/FeedBack/Index">Phản hồi</a>
-                    <div class="collapse-divider"></div>*@
-                <h6 class="collapse-header">Phân quyền:</h6>
-                <a class="collapse-item" href="/Admin/User/Index">Người dùng</a>
-                <a class="collapse-item" href="/Admin/UserGroup/Index">Nhóm người dùng</a>
-                <h6 class="collapse-header">Chức năng:</h6>
-                <a class="collapse-item" href="/Home/Search">Tra cứu thông tin tiêm</a>
+    @{
+        if (q == "admin" || q == "w_account" || q == "c_account" || q == "d_account" || q == "n_account" || q == "leader")
+        {
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Quản lý</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @*<h6 class="collapse-header">Tùy chọn:</h6>
+                            <a class="collapse-item" href="/Admin/About/Index">Giới thiệu</a>
+                            <a class="collapse-item" href="/Admin/Footer/Index">Footer</a>
+                            <a class="collapse-item" href="/Admin/Menu/Index">Menu</a>
+                            <a class="collapse-item" href="/Admin/Slide/Index">Slide</a>
+                            <a class="collapse-item" href="/Admin/FeedBack/Index">Phản hồi</a>
+                            <div class="collapse-divider"></div>*@
+                        @{
+                            if (q == "admin" || q == "leader")
+                            {
+                                <h6 class="collapse-header">Phân quyền:</h6>
+                                <a class="collapse-item" href="/Admin/User/Index">Người dùng</a>
+                                <a class="collapse-item" href="/Admin/UserGroup/Index">Nhóm người dùng</a>
+                                <a class="collapse-item" href="/Admin/Home/Index">Điểm tiêm</a>
+                                <a class="collapse-item" href="/Admin/Home/Index">Vật tư</a>
+                            }
+
+
+                            if (q == "admin" || q == "w_account" || q == "c_account" || q == "d_account" || q == "n_account")
+                            {
+                                <h6 class="collapse-header">Chức năng:</h6>
+                                <a class="collapse-item" href="/Home/Search">Tra cứu thông tin tiêm</a>
+                                <a class="collapse-item" href="/Admin/Regis/Index">Duyệt thông tin đký tiêm</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </li>
+        }
+    }
+
+    @{
+        if (q == "admin" || q == "storage" || q == "cadres")
+        {
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Chức năng
             </div>
-        </div>
-    </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+            <!-- Nav Item - Pages Collapse Menu -->
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Chức năng
-    </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Nghiệp vụ kho</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
 
-    <!-- Nav Item - Pages Collapse Menu -->
+                        <h6 class="collapse-header">Nhập kho:</h6>
+                        @{
+                            if (q == "admin" || q == "storage")
+                            {
+                                <a class="collapse-item" href="/Admin/Nhaptuncc/Index">Nhập từ nhà cung cấp</a>
+                                <a class="collapse-item" href="/Admin/Nhaptralai/Index">Nhập trả lại</a>
+                            }
+                            if (q == "admin" || q == "cadres")
+                            {
+                                <a class="collapse-item" href="/Admin/Nhapcapphat/Index">Nhập cấp phát</a>
+                            }
+                        }
+                        <h6 class="collapse-header">Xuất kho:</h6>
+                        @{
+                            if (q == "admin" || q == "storage")
+                            {
+                                <a class="collapse-item" href="/Admin/Capphat/Index">Cấp phát vaccine, vật tư</a>
+                                <a class="collapse-item" href="/Admin/Duyetdutru/Index">Duyệt dự trù vaccine</a>
+                                <a class="collapse-item" href="/Admin/Lo/Index1">Tồn kho:</a>}
+                            @*<h6 class="collapse-item" href="/Admin/Capphat/Index">Kế hoạch vaccine:</h6>*@
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Nghiệp vụ kho</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Nhập kho:</h6>
-                <a class="collapse-item" href="/Admin/Nhaptuncc/Index">Nhập từ nhà cung cấp</a>
-                <a class="collapse-item" href="/Admin/Capphat/Index1">Nhập cấp phát</a>
-                @*<a class="collapse-item" href="/Admin/Nhaptuncc/Index">Nhập trả lại</a>*@
-                <h6 class="collapse-header">Xuất kho:</h6>
-                <a class="collapse-item" href="/Admin/Capphat/Index">Cấp phát vaccine, vật tư</a>
-                @*<a class="collapse-item" href="/Admin/Capphat/Index">Xuất sử dụng</a>
-                    <a class="collapse-item" href="/Admin/Capphat/Index">Xuất trả lại</a>
-                    <a class="collapse-item" href="/Admin/Capphat/Index">Xuất hủy vaccine, vật tư</a>*@
-                <a class="collapse-item" href="/Admin/Lo/Index1">Tồn kho:</a>
-                <a class="collapse-item" href="/Admin/Dutru/Index">Dự trù vaccine:</a>
-                @*<h6 class="collapse-item" href="/Admin/Capphat/Index">Kế hoạch vaccine:</h6>*@
-            </div>
-        </div>
-    </li>
+                            if (q == "cadres" || q == "admin")
+                            {
+                                @*<a class="collapse-item" href="/Admin/Capphat/Index">Xuất sử dụng</a>*@
+                                <a class="collapse-item" href="/Admin/Xuattralai/Index">Xuất trả lại</a>
+                            }
+
+                            if (q == "admin" || q == "storage")
+                            {
+                                <a class="collapse-item" href="/Admin/Xuathuy/Index">Xuất hủy vaccine, vật tư</a>
+                            }
+
+                            if (q == "admin" || q == "cadres")
+                            {
+                                <a class="collapse-item" href="/Admin/Dutru/Index">Dự trù vaccine</a>
+                            }
+
+                            @*}*@
+                        }
+                    </div>
+                </div>
+            </li>
+        }
+    }
 
     <!-- Nav Item - Pages Collapse Tables -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTables"
-           aria-expanded="true" aria-controls="collapseTables">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Số liệu vaccine</span>
-        </a>
-        <div id="collapseTables" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Báo cáo:</h6>
-                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Tình hình sử dụng vaccine</a>*@
-                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Sổ quản lý vaccine</a>
-                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Số lượng nhập tồn theo lô</a>*@
-                <a class="collapse-item" href="/Admin/Vattuyte/Index">Sử dụng bơm kim tiêm</a>
-                <a class="collapse-item" href="/Admin/Vattuyte/Index">Sử dụng vaccine</a>
-                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Cấp phát vaccine</a>
-                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Tổng hợp tồn vaccine</a>*@
-                <h6 class="collapse-header">Truy xuất số liệu:</h6>
-                <a class="collapse-item" href="/Admin/Vattuyte/Index">Tồn kho</a>
-                <a class="collapse-item" href="/Admin/Vattuyte/Index">Truy xuất theo lô</a>
-                <h6 class="collapse-header">Nhập số liệu vaccine:</h6>
-                <a class="collapse-item" href="/Admin/Vattuyte/Index">Báo cáo tồn kho tuyến xã</a>
-                @*<a class="collapse-item" href="/Admin/Vattuyte/Index">Báo cáo hủy tuyến xã</a>*@
+    @*<li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTables"
+               aria-expanded="true" aria-controls="collapseTables">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Số liệu vaccine</span>
+            </a>
+            <div id="collapseTables" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Báo cáo:</h6>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Sử dụng bơm kim tiêm</a>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Sử dụng vaccine</a>
+                    <h6 class="collapse-header">Truy xuất số liệu:</h6>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Tồn kho</a>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Truy xuất theo lô</a>
+                    <h6 class="collapse-header">Nhập số liệu vaccine:</h6>
+                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Báo cáo tồn kho tuyến xã</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>*@
 
     <!-- Nav Item - Pages Collapse Charts -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCharts"
-           aria-expanded="true" aria-controls="collapseCharts">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Số liệu tiêm chủng</span>
-        </a>
-        <div id="collapseCharts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Báo cáo:</h6>
-                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Kết quả tiêm chủng</a>
-                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Triệu chứng sau tiêm</a>
-                @*<h6 class="collapse-header">Biểu đồ:</h6>
-                    <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Tỉ lệ tiêm vaccine</a>
-                    <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Số ca mắc bệnh sau tiêm</a>
-                    <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Tiến độ tiêm chủng</a>*@
-                <h6 class="collapse-header">Nhập số liệu tiêm chủng:</h6>
-                <a class="collapse-item" href="/Admin/Phieutiem/Index">Kết quả tiêm chủng</a>
-                <a class="collapse-item" href="/Admin/Phieutiem/Index">Triệu chứng sau tiêm</a>
-            </div>
-        </div>
-    </li>
+    @{
+        if (q == "admin" || q == "w_account" || q == "c_account" || q == "d_account" || q == "n_account" || q == "cadres")
+        {
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCharts"
+                   aria-expanded="true" aria-controls="collapseCharts">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Số liệu tiêm chủng</span>
+                </a>
+                <div id="collapseCharts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @{
+                            if (q == "admin" || q == "w_account" || q == "c_account" || q == "d_account" || q == "n_account")
+                            {
+                                <h6 class="collapse-header">Báo cáo:</h6>
+                                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Kết quả tiêm chủng</a>
+                                @*<a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Triệu chứng sau tiêm</a>*@
+                            }
+                            @*<h6 class="collapse-header">Biểu đồ:</h6>
+                                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Tỉ lệ tiêm vaccine</a>
+                                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Số ca mắc bệnh sau tiêm</a>
+                                <a class="collapse-item" href="/Admin/Thongkephieutiem/Index">Tiến độ tiêm chủng</a>*@
+                            if (q == "admin" || q == "cadres")
+                            {
+                                <h6 class="collapse-header">Nhập số liệu tiêm chủng:</h6>
+                                <a class="collapse-item" href="/Admin/Phieutiem/Index">Kết quả tiêm chủng</a>
+                                @*<a class="collapse-item" href="/Admin/Phieutiem/Index">Triệu chứng sau tiêm</a>*@
+                            }
+                        }
+                    </div>
+
+                </div>
+            </li>
+        }
+    }
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -3,6 +3,8 @@ using Model1.EF;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,12 @@ namespace Model1.Dao
         {
             Diemtiem dt =  db.Diemtiems.Find(id);
             return dt.Madiemtiem;
+        }
+
+        public string Tendiemtiem(string id)
+        {
+            Diemtiem dt = db.Diemtiems.Find(id);
+            return dt.Tendiemtiem;
         }
 
         public bool Update(Diemtiem entity)
@@ -120,6 +128,12 @@ namespace Model1.Dao
             return db.Diemtiems.Find(id);
         }
        
+        //public string Tendiemtiem(string id)
+        //{
+        //    var dt = db.Diemtiems.Find(id);
+        //    return dt.Tendiemtiem;
+        //}
+
         public bool Delete(string id)
         {
             try
@@ -134,6 +148,28 @@ namespace Model1.Dao
                 return false;
             }
 
+        }
+
+        public int Sltiem(int ngaytiem)
+        {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "show_sltiem";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+
+                cmd.Parameters.Add("@so", SqlDbType.VarChar).Value = ngaytiem;
+
+                conn.Open();
+                object sl = cmd.ExecuteScalar();
+                int sl1 = Int32.Parse(sl.ToString());
+                //string sl1 = sl.ToString();
+                conn.Close();
+                return sl1;
+            }
+            
         }
 
         public List<Diemtiem> ListAll()

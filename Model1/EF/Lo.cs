@@ -1,4 +1,4 @@
-namespace Model1.EF
+﻿namespace Model1.EF
 {
     using System;
     using System.Collections.Generic;
@@ -14,13 +14,15 @@ namespace Model1.EF
         {
             Chitietphhieutiems = new HashSet<Chitietphhieutiem>();
             Dongxuats = new HashSet<Dongxuat>();
+            Dongxuathuys = new HashSet<Dongxuathuy>();
+            Dongxuattralais = new HashSet<Dongxuattralai>();
         }
 
         [Key]
         [StringLength(10)]
         public string Malo { get; set; }
 
-        public int? SLnhap { get; set; }
+        public int SLnhap { get; set; }
 
         public int? Dongia { get; set; }
 
@@ -32,11 +34,13 @@ namespace Model1.EF
         [StringLength(50)]
         public string SDK_gnpk { get; set; }
 
+        [Required(ErrorMessage = "Bạn chưa nhập ngày sản xuất")]
         [Column(TypeName = "date")]
-        public DateTime? NSX { get; set; }
+        public DateTime NSX { get; set; } //DateTime?
 
+        [Required(ErrorMessage = "Bạn chưa nhập hạn sử dụng")]
         [Column(TypeName = "date")]
-        public DateTime? HSD { get; set; }
+        public DateTime HSD { get; set; } // DateTime?
 
         [StringLength(10)]
         public string Nongdo { get; set; }
@@ -67,6 +71,12 @@ namespace Model1.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dongxuat> Dongxuats { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dongxuathuy> Dongxuathuys { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dongxuattralai> Dongxuattralais { get; set; }
 
         public virtual Hoadonnhap Hoadonnhap { get; set; }
 

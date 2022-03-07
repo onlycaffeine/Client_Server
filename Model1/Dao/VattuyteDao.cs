@@ -21,6 +21,34 @@ namespace Model1.Dao
             return db.Vattuytes.Where(x => x.Tenvattu != "").OrderBy(x => x.Mavattu).ToList();
         }
 
+        public int Tongsl(string mavattu)
+        {
+            int a = 0;
+            var model = from l in db.Vattuytes
+                        join k in db.Loes on l.Mavattu equals k.Mavattu
+                        where l.Mavattu == mavattu
+                        select new { k.SLnhap};
+            foreach(var item in model)
+            {
+                a += item.SLnhap;
+            }
+            return a;
+        }
+
+        public int Tongslyeucau(string mavattu)
+        {
+            int a = 0;
+            var model = from l in db.Vattuytes
+                        join k in db.Donglinhs on l.Mavattu equals k.Mathuoc
+                        where l.Mavattu == mavattu
+                        select new { k.SLyeucau };
+            foreach (var item in model)
+            {
+                a += item.SLyeucau;
+            }
+            return a;
+        }
+
         public List<Vattuyte> ListNewProduct(int top)// thieu truong create date
         {
             return db.Vattuytes.OrderByDescending(x => x.Loaivattuyte).Take(top).ToList();
@@ -29,46 +57,53 @@ namespace Model1.Dao
         {
             return db.Vattuytes.Where(x => x.Tenvattu.Contains(keyword)).Select(x => x.Tenvattu).ToList();
         }
-        public IEnumerable<Vattuyte> ListAllPaging(string searchString, int page, int pageSize, int minp, int maxp)
+        public IEnumerable<VattuyteDTO> ListAllPaging(string searchString)//string searchString, int page, int pageSize, int minp, int maxp)
+        {
+            List<VattuyteDTO> listLinks = new List<VattuyteDTO>();
+            var model = from l in db.Vattuytes // lấy toàn bộ sp
+                        join c in db.Loaivattuytes on l.Maloaivattu equals c.Maloaivattu
+                        join q in db.Nhasanxuats on l.Mansx equals q.Mansx
+                        where c.Maloaivattu == "lvt001"
+                        select new { l.Mavattu, l.Tenvattu , c.Tenloaivattu,q.Tennsx};
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.Tenvattu.Contains(searchString) || x.Tenvattu.Contains(searchString));
+            }
+
+            foreach (var item in model)
+            {
+                VattuyteDTO temp = new VattuyteDTO();
+                temp.Mavattu = item.Mavattu;
+                temp.Tenvattu = item.Tenvattu;
+                temp.Tenloaivattu = item.Tenloaivattu;
+                temp.Tennsx = item.Tennsx;
+                temp.Tongsoluong = Tongsl(item.Mavattu);
+                temp.Slyeucau = Tongslyeucau(item.Mavattu);
+                listLinks.Add(temp);
+            }
+
+            return listLinks.OrderByDescending(x => x.Maloaivattu);
+        }
+
+        public IEnumerable<Vattuyte> ListAllPaging1()//string searchString, int page, int pageSize, int minp, int maxp)
         {
             List<Vattuyte> listLinks = new List<Vattuyte>();
-
-            //var model = from l in db.Products // lấy toàn bộ sp
-            //            join c in db.ProductCategories on l.CategoryID equals c.CategoryID
-            //            select new { l.ProductID, l.ProductName, l.Price, l.Description, l.CategoryID, c.Name, l.ProductCode, l.ProductImage, l.Quantity };
-
             var model = from l in db.Vattuytes // lấy toàn bộ sp
-                        select new { l.Mavattu, l.Tenvattu};
-
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    model = model.Where(x => x.ProductName.Contains(searchString) || x.ProductName.Contains(searchString));
-            //}
+                        join c in db.Loaivattuytes on l.Maloaivattu equals c.Maloaivattu
+                        join q in db.Nhasanxuats on l.Mansx equals q.Mansx
+                        where c.Maloaivattu == "lvt001"
+                        select new { l.Mavattu, l.Tenvattu , c.Tenloaivattu, q.Tennsx };
 
             //if (CategoryID != 0)
             //{
             //    model = model.Where(x => x.CategoryID == CategoryID);
             //}
 
-            //if (minp != 0 && maxp != 0)
-            //{
-            //    model = model.Where(x => x.Price > minp && x.Price < maxp);
-            //}
-
-            //if (minp != 0)
-            //{
-            //    model = model.Where(x => x.Price > minp);
-            //}
-
-            //if (maxp != 0)
-            //{
-            //    model = model.Where(x => x.Price < maxp);
-            //}
-
             foreach (var item in model)
             {
                 Vattuyte temp = new Vattuyte();
-                //temp.Mavattu = item.Mavattu;
+                temp.Mavattu = item.Mavattu;
                 temp.Tenvattu = item.Tenvattu;
                 listLinks.Add(temp);
             }

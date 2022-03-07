@@ -20,10 +20,16 @@ namespace Model1.EF
         public string Sophieuxuat { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? Ngayxuat { get; set; }
+        public DateTime Ngayxuat { get; set; } //DateTime?
+
+        [Column(TypeName = "date")]
+        public DateTime Ngaynhap { get; set; } //DateTime?
 
         [StringLength(100)]
         public string Khoxuat { get; set; }
+
+        [StringLength(150)]
+        public string Ghichu { get; set; }
 
         [StringLength(100)]
         public string Khonhan { get; set; }

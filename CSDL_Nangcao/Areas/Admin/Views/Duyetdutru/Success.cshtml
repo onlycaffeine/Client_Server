@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Duyệt dự trù
+        </b>
+}
+<div class="alert alert-success" style="width:345px">
+    Bạn vừa duyệt phiếu dự trù thành công.
+</div>
+
+<div style="display:flex">
+    @Html.ActionLink("Quay lại phiếu duyệt", "Index", "Duyetdutru", null, new { @style = " margin-right: 25px;" })
+
+    @Html.ActionLink("Chuyển đến phiếu cấp phát", "Index", "Capphat", null, new { @style = " margin-left: 2px;" })
+</div>

@@ -14,10 +14,16 @@ namespace Model1.DTO
 
         public string Mathuoc { get; set; }
 
-        public int? SLyeucau { get; set; }
+        public int SLyeucau { get; set; }
+        //public int? SLyeucau { get; set; }
 
-        public int? SLcapphat { get; set; }
+        public int SLcapphat { get; set; }
+        //public int? SLcapphat { get; set; }
 
         public string Tenthuoc { get; set; }
+
+        public string Trangthai { get; set; }
+
+        public string Tendiemtiem { get; set; }
     }
 }

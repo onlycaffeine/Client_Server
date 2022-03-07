@@ -5,58 +5,68 @@
 }
 
 @section header{
-    Phiếu lĩnh
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Phiếu dự trù
+    </b>
 }
 
-<div class="row">
+<html>
+<head>
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+</head>
+<body>
+    <div class="row">
 
-    <div class="col-lg-pull-3" style="padding:10px">
+        <div class="col-lg-pull-3 thuan-body-content">
 
-        <div class="section group">
-            <b class="panel-heading" style="color:black; font-size:large">
-                Danh sách Vật tư
-                <a class="btn btn-primary" href="/Admin/Donglinh/Create" style=" margin:0 0 0 36px">Thêm</a>
-            </b>
-            <hr />
+            <div class="section group">
+                <b class="panel-heading" style="color:coral; font-size:large">
+                    Danh sách Vật tư
+                    <a class="btn btn-primary" href="/Admin/Donglinh/Create" style=" margin:0 0 0 36px">Thêm</a>
+                </b>
+                <hr style="margin-top:5px" />
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <td>Tên thuốc</td>
-                            <td>Mã thuốc</td>
-                            <td>Số lượng yêu cầu</td>
-                            <td>Số lượng cấp phát</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model.Where(item => item != null))
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <td>Tên thuốc</td>
+                                <td>Mã thuốc</td>
+                                <td>Số lượng yêu cầu</td>
+                                <td>Trạng thái</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
                             {
-                                <tr>
-                                    <td>@item.Tenthuoc</td>
-                                    <td>@item.Mathuoc</td>
-                                    <td>@item.SLyeucau.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>@item.SLcapphat.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>
-                                        <a href="/Admin/Dutru/Edit/@item.Madonglinh">Sửa</a>
-                                        |
-                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Madonglinh}, new AjaxOptions
-                                   {
-                                       Confirm = "Bạn có muốn xoá bản ghi này?",
-                                       OnComplete = "$('#row_" + @item.Madonglinh + "').remove()",
-                                       HttpMethod = "Delete"
-                                   })
-                                    </td>
-                                </tr>
+                                foreach (var item in Model.Where(item => item != null))
+                                {
+                                    <tr id="row_@item.Madonglinh">
+                                        <td>@item.Tenthuoc</td>
+                                        <td>@item.Mathuoc</td>
+                                        <td>@item.SLyeucau</td>
+                                        <td>@item.Trangthai</td>
+                                        <td>
+                                            <a title="Sửa" href="/Admin/Dutru/Edit/@item.Madonglinh"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
+                                            @Ajax.ActionLink(" ", "Delete", new { @id = item.Madonglinh }, new AjaxOptions
+                                            { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madonglinh + "').remove()", },
+                                            new { @class = "fas fa-trash", @title = "Xóa" })
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
+                </div>
             </div>
+            <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
         </div>
-        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    </div>
+    <div style="margin-top:19px">
+        @Html.ActionLink("Quay lại phiếu dự trù", "Index")
+    </div>
+</body>
+</html>

@@ -11,5 +11,10 @@ namespace Model1
     {
         public Phieutiem Phieutiem { get; set; }
         public Chitietphhieutiem Chitietphhieutiem { get; set; }
+
+        public string tendiemtiem { get; set; }
+
+        public string tenthuoc { get; set; }
+
     }
 }

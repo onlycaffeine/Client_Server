@@ -14,7 +14,7 @@ namespace Model1.EF
         public string Machitietphieutiem { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? Ngaytiem { get; set; }
+        public DateTime Ngaytiem { get; set; } //public DateTime? Ngaytiem { get; set; }
 
         [StringLength(10)]
         public string Loaimui { get; set; }

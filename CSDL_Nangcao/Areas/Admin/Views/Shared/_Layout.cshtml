@@ -34,13 +34,13 @@
         @RenderPage("_Navigation.cshtml")
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column" style="background-color: whitesmoke;">
 
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light  topbar mb-4 static-top shadow" style="background-color:white">
                     @{ Html.RenderAction("TopMenu", "Home");}
                 </nav>
                 <!-- End of Topbar -->
@@ -51,7 +51,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">@RenderSection("header", required: true)</h1>
                         @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                                <i class="fas fa-download fa-sm text-white-50"></i> Xuất Excel
                             </a>*@
                     </div>
 
@@ -87,15 +87,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận đăng xuất</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn chắc chắn muốn đăng xuất.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/Admin/Login/Login">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                    <a class="btn btn-primary" href="/Admin/Login/Login">Đăng xuất</a>
                 </div>
             </div>
         </div>

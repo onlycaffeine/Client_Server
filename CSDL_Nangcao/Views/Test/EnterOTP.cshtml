@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "EnterOTP";
+}
+
+<h2>EnterOTP</h2>
+
+<input type="text" id="enterOTP" placeholder="Enter OTP" class="form-control" />
+<a href="#" onclick="verifyOTP()" class="btn btn-primary">Okay</a>
+
+<script>
+
+
+    var verifyOTP = function () {
+
+        var otp = $("#enterOTP").val();
+
+        $.ajax({
+            url: "/Test/VerifyOTP/",
+            data: { otp: otp },
+            type: "post",
+            success: function (data) {
+                debugger
+                if (data == true) {
+                    alert("Verify Successful");
+                    window.location = "/Test/Index";
+
+                }
+
+                else {
+                    alert("Verify Failed");
+                }
+            }
+
+        })
+    }
+
+</script>
+
+

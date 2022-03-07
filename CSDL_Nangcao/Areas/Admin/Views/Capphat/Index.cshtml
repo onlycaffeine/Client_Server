@@ -9,222 +9,287 @@
 }
 
 @section header{
-    <b class="panel-heading" style="color:blue; font-size:x-large">
-        Danh sách phiếu cấp phát
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Cấp phát vaccine/Vật tư
     </b>
+
 }
 
-<div class="row">
-    <div class="col-lg-offset-1" style="padding:10px">
-        <div class="panel-heading" style="color:blue; font-size:large">
-            Tìm kiếm phiếu cấp phát
-        </div>
-        <hr />
+@section jsFooter{
+    <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Assets/Admin/css/lib/combobox.js"></script>
+    <script src="~/Assets/Admin/js/controller/capphat.js"></script>
+    <script>var element = document.getElementById("nguon").value;
+        document.getElementById("sophieudutru").value = element;</script>
+}
 
-        @{
-            DateTime date;
-            date = DateTime.Today;
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        .table-responsive {
+            height: 209px;
         }
+    </style>
+    @{
+        DateTime date = DateTime.Today;
+        DateTime datedefault = Convert.ToDateTime("08/13/2000");
+        string dateformated = date.Day.ToString() + "/" + date.Month.ToString() + "/" + date.Year.ToString();
 
-        <div class="panel-body">
-            @using (Html.BeginForm("Index", "Capphat", FormMethod.Get))
-            {
-                <div class="form-group">
-                    <div class="form-group" style="display: flex ;  width:100%;align-items:center">
-                        Mã: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:174px; margin:0 0 10px 10px", @class = "form-control" })
-                        <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 30px">Tìm kiếm</button></p>
-                    </div>
+    }
+</head>
 
-                </div>
-            }
-            <hr />
+<body>
+    <div class="row">
+        <div class="col-lg-pull-3 thuan-body-content" style="margin-left: 10px;height: 485px">
+            <hr style=" margin-top: 43px" />
 
-            @if (Model.PhieuxuatDTOs.Count() > 0)
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Mã</th>
-                                <th>Ngày xuất</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach (var item in Model.PhieuxuatDTOs)
-                            {
-                                <tr id="row_@item.Sophieuxuat">
-                                    <td>@item.Sophieuxuat</td>
-                                    <td>@item.Ngayxuat</td>
-                                    <td>
-                                        <a href="/Admin/Capphat/Edithd/@item.Sophieuxuat">Sửa</a>
-                                        |
-                                        @Ajax.ActionLink("Xoá", "Deletehd", new { @id = item.Sophieuxuat }, new AjaxOptions
-                                   {
-                                       Confirm = "Bạn có muốn xoá bản ghi này?",
-                                       OnComplete = "$('#row_" + @item.Sophieuxuat + "').remove()",
-                                       HttpMethod = "Delete"
-                                   })|
-                                        <a href="/Admin/Capphat/Detailhd/@item.Sophieuxuat">Chi tiết</a>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
-                </div>
-
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Mã</th>
-                                <th>Ngày xuất</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="alert alert-danger" style="width:210px">Không tìm thấy dữ liệu</div>
-            }
-
-        </div>
-    </div>
-
-
-
-    <div class="col-lg-pull-3" style="padding:10px">
-
-        <div class="section group">
-            <div class="col-md-12">
-                @using (Html.BeginForm("Payment", "Capphat", FormMethod.Post))
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "Capphat", FormMethod.Get))
                 {
-                    <div class="panel-heading" style="color:blue; font-size:large">
-                        Thông tin chi tiết phiếu xuất
-                        <button type="submit" class="btn btn-primary" style=" margin:0 0 0 36px">Thêm phiếu</button>
+                    <div class="form-group">
+
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            Từ
+                            <input type="date" value="@Html.Raw(date)" class="form-control" style="width: 138px; margin: 0 8px" name="a" />
+                            Đến
+                            <input type="date" value="@Html.Raw(date)" class="form-control" style="width:138px; margin:0 8px" name="b" />
+                        </div>
+
+                        <div class="form-group" style="display: flex; width: 100%; align-items: center">
+                            @Html.TextBox("SearchString", null, new { @style = " height:38px; width:184px; margin:0 0 0px 26px", @class = "form-control", @placeholder = "Tìm kiếm phiếu xuất" })
+                            <p>
+                                <button title="Tìm kiếm" class="btn" type="submit" style="color:white; background-color:royalblue; margin-left:10px; margin-top:18px"><i class="fas fa-search" style="margin-right:0px"></i></button>
+                            </p>
+                        </div>
                     </div>
-                    <hr />
+                }
 
-                    <div class="form-group" style="">
-                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                <hr style="margin-top:-8px" />
+                <b class="panel-heading" style="color:coral; font-size:medium">
+                    Danh sách phiếu đã xuất
+                </b>
+                <hr style="margin-top:15px;margin-bottom: unset" />
 
-                            <label style=" box-sizing:border-box; flex-wrap:nowrap">Mã phiếu xuất</label>
-                            <p><input name="sophieu" class="form-control" style="width:100px;margin:0 16px" /></p>
+                @if (Model.PhieuxuatDTOs.Count() > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày lập</th>
+                                    <th style="width:115px">#</th>
+                                </tr>
+                            </thead>
 
-                            <label>Ngày xuất</label>
-                            <p><input type="datetime" name="ngayxuat" value="@Html.Raw(date)" class="form-control" style="width:128px; margin:0 16px" /></p>
+                            <tbody>
+                                @foreach (var item in Model.PhieuxuatDTOs)
+                                {
+                                    <tr id="row_@item.Sophieuxuat">
+                                        <td>@item.Sophieuxuat</td>
+                                        @{DateTime a = @item.Ngayxuat;
+                                            string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        }
+                                        <td style="width:98px">@Html.Raw(b)</td>
+                                        <td>
 
-                            <label>Tình trạng</label>
-                            <p>@Html.DropDownList("tt", null, new { @style = "width:150px; margin:0 16px", @class = "form-control", @name = "tt" })</p>
-                        </div>
-                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
-
-                            <label>Kho xuất</label>
-                            <p>@Html.DropDownList("kho", null, new { @style = "width:200px; margin:0 16px", @class = "form-control", @name = "kho" })</p>
-
-                            <label>Đơn vị nhận</label>
-                            <p>@Html.DropDownList("dt", null, new { @style = "width:190px; margin:0 16px", @class = "form-control", @name = "dt" })</p>
-                        </div>
-
+                                            <a title="Sửa" href="/Admin/Capphat/Edithd/@item.Sophieuxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
+                                            @Ajax.ActionLink(" ", "Deletehd", new { @id = item.Sophieuxuat }, new AjaxOptions
+                                            { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Sophieuxuat + "').remove()", },
+                                            new { @class = "fas fa-trash", @title = "Xóa" })
+                                            |<a title="Chi tiết" href="/Admin/Capphat/Detailhd/@item.Sophieuxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
 
                 }
-            </div>
-
-        </div>
-
-        <hr />
-
-        <div class="section group" style="display:contents">
-            <b class="panel-heading" style="color:black; font-size:large">
-                Danh sách vaccine/ Vật tư
-                <a class="btn btn-primary" href="/Admin/Capphat/Create" style=" margin:0 0 0 36px">Thêm</a>
-            </b>
-            <hr />
-            @if (Model.Dongxuats.Count() > 0)
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Tên vật tư</th>
-                                <th>Mã lô</th>
-                                <th>Số lượng xuất</th>
-                                <th>Đơn giá</th>
-                                <th>Thành tiền</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Dongxuats)
-                            {
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
                                 <tr>
-                                    <td>@item.Tenthuoc</td>
-                                    <td>@item.Malo</td>
-                                    <td>@item.SLxuat.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>@item.Dongia.GetValueOrDefault(0).ToString("N0")</td>
-                                    <td>@((item.Dongia.GetValueOrDefault(0) * item.SLxuat.GetValueOrDefault(0)).ToString("N0"))</td>
-                                    <td>
-                                        <a href="/Admin/Capphat/Edit/@item.Madongxuat">Sửa</a>
-                                        |
-                                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
-                                   {
-                                       Confirm = "Bạn có muốn xoá bản ghi này?",
-                                       OnComplete = "$('#row_" + @item.Madongxuat + "').remove()",
-                                       HttpMethod = "Delete"
-                                   })
-                                    </td>
+                                    <th>Mã</th>
+                                    <th>Ngày lập</th>
                                 </tr>
-                            }
-
-                        </tbody>
-                    </table>
-                </div>
-
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Tên vật tư</th>
-                                <th>Mã lô</th>
-                                <th>Số lượng xuất</th>
-                                <th>Đơn giá</th>
-                                <th>Thành tiền</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="alert alert-danger" style="width:210px">Không tìm thấy dữ liệu</div>
-            }
-
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-danger" style="width:210px; margin-top: -160px">Không tìm thấy dữ liệu</div>
+                }
+            </div>
         </div>
 
+        <div class="col-lg-offset-1 thuan-body-content" style="margin-left: 10px;width:660px; height: 485px">
+            <div class="panel-heading" style="color:coral;font-weight:bold;  font-size:large">
+                Thông tin phiếu xuất
+            </div>
+            <hr />
+
+            <div class="panel-body">
+                @using (Html.BeginForm("CreateCT", "Capphat", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            <label style="margin-left: 7px;">Từ phiếu dự trù</label>
+                            <p>@Html.DropDownList("nguon", null, new { @style = "width:100px; margin:0 16px", @class = "form-control", @name = "nguon", @id = "nguon" })</p>
+                            <p><button type="submit" title="Thêm lô xuất" class="btn btn-primary" style="margin: -130px 0 -3px -57px;"><i class="fas fa-plus"></i><b style="font-size: 14px;
+                             margin-left: 5px"> Thêm lô xuất</b></button></p>
+                        </div>
+                    </div>
+                }
+
+                @using (Html.BeginForm("Payment", "Capphat", FormMethod.Post))
+                {
+                    <div class="panel-heading" style="color:blue; font-size:large; margin-top:-70px">
+                        <button type="submit" title="Thêm phiếu" class="btn btn-primary" style="margin: -120px 0px -3px 349px"><i class="fas fa-save"></i><b style="font-size: 14px;
+                        margin-left: 5px;"> Lưu</b></button>
+                    </div>
+
+                    <div class="form-group" style="">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center; margin-top: -28px">
+
+                            <label style="margin-left: 259px;">Ngày xuất</label>
+                            <p><input type="datetime" id="ngayxuat" name="ngayxuat" value="@Html.Raw(dateformated)" class="form-control" style="width:105px; margin:0 16px" readonly /></p>
+                        </div>
+
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+
+                            <label style=" box-sizing:border-box; flex-wrap:nowrap; margin-left: 10px;">Mã phiếu xuất</label>
+                            <p><input value="@ViewBag.mahoadonauto" id="sophieux" name="sophieux" class="form-control" style="width:100px;margin:0 20px" readonly /></p>
+
+                            <label style="margin-left: 8px;">Tình trạng</label>
+                            <p><input value="Đang vận chuyển" class="form-control" style="width:150px;margin:0 0 0 17px" readonly /></p>
+
+                            <p><input value="@ViewBag.nguon" style="display:none" id="sophieudutru", name="sophieudutru" class="form-control" /></p>
+                        </div>
+
+
+                    </div>
+
+                    <hr style="margin-top:-5px" />
+                    <b class="panel-default" style="color: coral; font-size: medium">
+                        Danh sách vaccine/ Vật tư xuất
+                    </b>
+                    <hr style="margin-bottom: unset;" />
+                    if (Model.Dongxuats.Count() > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tên vật tư</th>
+                                        <th>Mã lô</th>
+                                        <th>Hạn sử dụng</th>
+                                        <th style="width:160px">Số lượng cấp phát</th>
+                                        <th style="width:115px">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Dongxuats)
+                                    {
+                                        if (item.HSD < DateTime.Now)
+                                        {
+                                            <tr id="row_@item.Madongxuat" class="red-row" style="">
+                                                @{DateTime a = @item.HSD;
+                                                    string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                                }
+                                                <td>@item.Tenthuoc</td>
+                                                <td>@item.Malo</td>
+                                                <td style="width:138px">@Html.Raw(b)</td>
+                                                <td style="text-align:center">@item.SLxuat</td>
+
+                                                <td>
+                                                    @*<a title="Sửa" href="/Admin/Nhapcapphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
+                                                    @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
+                                                    { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
+                                                    new { @class = "fas fa-trash", @title = "Xóa" })
+                                                    @*|<a title="Chi tiết" href="/Admin/Nhapcapphat/Detail/@item.Madongxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>*@
+                                                </td>
+                                            </tr>
+                                        }
+
+                                        else if ((item.HSD - DateTime.Now).TotalDays < 31)
+                                        {
+                                            <tr id="row_@item.Madongxuat" class="yellow-row">
+                                                @{DateTime a = @item.HSD;
+                                                    string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                                }
+                                                <td>@item.Tenthuoc</td>
+                                                <td>@item.Malo</td>
+                                                <td style="width:138px">@Html.Raw(b)</td>
+                                                <td style="text-align:center">@item.SLxuat</td>
+
+                                                <td>
+                                                    @*<a title="Sửa" href="/Admin/Nhapcapphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
+                                                    @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
+                                                    { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
+                                                    new { @class = "fas fa-trash", @title = "Xóa" })
+                                                    @*|<a title="Chi tiết" href="/Admin/Nhapcapphat/Detail/@item.Madongxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>*@
+                                                </td>
+                                            </tr>
+                                        }
+
+                                        else
+                                        {
+                                            <tr id="row_@item.Madongxuat" class="2">
+                                                @{DateTime a = @item.HSD;
+                                                    string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                                }
+                                                <td>@item.Tenthuoc</td>
+                                                <td>@item.Malo</td>
+                                                <td style="width:138px">@Html.Raw(b)</td>
+                                                <td style="text-align:center">@item.SLxuat</td>
+
+                                                <td>
+                                                    @*<a title="Sửa" href="/Admin/Nhapcapphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
+                                                    @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
+                                                    { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
+                                                    new { @class = "fas fa-trash", @title = "Xóa" })
+                                                    @*|<a title="Chi tiết" href="/Admin/Nhapcapphat/Detail/@item.Madongxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tên vật tư</th>
+                                        <th>Mã lô</th>
+                                        <th>Hạn sử dụng</th>
+                                        <th>Số lượng cấp phát</th>
+                                        @*<th>Đơn vị nhận</th>*@
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="alert alert-warning" style="width:180px ;margin-top: -160px">Chưa có dữ liệu</div>
+                    }
+                }
+            </div>
+        </div>
     </div>
-</div>
-
-
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-
-@section jsfooter{
-    <script src="~/Scripts/jquery-ui-1.13.0.min.js"></script>
-
-    <script>
-        $(function () {
-            $(".datepicker").datepicker({
-                dateFormat: "yyyy/mm/dd"
-            });
-        });
-    </script>
-
-}
+</body>

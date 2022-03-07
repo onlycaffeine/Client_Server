@@ -13,6 +13,7 @@ namespace Model1.EF
         public Phuong()
         {
             Diemtiems = new HashSet<Diemtiem>();
+            Phieudangkies = new HashSet<Phieudangky>();
         }
 
         [Key]
@@ -27,6 +28,9 @@ namespace Model1.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Diemtiem> Diemtiems { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Phieudangky> Phieudangkies { get; set; }
 
         public virtual Quan Quan { get; set; }
     }

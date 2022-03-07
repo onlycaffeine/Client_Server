@@ -22,6 +22,20 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var dao1 = new HoadonnhapDao();
             var dao2 = new LoDao();
 
+            long sldonglo = dao2.Sldong() + 1;
+            string maloauto = "lo00" + sldonglo.ToString();
+            if (sldonglo > 9)
+            {
+                maloauto = "lo0" + sldonglo.ToString();
+            }
+
+            long sldonghoadon = dao1.Sldong() + 1;
+            string mahoadonauto = "hd00" + sldonghoadon.ToString();
+            if (sldonghoadon > 9)
+            {
+                mahoadonauto = "hd0" + sldonghoadon.ToString();
+            }
+
             var model1 = dao1.ListAllPaging(searchString, page, pageSize, a, b, mancc, manguon, makho);
             var model2 = dao2.ListAllPaging(mactdb, mactnd);
 
@@ -36,6 +50,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             var ctdbs = from p in db.Chithidongbangs select p;
             var ctnds = from q in db.Chithinhietdoes select q;
+            var mavattus = from z in db.Vattuytes select z;
 
             ViewBag.ncc = new SelectList(nccs, "Mancc", "Tencc"); // danh sách ncc
             ViewBag.nguon = new SelectList(nguons, "Manguon", "Tennguon"); // danh sách nguon
@@ -43,7 +58,10 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             ViewBag.Mahithidongbang = new SelectList(ctdbs, "Machithidongbang", "Tenchithidongbang");
             ViewBag.Machithinhietdo = new SelectList(ctnds, "Machithinhietdo", "Tenchithinhietdo");
+            ViewBag.mavattu = new SelectList(mavattus, "Mavattu", "Tenvattu");
 
+            ViewBag.maloauto = maloauto;
+            ViewBag.mahoadonauto = mahoadonauto;
             ViewBag.SearchString = searchString;
             return View(model);
         }
@@ -58,24 +76,57 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Lo pr)
-        {
-            if (ModelState.IsValid)
-            {
-                var dao = new LoDao();
-                string id = dao.Insert(pr);
-                if (id != null)
-                {
-                    return RedirectToAction("Index", "Nhaptuncc");
-                }
 
-                else
-                {
-                    ModelState.AddModelError("", "Thêm sp thành công");
-                }
+        public ActionResult Create(string malo, string mavattu, string machithidongbang, string machithinhietdo, int slnhap, int dongia, int solieu, DateTime nsx, DateTime hsd)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    if (nsx == Convert.ToDateTime("08/13/2000") || hsd == Convert.ToDateTime("08/13/2000"))
+            //    {
+            //        return RedirectToAction("Fail1", "Nhaptuncc");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "Cập nhật lô sản phẩm không thành công");
+            //    }
+            //}
+
+            //else
+            //    return RedirectToAction("Fail1", "Nhaptuncc");
+
+            if (nsx > hsd )
+            {
+                return RedirectToAction("Fail1", "Nhaptuncc");
+            }
+
+            if (slnhap < 0 || dongia < 0 || solieu < 0)
+            {
+                return RedirectToAction("Fail", "Nhaptuncc");
+            }
+            //var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            var lo = new Lo();
+            lo.Malo = malo;
+            lo.Mavattu = mavattu;
+            lo.Machithidongbang = machithidongbang;
+            lo.Machithinhietdo = machithinhietdo;
+            lo.SLnhap = slnhap;
+            lo.Dongia = dongia;
+            lo.Solieutrenmotcai = solieu;
+            lo.NSX = nsx;
+            lo.HSD = hsd;
+            //order.Ngaynhap = ngaynhap;
+            //order.Manhanvien = session.UserID;
+
+            try
+            {
+                var id = new LoDao().Insert(lo);
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/loi-thanh-toan");
             }
             SetViewBag();
-            return View("Index");
+            return RedirectToAction("Index", "Nhaptuncc");
         }
 
         [HttpDelete]
@@ -173,31 +224,38 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Payment(string maphieu, string ncc, string nguon, string kho, DateTime ngaynhap)
+        public ActionResult Payment(string maphieu, string ncc, string nguon, string kho)
         {
-            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
-            var order = new Hoadonnhap();
-            order.Sohoadon = maphieu;
-            order.Mancc = ncc;
-            order.Manguon = nguon;
-            order.Makhonhap = kho;
-            order.Ngaynhap = ngaynhap;
-            order.Manhanvien = session.UserID;
-
-            try
+            var dao1 = new LoDao();
+            var model = dao1.ListAllPagingCheckHd();
+            if (model.Count() > 0)
             {
-                var id = new HoadonnhapDao().Insert(order);
-                var c = new LoDao().Update1(ref id);
-                if (c == false)
+                var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+                var order = new Hoadonnhap();
+                order.Sohoadon = maphieu;
+                order.Mancc = ncc;
+                order.Manguon = nguon;
+                order.Makhonhap = kho;
+                order.Ngaynhap = DateTime.Now;
+                order.Manhanvien = session.UserID;
+
+                try
+                {
+                    var id = new HoadonnhapDao().Insert(order);
+                    var c = new LoDao().Update1(ref id);
+                    if (c == false)
+                        return Redirect("/loi-thanh-toan");
+                }
+                catch (Exception ex)
+                {
                     return Redirect("/loi-thanh-toan");
-            }
-            catch (Exception ex)
-            {
-                return Redirect("/loi-thanh-toan");
-            }
+                }
 
-            //return Redirect("/hoan-thanh");
-            return View("~/Areas/Admin/Views/Nhaptuncc/Success.cshtml");
+                return View("~/Areas/Admin/Views/Nhaptuncc/Success.cshtml");
+            }
+            else
+
+                return View("~/Areas/Admin/Views/Nhaptuncc/Fail0.cshtml");
         }
 
         public void SetViewBag(string selectedId1 = "", string selectedId2 = "")
@@ -226,6 +284,20 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         {
             return View("~/Areas/Admin/Views/Nhaptuncc/Success.cshtml");
         }
-    }
 
+        public ActionResult Fail()
+        {
+            return View("~/Areas/Admin/Views/Nhaptuncc/Fail.cshtml");
+        }
+
+        public ActionResult Fail0()
+        {
+            return View("~/Areas/Admin/Views/Nhaptuncc/Fail0.cshtml");
+        }
+
+        public ActionResult Fail1()
+        {
+            return View("~/Areas/Admin/Views/Nhaptuncc/Fail1.cshtml");
+        }
+    }
 }

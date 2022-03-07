@@ -1,0 +1,245 @@
+﻿@using PagedList.Mvc;
+@using Model1
+@model  ModelCollection
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Chi tiết phiếu cấp phát
+    </b>
+}
+
+@section jsFooter{
+    <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Assets/Admin/css/lib/combobox.js"></script>
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+
+    <style>
+        .table-responsive {
+            height: 350px;
+        }
+    </style>
+    @{
+        DateTime date = DateTime.Today;
+        DateTime datedefault = Convert.ToDateTime("08/13/2000");
+        string dateformated = date.Day.ToString() + "/" + date.Month.ToString() + "/" + date.Year.ToString();
+    }
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-lg-pull-3 thuan-body-content" style="margin-left: 10px;height: 485px; margin-bottom: 20px; height: 485px; width: 480px;">
+            @*@using (Html.BeginForm("CreateCT", "Capphat", FormMethod.Get))
+            {
+                <div class="form-group">
+                    <div class="form-group" style="display: flex; width: 100%; align-items: center">
+                        <label style="margin-left: 7px;">Lọc theo tên vaccine</label>
+                        @Html.DropDownList("tenthuoc", null, new { @style = " height:38px; width:184px; margin:0 0 14px 7px", @class = "form-control", @name = "tenthuoc", @id = "tenthuoc" })
+                        <p>
+                            <button title="Tìm kiếm" class="btn" type="submit" style="color:white; background-color:royalblue; margin-left:10px"><i class="fas fa-search" style="margin-right:0px"></i></button>
+                        </p>
+                    </div>
+
+                </div>
+            }*@
+
+            <hr style=" margin-top: 47px" />
+            <div class="panel-body">
+
+
+                <b class="panel-heading" style="color:coral; font-size:medium">
+                    Danh sách lô hiện có
+                </b>
+                <hr style="margin-top:15px;margin-bottom: unset" />
+
+
+
+                @if (Model.LoDTOs.Count() > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>Tên vật tư</th>
+                                    <th>Mã lô</th>
+                                    <th style="width: 160px;">HSD</th>
+                                    <th style="width: 160px;">Số lượng còn</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.LoDTOs)
+                                {
+                                    if (item.HSD < DateTime.Now)
+                                    {
+                                        DateTime a = @item.HSD;
+                                        string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        <tr id="row_@item.Malo" class="red-row">
+                                            <td>@item.Tenvattu</td>
+                                            <td>@item.Malo</td>
+                                            <td style="text-align:center">@Html.Raw(b)</td>
+                                            <td style="text-align:center">@item.SLnhap</td>
+                                        </tr>
+
+                                    }
+
+                                    else if ((item.HSD - DateTime.Now).TotalDays < 31)
+                                    {
+                                        DateTime a = @item.HSD;
+                                        string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        <tr id="row_@item.Malo" class="yellow-row">
+                                            <td>@item.Tenvattu</td>
+                                            <td>@item.Malo</td>
+                                            <td style="text-align:center">@Html.Raw(b)</td>
+                                            <td style="text-align:center">@item.SLnhap</td>
+                                        </tr>
+                                    }
+
+                                    else
+                                    {
+                                        DateTime a = @item.HSD;
+                                        string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        <tr id="row_@item.Malo" class="">
+                                            <td>@item.Tenvattu</td>
+                                            <td>@item.Malo</td>
+                                            <td style="text-align:center">@Html.Raw(b)</td>
+                                            <td style="text-align:center">@item.SLnhap</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>Tên vật tư</th>
+                                    <th>Mã lô</th>
+                                    <th style="width: 160px;">HSD</th>
+                                    <th style="width: 160px;">Số lượng còn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-danger" style="width:210px; margin-top: -160px">Không tìm thấy dữ liệu</div>
+                }
+
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-offset-1 thuan-body-content" style="margin-left: 14px;background-color: white; margin-bottom: 20px;width: 590px;height:485px">
+            <div class="panel-heading" style="color: coral;font-weight: bold;font-size: large;width: 602px;margin-bottom: 20px;">
+            </div>
+
+            <div class="panel-body">
+                @using (Html.BeginForm("CreateCT", "Capphat", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                            <p><button title="Lưu" type="submit" class="btn btn-primary" style="margin: -19px 0 8px 410px;"><i class="fas fa-save"> Lưu</i></button></p>
+                            <p><a href="/Admin/Capphat/Index" title="Hủy" class="btn btn-danger" style="margin: -19px 0 8px 10px"><i class="fas fa-times"> Hủy</i></a></p>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="">
+                        <div class="form-group" style="display: flex ;  width:100%;align-items:center; margin-top: -77px">
+
+                            <label>Chọn lô xuất</label>
+                            <p>@Html.DropDownList("malo", null, new { @style = "width:82px; margin:0 16px", @class = "form-control", @name = "malo" })</p>
+
+                            <label style="margin-left: 0px;">Số lượng xuất</label>
+                            <p><input id="slxuat" name="slxuat" type="number" class="form-control" style="width:73px;margin:0 13px" /></p>
+
+                            <label style=" box-sizing:border-box; flex-wrap:nowrap; margin-left: 10px; display:none">Mã phiếu xuất</label>
+                            <p><input value="@ViewBag.maloauto" id="madx" name="madx" class="form-control" style="width:100px;margin:0 16px;display:none" readonly /></p>
+
+                            <label style=" box-sizing:border-box; flex-wrap:nowrap; margin-left: 10px; display:none">Tên điểm tiêm</label>
+                            <p><input value="@Session["tendiemtiem"]" id="nguon" name="nguon" class="form-control" style="width:100px;margin:0 16px;display:none" readonly /></p>
+                        </div>
+                    </div>
+                }
+                <hr style="margin-top:-25px" />
+                <b class="panel-default" style="color: coral; font-size: medium">
+                    Danh sách vật tư yêu cầu
+                </b>
+                <hr style="margin-bottom: unset;" />
+
+
+                @if (Model.DonglinhDTOs.Count() > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Tên điểm tiêm</th>
+                                    <th>Tên vật tư</th>
+                                    <th>Số lượng duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.DonglinhDTOs)
+                                {
+                                    <tr id="" class="2">
+                                        <td>@item.Tendiemtiem</td>
+                                        <td>@item.Tenthuoc</td>
+                                        <td>@item.SLcapphat</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Số phiếu</th>
+                                    <th>Tên vật tư</th>
+                                    <th>Số lượng duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-warning" style="width:180px ;margin-top: -160px">Chưa có dữ liệu</div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+    <div id="finish"></div>
+</body>
+
+</html>

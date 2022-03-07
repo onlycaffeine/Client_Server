@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASPSnippets.SmsAPI">
+      <HintPath>..\..\..\nam4_2\Web\otp\ASPSnippets.SmsAPI.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -142,14 +145,20 @@
     <Compile Include="Areas\Admin\Controllers\DonglinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\DongxuatController.cs" />
     <Compile Include="Areas\Admin\Controllers\DutruController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyetdutruController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhapcapphatController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhaptralaiController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhaptunccController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieutiemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RegisController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongkephieutiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserGroupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\XuathuyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\XuattralaiController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Areas\Common\CommonConstants.cs" />
     <Compile Include="Areas\Common\Encryptor.cs" />
@@ -160,21 +169,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Home\TestController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Admin\css\common\common.css" />
     <Content Include="Assets\Admin\css\component\button.css" />
     <Content Include="Assets\Admin\css\component\combobox.css" />
+    <Content Include="Assets\Admin\css\component\icon.css" />
     <Content Include="Assets\Admin\css\component\input.css" />
     <Content Include="Assets\Admin\css\component\paging.css" />
+    <Content Include="Assets\Admin\css\component\popup.css" />
     <Content Include="Assets\Admin\css\component\table.css" />
-    <Content Include="Assets\Admin\css\layout\content.css" />
-    <Content Include="Assets\Admin\css\layout\header.css" />
+    <Content Include="Assets\Admin\css\lib\combobox.js" />
     <Content Include="Assets\Admin\css\main.css" />
     <Content Include="Assets\Admin\css\page\nhapncc.css" />
     <Content Include="Assets\Admin\css\page\thongkephtiem.css" />
+    <Content Include="Assets\Admin\css\page\user.css" />
     <Content Include="Assets\Admin\css\sb-admin-2.css" />
     <Content Include="Assets\Admin\css\sb-admin-2.min.css" />
+    <Content Include="Assets\Admin\css\thuan-main.css" />
     <Content Include="Assets\Admin\img\undraw_posting_photo.svg" />
     <Content Include="Assets\Admin\img\undraw_profile.svg" />
     <Content Include="Assets\Admin\img\undraw_profile_1.svg" />
@@ -1152,13 +1165,18 @@
     <Content Include="Assets\Admin\js\ckfinder\_samples\sample.css" />
     <Content Include="Assets\Admin\js\ckfinder\_samples\standalone.html" />
     <Content Include="Assets\Admin\js\ckfinder\_samples\standalone_v1.html" />
+    <Content Include="Assets\Admin\js\controller\capphat.js" />
+    <Content Include="Assets\Admin\js\controller\nhaptuncc.js" />
     <Content Include="Assets\Admin\js\controller\productController.js" />
+    <Content Include="Assets\Admin\js\controller\regis.js" />
     <Content Include="Assets\Admin\js\controller\thongkephtiem.js" />
+    <Content Include="Assets\Admin\js\controller\tonkho.js" />
     <Content Include="Assets\Admin\js\controller\userController.js" />
     <Content Include="Assets\Admin\js\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\js\demo\chart-bar-demo.js" />
     <Content Include="Assets\Admin\js\demo\chart-pie-demo.js" />
     <Content Include="Assets\Admin\js\demo\datatables-demo.js" />
+    <Content Include="Assets\Admin\js\jquery-3.6.0.min.js" />
     <Content Include="Assets\Admin\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Assets\Admin\js\sb-admin-2.js" />
     <Content Include="Assets\Admin\js\sb-admin-2.min.js" />
@@ -2840,6 +2858,8 @@
     <Content Include="Assets\Client\css\layout\content.css" />
     <Content Include="Assets\Client\css\layout\header.css" />
     <Content Include="Assets\Client\css\main.css" />
+    <Content Include="Assets\Client\css\page\index.css" />
+    <Content Include="Assets\Client\css\page\regis.css" />
     <Content Include="Assets\Client\css\page\style.css" />
     <Content Include="Assets\Client\img\u7.png" />
     <Content Include="Assets\Client\js\page1.js" />
@@ -4985,6 +5005,55 @@
     <Content Include="Content\themes\base\font\GoogleSans-Thin.otf" />
     <Content Include="Content\themes\base\font\GoogleSans-ThinItalic.otf" />
     <Content Include="Areas\Admin\Views\Thongkephieutiem\Index1.cshtml" />
+    <Content Include="Areas\Admin\Views\Regis\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptralai\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Index1.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Edithd.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Detailhd.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Index1.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Edithd.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Detailhd.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserGroup\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\CreateMany.cshtml" />
+    <Content Include="Areas\Admin\Views\User\MultiDelete_Post.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Succcess.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuathuy\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptuncc\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptuncc\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptuncc\Fail1.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptralai\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptralai\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Dutru\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Dutru\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Dutru\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyetdutru\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyetdutru\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyetdutru\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyetdutru\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyetdutru\Index1.cshtml" />
+    <Content Include="Areas\Admin\Views\Capphat\CreateCT.cshtml" />
+    <Content Include="Areas\Admin\Views\Capphat\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Xuattralai\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptralai\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptralai\Edithd.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhaptralai\Detailhd.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Edithd.cshtml" />
+    <Content Include="Areas\Admin\Views\Nhapcapphat\Detailhd.cshtml" />
+    <Content Include="Areas\Admin\Views\Phieutiem\Success.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5017,12 +5086,16 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Home\Result.cshtml" />
+    <Content Include="Views\Home\Regis.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\EnterOTP.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Diemtiem\" />
-    <Folder Include="Areas\Admin\Views\Nhapcapphat\" />
+    <Folder Include="Assets\Admin\css\layout\" />
     <Folder Include="Assets\Admin\js\plugins\ckfinder\" />
     <Folder Include="Models\" />
   </ItemGroup>

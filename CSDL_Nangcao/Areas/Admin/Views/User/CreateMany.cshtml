@@ -1,0 +1,79 @@
+﻿@model List<Model1.EF.Nhanvien>
+@{
+    Layout = null;
+}
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    @using (Html.BeginForm("CreateMany", "User", FormMethod.Post))
+    {
+        <table class="table">
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.TextBox("nhanviens[" + @i + "].Manhanvien", Model[i].Manhanvien, new { @style = " height:70px"});
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.TextBox("nhanviens[" + @i + "].Trangthai", Model[i].Trangthai);
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="form-group">
+            <input type="submit" value="CreateMany" class="btn btn-default" />
+        </div>
+    }*@
+
+
+
+<form action="/Programe/Save_Mission" method="post">
+    <table>
+        <tr>
+            <td>
+                ID Mission :
+            </td>
+            <td>
+                <input id="Name_Mission" name="Name_Mission" type="text" value="0" />
+
+            </td>
+        </tr>
+
+        <tr>
+
+            <td>
+                Name Mission :
+            </td>
+            <td>
+                <input id="Name_Mission" name="Name_Mission" type="text" value="0" />
+
+            </td>
+        </tr>
+
+    </table>
+    <br />
+    <button type="button" id="btn_create_Mission" class="btn btn-success">CREATE PART MISSION</button>
+    <br />
+    <table id="Table_Missions">
+        <thead>
+            <tr>
+                <th>NAME PART MISSION</th>
+                <th>VALUE PART MISSION</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+    </table>
+    <input type="button" value="SAVE ALL" onclick="clickSubmit();" />
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+<script src="~/Assets/Admin/css/lib/combobox.js"></script>
+<script src="~/Assets/Admin/js/controller/userController.js"></script>

@@ -1,0 +1,230 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Model1.DTO.PhieudangkyDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Duyệt thông tin đăng ký
+    </b>
+}
+
+@section jsFooter{
+    <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Assets/Admin/css/lib/combobox.js"></script>
+    <script src="~/Assets/Admin/js/controller/regis.js"></script>
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+    <style>
+        /*.table-responsive {
+            height: 212px;
+        }*/
+    </style>
+    @{
+        DateTime date = DateTime.Today;
+        DateTime datedefault = Convert.ToDateTime("08/13/2000");
+        string dateformated = date.Day.ToString() + "/" + date.Month.ToString() + "/" + date.Year.ToString();
+    }
+</head>
+
+<body>
+    <div class="col-lg-offset-1 thuan-body-content">
+
+        <b class="panel-heading" style="color:coral; font-size:large">
+            Phân loại phiếu đăng ký
+        </b>
+        <hr />
+
+        <div class="panel-body">
+            @using (Html.BeginForm("Index", "Regis", FormMethod.Get))
+            {
+                <div class="form-group">
+                    <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                        Trạng thái:
+                        <select name="trangthai" id="trangthai" style="margin:0 18px 0 18px;height:35px;width:110px">
+                            <option value="0">Chưa duyệt</option>
+                            <option value="1">Đã duyệt</option>
+                            <option value="2">Đã xác nhận</option>
+                            <option value="3">Đã tiêm</option>
+                        </select>
+                        Mũi đăng ký:
+                        <select name="mui" id="mui" style="margin:0 18px 0 18px;height:35px;width:110px">
+                            <option value="0">Tất cả</option>
+                            <option value="1">Mũi đầu tiên</option>
+                            <option value="2">Mũi tiếp theo</option>
+                        </select>
+                        Nhóm ưu tiên:
+                        <select name="nhomdoituong" id="nhomdoituong" style="margin:0 18px 0 18px;height:35px;width:110px">
+                            <option value="0">Tất cả</option>
+                            <option value="2">Nhân viên y tế</option>
+                            <option value="3">Quân nhân</option>
+                            <option value="4">Giáo viên</option>
+                            <option value="5">Không</option>
+                        </select>
+                        vaccin lần 1:
+                        <select name="nhomdoituong" id="nhomdoituong" style="margin:0 18px 0 18px;height:35px;width:90px">
+                            <option value="0">Tất cả</option>
+                            <option value="2">AstraZeneca</option>
+                            <option value="3">Pfizer</option>
+                            <option value="4">Vero Cell</option>
+                        </select>
+                        <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 20px">Phân loại</button></p>
+                    </div>
+                </div>
+            }
+
+            <hr />
+        </div>
+
+        <div class="col-lg-pull-3" style="padding:10px">
+            <div class="section group" style="display:contents">
+                <b class="panel-heading" style="color:black; font-size:large">
+                    Danh sách phiếu đăng ký
+                </b>
+                <hr />
+                @*@if (Model.Count() > 0)
+                    {*@
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tên người dân</th>
+                                <th>Số CCCD</th>
+                                <th>SDT</th>
+                                @*<th>Ngày sinh</th>*@
+                                <th>Loại mũi đăng ký</th>
+                                <th style="width: 120px">Ngày mong muốn</th>
+                                <th>Buổi mong muốn</th>
+                                <th>Nhóm ưu tiên</th>
+                                @*<th>Trạng thái</th>*@
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model.Where(item => item != null))
+                                {
+                                    <tr id="row_@item.Sophieudangky">
+                                        @{//DateTime a = @item.Ngaymongmuon;*@
+                                            //string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                            //int i = 0;
+                                            //string btnadd = "btnAddEmployee" + i.ToString();
+                                            string btnadd = "btnAddEmployee" + item.Sophieudangky;
+                                            //i += 1;
+                                        }
+                                        <td>@item.Tennguoidan</td>
+                                        <td>@item.CCCD</td>
+                                        <td>@item.SDT</td>
+                                        <td>@item.Loaimui</td>
+                                        @*<td>@Html.Raw(b)</td>*@
+                                        <td>@item.Ngaymongmuon</td>
+                                        <td>@item.Buoimongmuon</td>
+                                        <td>@item.Tennhomuutien</td>
+
+                                        <td><a id="@Html.Raw(btnadd)" title="Sửa" class="btn btn-primary" style=" margin:0 0 0 16px"><i class="fas fa-pen"></i></a></td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    @foreach (var item in Model.Where(item => item != null))
+    {
+        string pop = "dlgPopup" + item.Sophieudangky;
+        string save = "btnSave" + item.Sophieudangky;
+        string close = "btnCloseDialog" + item.Sophieudangky;
+        string cancel = "btnCancel" + item.Sophieudangky;
+
+        <div id="@Html.Raw(pop)" class="m-dialog">
+            <div class="m-row">
+                <div class="m-popup" style="height: 400px; width: 931px ">
+                    <div class="m-popup-header">
+                        <div class="m-popup-header-title">Đóng Form thông tin chung</div>
+                        <div id="@Html.Raw(close)" class="m-popup-close"><i class="fas fa-times"></i></div>
+                        <hr />
+                    </div>
+                    <div class="m-popup-content">
+                        @using (Html.BeginForm("Create", "Regis", FormMethod.Post, new { style = " width: 931px" }))
+                        {
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Mã phiếu đăng ký:</label>
+                                    <p><input value="@item.Sophieudangky" name="malo" class="form-control" style="width:130px;margin:0 16px" readonly /></p>
+
+                                    <label style="margin-left:24px">Số điện thoại:</label>
+                                    <p><input value="@item.SDT" name="solieu" class="form-control" style="width:145px; margin:0 0px 0 19px" /></p>
+
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Trạng thái:</label>
+                                    <select class="form-group" name="machithinhietdo" id="machithinhietdo" style="margin:0 18px 0 18px;height:35px;width:175px">
+                                        <option value="ctnd001">Chưa duyệt</option>
+                                        <option value="ctnd002">Đã duyệt</option>
+                                        <option value="ctnd003">Đã xác nhận</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style="        margin-left: 24px;
+        width: 100px;">Họ và tên:</label>
+                                    <p><input value="@item.Tennguoidan" name="dongia" class="form-control" style="width:175px;margin-left: 15px;" /></p>
+
+                                    <label style=" margin-left:24px;width: 130px; box-sizing:border-box; flex-wrap:nowrap">Giới tính:</label>
+                                    <p><input value="@item.Gioitinh" name="slnhap" class="form-control" style="width:130px;margin:0 16px" /></p>
+
+                                    <label style="margin-left:24px;width: 157px">Ngày mong muốn:</label>
+                                    <p><input value="@item.Ngaymongmuon" type="text" name="hsd" class="form-control" style="width:99px; margin:0 41px" /></p>
+                                    @*@Html.ValidationMessage("HSD", "", "text-danger")*@
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" width: 100px; margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Loại mũi:</label>
+                                    @*<p>@Html.DropDownList("mavattu", null, new { @style = "width:130px; margin:0 16px 0 0px", @class = "form-control", @name = "mavattu" })</p>*@
+                                    <p><input value="@item.Loaimui" name="hs" class="form-control" style="width:130px; margin:0 16px 0 0px" /></p>
+
+                                    <label style="width: 130px;margin-left:24px">Tên vaccine lần 1:</label>
+                                    <p><input value="@item.Tenthuoc1" name="nsx" class="form-control" style="width:145px; margin-left: 13px;" /></p>
+                                    @*@Html.ValidationMessage("NSX", "", "text-danger")*@
+
+                                    <label style=" margin-left:65px;width: 90px; box-sizing:border-box; flex-wrap:nowrap">Phản ứng:</label>
+                                    <p><input value="@item.Phanungtiem1"  name="ns" class="form-control" style="width:145px; margin: 0 18px 0 18px" /></p>
+                                </div>
+                            </div>
+
+                            <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
+                        align-items: center; justify-content: end; margin:49px 0 0 0; width:929px">
+                                <button id="@Html.Raw(cancel)" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
+                                <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm mới</button>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</body>

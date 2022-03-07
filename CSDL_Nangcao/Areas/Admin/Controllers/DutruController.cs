@@ -1,5 +1,6 @@
 ﻿using Model1;
 using Model1.Dao;
+using Model1.DTO;
 using Model1.EF;
 using System;
 using System.Collections.Generic;
@@ -14,27 +15,40 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         CSDL_NangcaoDbContext db = new CSDL_NangcaoDbContext();
 
         [HasCredential(RoleID = "DUTRU")]
-        public ActionResult Index(string searchString, string madt = "", string mathuoc = "", string matt = "")
+        public ActionResult Index(string searchString, string mathuoc = "")
         {
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+
             var dao1 = new PhieulinhDao();
             var dao2 = new DonglinhDao();
+            var dao3 = new VattuyteDao();
 
-            var model1 = dao1.ListAllPaging(searchString, madt);
+            long sldonghoadon = dao1.Sldong() + 1;
+            string mahoadonauto = "pl00" + sldonghoadon.ToString();
+            if (sldonghoadon > 9)
+            {
+                mahoadonauto = "pl0" + sldonghoadon.ToString();
+            }
+
+            var model1 = dao1.ListAllPaging(searchString, session.Madiemtiem);
             var model2 = dao2.ListAllPaging(mathuoc);
+            var model3 = dao3.ListAllPaging1();
 
             ModelCollection model = new ModelCollection();
 
             model.PhieulinhDTOs = model1;
             model.DonglinhDTOs = model2;
+            model.Vattuytes = model3;
 
             var madts = from c in db.Diemtiems select c;
             var mathuocs = from p in db.Vattuytes select p;
             var matts = from q in db.Trangthais select q;
 
-            ViewBag.madt = new SelectList(madts, "Madiemtiem", "Tendiemtiem"); // danh sách diem tiem
-            ViewBag.mathuoc = new SelectList(mathuocs, "Mavattu", "Tenvattu"); // danh sách thuoc
-            ViewBag.matt = new SelectList(matts, "Matrangthai", "Tentrangthai"); // danh sách thuoc
+            ViewBag.madt = new SelectList(madts, "Madiemtiem", "Tendiemtiem");
+            ViewBag.mathuoc = new SelectList(mathuocs, "Mavattu", "Tenvattu");
+            ViewBag.matt = new SelectList(matts, "Matrangthai", "Tentrangthai");
             ViewBag.SearchString = searchString;
+            ViewBag.mahoadonauto = mahoadonauto;
             return View(model);
         }
 
@@ -42,7 +56,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         public ActionResult Index1(string searchString, string madt = "", string matt = "")
         {
             var dao1 = new PhieulinhDao();
-            var model = dao1.ListAllPaging1(searchString, madt);
+            var model = dao1.ListAllPaging1(searchString);//, madt);
             var madts = from c in db.Diemtiems select c;
             var matts = from q in db.Trangthais select q;
             ViewBag.madt = new SelectList(madts, "Madiemtiem", "Tendiemtiem"); // danh sách diem tiem
@@ -163,32 +177,68 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var pr = dao.ViewDetail(id);
 
             var dao1 = new DonglinhDao();
-            var model = dao1.ListAllPagingWithSohd(pr);
+            var model = dao1.ListAllPagingWithSohd(pr.Sophieulinh);
             return View(model);
 
         }
 
-        [HttpGet]
-        public ActionResult Payment()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Payment(string sophieu, string madt, string manv, DateTime ngayyc, string matt)
+        [ActionName("MultiDelete")]
+        public ActionResult MultiDelete_Post(IEnumerable<int> dsslhuy, string sophieu, string manv)//, string ghichu
         {
-            //try
-            //{
-                var id1 = new PhieulinhDao().Insert1(sophieu, madt, manv, ngayyc, matt);
-                //if (id1 == null)
-                //    return Redirect("/loi-thanh-toan");
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Redirect("/loi-thanh-toan");
-            //}
+            var dao1 = new Donglinh();
+            var dao3 = new VattuyteDao();
+            var model3 = dao3.ListAllPaging("");
+            int[] arr = new int[100];
+            int i = 0, j = 0, k = 0;
 
-            return Redirect("/hoan-thanh");
+            foreach (var item in dsslhuy)
+            {
+                arr[i] = item;
+                k += arr[i];
+                i += 1;
+            }
+
+            foreach (var item in model3)
+            {
+                if ( arr[j] < 0)
+                {
+                    ModelState.AddModelError("", "Thêm phiếu dự trù không thành công");
+                    return RedirectToAction("Fail", "Dutru");
+                }
+                j += 1;
+            }
+            if (k == 0)
+            {
+                return RedirectToAction("Fail0", "Dutru");
+            }
+            j = 0;
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            var order = new Phieulinh();
+            order.Sophieulinh = sophieu;
+            order.Manhanvien = manv;
+            order.Ngayyeucau = DateTime.Now;
+            order.Madiemtiem = session.Madiemtiem;
+            order.Matt = "tt001";
+            order.Manhanvien = session.UserID;
+
+            var id3 = new PhieulinhDao().Insert(order);
+
+            foreach (var item in model3)
+            {
+                string madxhauto = "dl" + item.Mavattu.ToString().Substring(2) + sophieu.ToString().Substring(2);
+                var dx = new Donglinh();
+                dx.Madonglinh = madxhauto;
+                dx.Sophieulinh = sophieu;
+                dx.Mathuoc = item.Mavattu;
+                dx.SLyeucau = arr[j];
+                j += 1;
+                var id = new DonglinhDao().Insert(dx);
+            }
+
+            //new Phieulinh().Deleteslxuat0(sophieu);
+            //db.SaveChanges();
+            return View("~/Areas/Admin/Views/Dutru/Success.cshtml");
         }
 
         public void SetViewBag(string selectedId = "")
@@ -199,16 +249,28 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
         public void SetViewBaghd(string selectedId = "", string selectedId1 = "")
         {
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
             var dao = new DiemtiemDao();
             var dao1 = new TrangthaiDao();
-            ViewBag.Madiemtiem = new SelectList(dao.ListAll(), "Madiemtiem", "Tendiemtiem", selectedId); // danh sách diem tiem
-            ViewBag.Matt = new SelectList(dao1.ListAll(), "Matrangthai", "Tentrangthai", selectedId1); // danh sách diem tiem
+            ViewBag.Madiemtiem = new SelectList(dao.ListAll(), "Madiemtiem", "Tendiemtiem", selectedId);
+            ViewBag.Matt = new SelectList(dao1.ListAll(), "Matrangthai", "Tentrangthai", selectedId1);
+            //ViewBag.Madiemtiem = new SelectList(dao.ListAll(), "Madiemtiem", "Tendiemtiem", selectedId);
+            //ViewBag.Matt = new SelectList(dao1.ListAll(), "Matrangthai", "Tentrangthai", selectedId1);
         }
-
 
         public ActionResult Success()
         {
-            return View("~/Areas/Admin/Views/Nhaptuncc/Success.cshtml");
+            return View("~/Areas/Admin/Views/Dutru/Success.cshtml");
+        }
+
+        public ActionResult Fail()
+        {
+            return View("~/Areas/Admin/Views/Dutru/Fail.cshtml");
+        }
+
+        public ActionResult Fail0()
+        {
+            return View("~/Areas/Admin/Views/Dutru/Fail0.cshtml");
         }
     }
 }

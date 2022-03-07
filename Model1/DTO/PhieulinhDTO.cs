@@ -10,13 +10,20 @@ namespace Model1.DTO
     {
         public string Sophieulinh { get; set; }
 
-        public DateTime? Ngayyeucau { get; set; }
+        public DateTime Ngayyeucau { get; set; }
+        //DateTime?
 
         public string Manhanvien { get; set; }
 
         public string Madiemtiem { get; set; }
 
         public string Tendiemtiem { get; set; }
+
+        public string Tenquan { get; set; }
+
+        public string Tenphuong { get; set; }
+
+        public string Tenthanhpho { get; set; }
 
         public string Matt { get; set; }
 

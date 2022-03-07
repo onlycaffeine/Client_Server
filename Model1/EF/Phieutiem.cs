@@ -28,7 +28,7 @@ namespace Model1.EF
         [StringLength(20)]
         public string SDT { get; set; }
 
-        public DateTime? Ngaysinh { get; set; }
+        public DateTime Ngaysinh { get; set; } //public DateTime? Ngaysinh { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chitietphhieutiem> Chitietphhieutiems { get; set; }

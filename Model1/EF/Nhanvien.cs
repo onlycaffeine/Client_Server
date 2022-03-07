@@ -16,6 +16,9 @@ namespace Model1.EF
         [StringLength(100)]
         public string Tennhanvien { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? Ngaysinh { get; set; }
+
         [StringLength(20)]
         public string Chucvu { get; set; }
 
@@ -31,7 +34,7 @@ namespace Model1.EF
         [StringLength(55)]
         public string Email { get; set; }
 
-        public bool? Trangthai { get; set; }
+        public bool Trangthai { get; set; } // fix here
 
         [StringLength(50)]
         public string Matkhau { get; set; }

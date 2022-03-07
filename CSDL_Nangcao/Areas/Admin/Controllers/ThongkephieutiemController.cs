@@ -29,6 +29,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //var model = dao.ListAllPagingQG(matp, maquan, map, a, b, khuvuc, maquyen);
             var model = dao.ListAllPagingQG(session.Matp, session.Maquan, session.Maphuong, a, b, khuvuc, session.Maquyen);
             //Session["maquyen"] = session.Maquyen;
+            ViewBag.Maquyen = session.Maquyen;
             ViewBag.khuvuc = khuvuc;
             //ViewBag.a = a;
             //ViewBag.b = b;

@@ -1,0 +1,84 @@
+﻿@model Model1.EF.Dongxuathuy
+
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Chi tiết phiếu hủy
+    </b>
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+</head>
+<body>
+
+    <div class="row">
+
+        <div class="col-lg-pull-3 thuan-body-content">
+
+            @using (Html.BeginForm("Edit", "Xuathuy", FormMethod.Post))
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(Model => Model.Madongxuathuy)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-horizontal" style="width:250px">
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Mã dòng xuất hủy</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Madongxuathuy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Madongxuathuy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Mã phiếu xuất hủy</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Maphieuxuathuy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Maphieuxuathuy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Mã lô</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Malo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Malo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lable-thuan">Số lượng xuất</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Slxuat, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Slxuat, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Cập nhật" class="btn btn-primary" style=" margin:10px 0 0 0" />
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Quay lại phiếu hủy", "Index")
+    </div>
+
+
+</body>
+</html>

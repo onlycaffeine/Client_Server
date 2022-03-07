@@ -12,7 +12,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            //string model = new VattuyteDao().GetIDByMaxMaLoai();
+            string model = new VattuyteDao().GetIDByMaxMaLoai();
             //ViewBag.soluong = model;
             ViewBag.soluong1 = 1;
             ViewBag.soluong = 0;

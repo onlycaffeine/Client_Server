@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Nhập từ nhà cung cấp
+    </b>
+}
+
+<div class="alert alert-danger" style="width:428px">
+    Bạn cần thêm lô mới trước khi thêm phiếu nhập !
+</div>
+
+<div>
+    @Html.ActionLink("Quay lại", "Index")
+</div>

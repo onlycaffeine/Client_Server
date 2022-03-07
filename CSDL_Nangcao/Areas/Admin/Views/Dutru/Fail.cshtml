@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Phiếu dự trù vaccine
+    </b>
+}
+
+<div class="alert alert-danger" style="width:410px">
+    Số lượng không hợp lệ, thêm phiếu thất bại.
+</div>
+<div>
+    @Html.ActionLink("Quay lại", "Index")
+</div>

@@ -19,9 +19,14 @@ namespace Model1.EF
         [StringLength(10)]
         public string Malo { get; set; }
 
-        public int? SLxuat { get; set; }
+        public int SLxuat { get; set; }
+
+        public int SLnhap { get; set; }
 
         public int? Dongia { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime HSD { get; set; } //DateTime?
 
         public int? Thanhtien { get; set; }
 

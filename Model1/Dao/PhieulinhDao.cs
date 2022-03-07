@@ -17,6 +17,17 @@ namespace Model1.Dao
         {
             db = new CSDL_NangcaoDbContext();
         }
+        public long Sldong()
+        {
+            long a = db.Phieulinhs.LongCount();
+            return a;
+        }
+
+        public string GetMadt(string id)
+        {
+            var pl = db.Phieulinhs.Find(id);
+            return pl.Madiemtiem;
+        }
 
         public string Insert(Phieulinh order)
         {
@@ -95,6 +106,25 @@ namespace Model1.Dao
 
         }
 
+        public bool Updateghichu(string sophieu, string manv2)
+        {
+            try
+            {
+                var pr = db.Phieulinhs.Find(sophieu);
+                //pr.Ghichu = ghichu;
+                pr.Matt = "tt002";
+                //pr.Ngayyeucau = DateTime.Now;
+                pr.Manhanvien = manv2;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //logging
+                return false;
+            }
+        }
+
         //public bool Deletephieulinh(string id)
         //{
         //    try
@@ -124,13 +154,21 @@ namespace Model1.Dao
             return db.Phieulinhs.Find(id);
         }
 
+        public string ViewDetailTenDiemtiem(string id)
+        {
+            var pr = db.Phieulinhs.Find(id);
+            string id1 = pr.Madiemtiem;
+            var pr1 = db.Diemtiems.Find(id1);
+            return pr1.Tendiemtiem;
+        }
+
         public IEnumerable<PhieulinhDTO> ListAllPaging(string searchString, string Madt)
         {
             List<PhieulinhDTO> listLinks = new List<PhieulinhDTO>();
 
             var model = from l in db.Phieulinhs
                         join c in db.Diemtiems on l.Madiemtiem equals c.Madiemtiem
-                        where l.Matt == "tt001" || l.Matt == "tt03"
+                        where  l.Madiemtiem == Madt //l.Matt == "tt001" || l.Matt == "tt03" &&
                         select new { l.Sophieulinh, l.Ngayyeucau, l.Manhanvien, l.Madiemtiem, c.Tendiemtiem, l.Matt };
 
             if (!string.IsNullOrEmpty(searchString))
@@ -150,18 +188,21 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Madiemtiem);
+            return listLinks.OrderByDescending(x => x.Ngayyeucau);
         }
 
-        public IEnumerable<PhieulinhDTO> ListAllPaging1(string searchString, string Madt)
+        public IEnumerable<PhieulinhDTO> ListAllPaging1(string searchString)//, string Madt)
         {
             List<PhieulinhDTO> listLinks = new List<PhieulinhDTO>();
 
             var model = from l in db.Phieulinhs
                         join c in db.Diemtiems on l.Madiemtiem equals c.Madiemtiem
-                        //join k in db.Donglinhs on l.Sophieulinh equals k.Sophieulinh
+                        join z in db.Phuongs on c.Maphuong equals z.Maphuong
+                        join x in db.Quans on z.Maquan equals x.Maquan
+                        join t in db.Thanhphoes on x.Mathanhpho equals t.Mathanhpho
                         join p in db.Trangthais on l.Matt equals p.Matrangthai
-                        select new { l.Sophieulinh, l.Ngayyeucau, l.Manhanvien, l.Madiemtiem, c.Tendiemtiem, p.Tentrangthai, l.Matt };
+                        where p.Matrangthai == "tt001"
+                        select new { l.Sophieulinh, l.Ngayyeucau, l.Manhanvien, l.Madiemtiem, c.Tendiemtiem, p.Tentrangthai, l.Matt, t.Tenthanhpho, x.Tenquan, z.Tenphuong };
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -178,6 +219,46 @@ namespace Model1.Dao
                 temp.Tendiemtiem = item.Tendiemtiem;
                 temp.Tentt = item.Tentrangthai;
                 temp.Matt = item.Matt;
+                temp.Tenphuong = item.Tenphuong;
+                temp.Tenquan = item.Tenquan;
+                temp.Tenthanhpho = item.Tenthanhpho;
+                listLinks.Add(temp);
+            }
+
+            return listLinks.OrderByDescending(x => x.Madiemtiem);
+        }
+
+        public IEnumerable<PhieulinhDTO> ListAllPaging3(string searchString)//, string Madt)
+        {
+            List<PhieulinhDTO> listLinks = new List<PhieulinhDTO>();
+
+            var model = from l in db.Phieulinhs
+                        join c in db.Diemtiems on l.Madiemtiem equals c.Madiemtiem
+                        join z in db.Phuongs on c.Maphuong equals z.Maphuong
+                        join x in db.Quans on z.Maquan equals x.Maquan
+                        join t in db.Thanhphoes on x.Mathanhpho equals t.Mathanhpho
+                        join p in db.Trangthais on l.Matt equals p.Matrangthai
+                        where p.Matrangthai == "tt001"
+                        select new { l.Sophieulinh, l.Ngayyeucau, l.Manhanvien, l.Madiemtiem, c.Tendiemtiem, p.Tentrangthai, l.Matt, t.Tenthanhpho, x.Tenquan, z.Tenphuong };
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.Tendiemtiem.Contains(searchString.Substring(7)) || x.Tendiemtiem.Contains(searchString.Substring(7)));
+            }
+
+            foreach (var item in model)
+            {
+                PhieulinhDTO temp = new PhieulinhDTO();
+                temp.Sophieulinh = item.Sophieulinh;
+                temp.Ngayyeucau = item.Ngayyeucau;
+                temp.Manhanvien = item.Manhanvien;
+                temp.Madiemtiem = item.Madiemtiem;
+                temp.Tendiemtiem = item.Tendiemtiem;
+                temp.Tentt = item.Tentrangthai;
+                temp.Matt = item.Matt;
+                temp.Tenphuong = item.Tenphuong;
+                temp.Tenquan = item.Tenquan;
+                temp.Tenthanhpho = item.Tenthanhpho;
                 listLinks.Add(temp);
             }
 

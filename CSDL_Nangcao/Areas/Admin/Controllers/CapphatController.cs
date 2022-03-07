@@ -14,12 +14,21 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         CSDL_NangcaoDbContext db = new CSDL_NangcaoDbContext();
 
         [HasCredential(RoleID = "XUAT_CP")]
-        public ActionResult Index(string searchString, string a = "", string b = "", string madt = "", string makho = "", string matt = "")
+        public ActionResult Index(string searchString, string a = "", string b = "", string madt = "", string sophieu = "")
         {
             var dao1 = new PhieuxuatDao();
             var dao2 = new DongxuatDao();
+            var dao3 = new LoDao();
+            var dao4 = new PhieulinhDao();
 
-            var model1 = dao1.ListAllPaging(searchString, a, b, madt, makho, matt);
+            long sldonghoadon = dao1.Sldong() + 1;
+            string mahoadonauto = "px00" + sldonghoadon.ToString();
+            if (sldonghoadon > 9)
+            {
+                mahoadonauto = "px0" + sldonghoadon.ToString();
+            }
+
+            var model1 = dao1.ListAllPaging(searchString, a, b);
             var model2 = dao2.ListAllPagingWithoutSohd(searchString);
 
             ModelCollection model = new ModelCollection();
@@ -27,38 +36,21 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             model.PhieuxuatDTOs = model1;
             model.Dongxuats = model2;
 
-            var dts = from c in db.Diemtiems select c;
-            var khoes = from k in db.Khoes select k;
-            var tts = from u in db.Tinhtrangpxes select u;
-            ViewBag.dt = new SelectList(dts, "Madiemtiem", "Tendiemtiem"); // danh sách diem tiem
-            ViewBag.kho = new SelectList(khoes, "Makho", "Tenkho"); // danh sách kho
-            ViewBag.tt = new SelectList(tts, "Matinhtrang", "Tentinhtrang"); // danh sách tt
-
+            var nguons = from n in db.Phieulinhs where n.Matt == "tt002" select n;
+            
+            ViewBag.nguon = new SelectList(nguons, "Sophieulinh", "Sophieulinh");
+            ViewBag.mahoadonauto = mahoadonauto;
             ViewBag.SearchString = searchString;
+
+            //var pr = dao4.ViewDetail(sophieu);
+
             return View(model);
         }
-
-        [HasCredential(RoleID = "NHAP_CP")]
-        public ActionResult Index1(string searchString, string a = "", string b = "", string madt = "", string makho = "", string matt = "")
-        {
-            var dao1 = new PhieuxuatDao();
-            var model1 = dao1.ListAllPaging(searchString, a, b, madt, makho, matt);
-
-            var dts = from c in db.Diemtiems select c;
-            var khoes = from k in db.Khoes select k;
-            var tts = from u in db.Tinhtrangpxes select u;
-            ViewBag.dt = new SelectList(dts, "Madiemtiem", "Tendiemtiem"); // danh sách diem tiem
-            ViewBag.kho = new SelectList(khoes, "Makho", "Tenkho"); // danh sách kho
-            ViewBag.tt = new SelectList(tts, "Matinhtrang", "Tentinhtrang"); // danh sách tt
-
-            ViewBag.SearchString = searchString;
-            return View(model1);
-        }
-
 
         [HttpGet]
         public ActionResult Create()
         {
+            
             //SetViewBag();
             return View();
         }
@@ -84,6 +76,63 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             return View("Index");
         }
 
+        [HttpGet]
+        public ActionResult CreateCT(string nguon)
+        {
+            nguon = Request["nguon"];
+            var loes = from l in db.Loes where l.SLnhap > 0 select l;
+            //var tenthuocs = from m in db.Vattuytes select m;
+
+            var dao1 = new PhieulinhDao();
+            var dao2 = new LoDao();
+            var dao3 = new DongxuatDao();
+            var dao4 = new DonglinhDao();
+
+            var model2 = dao2.ListAllPaging1("", "");
+            var model3 = dao3.ListAllPagingWithoutSohd("");
+            var model4 = dao4.ListAllPagingWithSohd(nguon);
+
+            ModelCollection model = new ModelCollection();
+
+            model.DonglinhDTOs = model4;
+            model.LoDTOs = model2;
+            model.Dongxuats = model3;
+
+            long sldonglo = dao3.Sldong() + 1;
+            string maloauto = "dx00" + sldonglo.ToString();
+            if (sldonglo > 9)
+            {
+                maloauto = "dx0" + sldonglo.ToString();
+            }
+
+            string pr = dao1.ViewDetailTenDiemtiem(nguon);
+            Session["sophieudutru"] = nguon;
+            Session["tendiemtiem"] = pr;
+            ViewBag.maloauto = maloauto;
+            ViewBag.malo = new SelectList(loes, "Malo", "Malo");
+            //ViewBag.tenthuoc = new SelectList(tenthuocs, "Mavattu", "Tenvattu");
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateCT(string madx, string malo, int slxuat, Dongxuat order)
+        {
+            order.Malo = malo;
+            order.SLxuat = slxuat;
+            order.Madongxuat = madx;
+
+            try
+            {
+                var id3 = new DongxuatDao().Insert(order);
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/loi-thanh-toan");
+            }
+
+            return RedirectToAction("Index", "Capphat");
+        }
+
         [HttpDelete]
         public ActionResult Delete(string id)
         {
@@ -103,7 +152,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         {
             var dao = new DongxuatDao();
             var pr = dao.ViewDetail(id);
-            //SetViewBag(pr.Mathuoc);
             return View(pr);
         }
 
@@ -116,7 +164,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 var result = dao.Update(pr);
                 if (result)
                 {
-                    ModelState.AddModelError("", "Update lô sản phẩm thành công");
+                    ModelState.AddModelError("", "Update lô xuất thành công");
                     return RedirectToAction("Index", "Capphat");
                 }
                 else
@@ -124,7 +172,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Cập nhật lô sản phẩm không thành công");
                 }
             }
-            //SetViewBag(pr.Mathuoc);
             return View("Index");
         }
 
@@ -176,19 +223,22 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Payment(string sophieu, string dt, string kho, string manv, DateTime ngayxuat, string tt)
+        public ActionResult Payment(string sophieux, string sophieudutru)
         {
+            var dao = new PhieulinhDao();
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
             var order = new Phieuxuat();
-            order.Sophieuxuat = sophieu;
-            order.Madiemtiem = dt;
-            order.Manhanvien = manv;
-            order.Makhoxuat = kho;
-            order.Ngayxuat = ngayxuat;
-            order.Matinhtrang = tt;
+            order.Sophieuxuat = sophieux;
+            order.Ngayxuat = DateTime.Now;
+            order.Manhanvien = session.UserID;
+            order.Matinhtrang = "tt001";
+            order.Madiemtiem = dao.GetMadt(sophieudutru);
+            var pr = dao.ViewDetail(sophieudutru);
+            pr.Matt = "tt003";
             try
             {
-                var id3 = new PhieuxuatDao().Insert(order);
-                var c = new DongxuatDao().Update1(ref id3);
+                var cc = new PhieuxuatDao().Insert(order);
+                var c = new DongxuatDao().Update1(ref cc);
                 if (c == false)
                     return Redirect("/loi-thanh-toan");
             }
@@ -197,14 +247,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 return Redirect("/loi-thanh-toan");
             }
 
-            return Redirect("/hoan-thanh");
+            return View("~/Areas/Admin/Views/Capphat/Success.cshtml");
         }
-
-        //public void SetViewBag(string selectedId = "")
-        //{
-        //    var dao = new VattuyteDao();
-        //    ViewBag.Mathuoc = new SelectList(dao.ListAll(), "Mavattu", "Tenvattu", selectedId);
-        //}
 
         public void SetViewBaghd(string selectedId = "", string selectedId1 = "", string selectedId2 = "")
         {
@@ -219,7 +263,17 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
         public ActionResult Success()
         {
-            return View("~/Areas/Admin/Views/Nhaptuncc/Success.cshtml");
+            return View("~/Areas/Admin/Views/Capphat/Success.cshtml");
+        }
+
+        public ActionResult Fail()
+        {
+            return View("~/Areas/Admin/Views/Capphat/Fail.cshtml");
+        }
+
+        public ActionResult Fail0()
+        {
+            return View("~/Areas/Admin/Views/Capphat/Fail0.cshtml");
         }
     }
 }

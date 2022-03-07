@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using Model1.DTO;
 using Model1.EF;
 
 namespace Model1.Dao
@@ -60,15 +61,42 @@ namespace Model1.Dao
 
         }
 
-        public IEnumerable<Nhanvien> ListAllPaging(string searchString, int page, int pageSize)
+        public IEnumerable<NhanvienDTO> ListAllPaging(string searchString, int page, int pageSize)
         {
-            IQueryable<Nhanvien> model = db.Nhanviens;
+            List<NhanvienDTO> listLinks = new List<NhanvienDTO>();
+            var model = from a in db.Nhanviens
+                        join b in db.Nhomnhanviens on a.Manhom equals b.Manhomnv
+                        select new {a.Manhanvien,a.Tennhanvien,a.Taikhoan,a.Ngaysinh,a.SDT,
+                            b.Tennhomnv,a.Trangthai,a.Manhom,a.Matkhau,a.Madiemtiem};
             if (!string.IsNullOrEmpty(searchString))
             {
                 model = model.Where(x => x.Tennhanvien.Contains(searchString) || x.Tennhanvien.Contains(searchString));
             }
+            foreach (var item in model)
+            {
+                NhanvienDTO temp = new NhanvienDTO();
+                temp.Manhanvien = item.Manhanvien;
+                temp.Tennhanvien = item.Tennhanvien;
+                temp.Taikhoan = item.Taikhoan;
+                temp.Ngaysinh = item.Ngaysinh;
+                temp.SDT = item.SDT;
+                temp.Tennhom = item.Tennhomnv;
+                temp.Madiemtiem = item.Madiemtiem;
+                temp.Matkhau = item.Matkhau;
+                temp.Trangthai = item.Trangthai;
+                listLinks.Add(temp);
+            }
 
-            return model.OrderByDescending(x => x.Chucvu);//.ToPagedList(page, pageSize);
+            return listLinks.OrderByDescending(x => x.Manhanvien);
+
+
+            //IQueryable<Nhanvien> model = db.Nhanviens;
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    model = model.Where(x => x.Tennhanvien.Contains(searchString) || x.Tennhanvien.Contains(searchString));
+            //}
+
+            //return model.OrderByDescending(x => x.Chucvu);//.ToPagedList(page, pageSize);
         }
 
         public Nhanvien GetById(string userName)
@@ -147,7 +175,7 @@ namespace Model1.Dao
 
             }
 
-            public bool? ChangeStatus(long id)
+            public bool ChangeStatus(string id)
             {
                 var user = db.Nhanviens.Find(id);
                 user.Trangthai = !user.Trangthai;
