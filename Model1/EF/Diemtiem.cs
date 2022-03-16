@@ -29,6 +29,9 @@ namespace Model1.EF
         public string Tennguoidungdau { get; set; }
 
         [StringLength(10)]
+        public string Mathanhpho { get; set; }
+
+        [StringLength(10)]
         public string Maquan { get; set; }
 
         [StringLength(20)]
@@ -39,6 +42,8 @@ namespace Model1.EF
 
         [StringLength(50)]
         public string Diachi { get; set; }
+
+        public bool Trangthai { get; set; } // fix here
 
         public int? Sobantiem { get; set; }
 

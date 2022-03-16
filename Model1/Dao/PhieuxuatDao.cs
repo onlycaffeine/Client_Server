@@ -22,6 +22,20 @@ namespace Model1.Dao
             return a;
         }
 
+        public long Sldongchuanhap()
+        {
+            var model = from l in db.Phieuxuats where l.Matinhtrang == "tt001" select new { l.Sophieuxuat, };
+            long a = model.LongCount();
+            return a;
+        }
+
+        public long Slduyet()
+        {
+            var model = from l in db.Phieulinhs where l.Matt == "tt002" select new { l.Sophieulinh, };
+            long a = model.LongCount();
+            return a;
+        }
+
         public string Insert(Phieuxuat order)
         {
             db.Phieuxuats.Add(order);
@@ -153,7 +167,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Ngayxuat);
+            return listLinks.OrderByDescending(x => x.Ngayxuat).ThenByDescending(x => x.Sophieuxuat);
         }
 
 
@@ -210,7 +224,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Ngayxuat);
+            return listLinks.OrderByDescending(x => x.Ngayxuat).ThenByDescending(x => x.Sophieuxuat);
         }
     }
 }

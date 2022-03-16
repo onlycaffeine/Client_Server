@@ -12,11 +12,20 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            string model = new VattuyteDao().GetIDByMaxMaLoai();
-            //ViewBag.soluong = model;
-            ViewBag.soluong1 = 1;
-            ViewBag.soluong = 0;
-            ViewBag.soluong3 = 3;
+
+            long sllohethan = new LoDao().sllohethan();
+            long sllosaphethan = new LoDao().sllosaphethan();
+            long slduyet = new PhieuxuatDao().Slduyet();
+            long slpx = new PhieuxuatDao().Sldongchuanhap();
+            long sltl = new TralaiDao().Sldongchuanhap();
+            ViewBag.sllohethan = sllohethan;
+            ViewBag.sllosaphethan = sllosaphethan;
+            ViewBag.slduyet = slduyet;
+            ViewBag.slpx = slpx;
+            ViewBag.sltl = sltl;
+
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            ViewBag.Maquyen = session.Maquyen;
             return View();
         }
 

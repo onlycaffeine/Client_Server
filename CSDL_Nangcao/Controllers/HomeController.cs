@@ -36,8 +36,11 @@ namespace CSDL_Nangcao.Controllers
                 sltiems[i - 1] = dao.Sltiem(i);
             }
 
+            int sltiem1 = dao.Sltiem1("tp001");
+
             ViewBag.SearchString = searchString;
             ViewBag.sltiem = sltiems;
+            ViewBag.sltiem1 = sltiem1;
             return View(model);
         }
 
@@ -101,9 +104,9 @@ namespace CSDL_Nangcao.Controllers
             foreach (var item in checkts)
             {
                 if(item == 0)
-                    arr1[n] = "tt001";
-                else
                     arr1[n] = "tt002";
+                else
+                    arr1[n] = "tt001";
                 n += 1;
             }
 
@@ -156,7 +159,10 @@ namespace CSDL_Nangcao.Controllers
             order.Tenthuoc1 = tenvc1;
             order.Malo1 = malo1;
             order.Diadiemtiem1 = diemtiem1;
-            order.Phanungtiem1 = phanung;
+            if (!string.IsNullOrEmpty(phanung))
+                order.Phanungtiem1 = "khong co gi";
+            else
+                order.Phanungtiem1 = phanung;
             order.Matrangthai = "tt001";
 
 

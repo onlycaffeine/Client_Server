@@ -68,15 +68,17 @@
                             "Quảng Ninh",
                             "Vĩnh Phúc",
                             "Huế",
-                            "Hồ Chí Minh",
+                            "Thanh Hóa",
                             "Đà Nẵng",
                             "Nghệ An",
+
                         ],
                         datasets: [{
                             label: "Đã tiêm",
-                            data: [100, 75, 55, 11, 90, 65, 40],
-                            backgroundColor: ["#669911", "#119966", "#669911", "#119966", "#669911", "#119966", "#669911"],
-                            hoverBackgroundColor: ["#66A2EB", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56"]
+                            data: [@ViewBag.sltiem1, 1, 1, 1, 1, 1, 1],
+                            backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
+                            hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
+                            //hoverBackgroundColor: ["#119966", "#119966", "#119966", "#119966", "#119966", "#119966", "#119966"]
                         }]
                     };
 
@@ -87,7 +89,7 @@
                             scales: {
                                 xAxes: [{
                                     ticks: {
-                                        min: 10
+                                        min: 1
                                     }
                                 }],
                                 yAxes: [{
@@ -109,19 +111,21 @@
                     var MeSeContext = document.getElementById("MeSeStatusCanvas").getContext("2d");
                     var MeSeData = {
                         labels: [
-                            "Hà Nội",
-                            "Quảng Ninh",
-                            "Vĩnh Phúc",
-                            "Huế",
                             "Hồ Chí Minh",
-                            "Đà Nẵng",
-                            "Nghệ An",
+                            "Quảng Bình",
+                            "Lạng Sơn",
+                            "Hòa Bình",
+                            "Hà Giang",
+                            "Cao Bằng",
+                            "Phú Thọ",
                         ],
                         datasets: [{
                             label: "Đã tiêm",
-                            data: [100, 75, 55, 11, 90, 65, 40],
-                            backgroundColor: ["#669911", "#119966", "#669911", "#119966", "#669911", "#119966", "#669911"],
-                            hoverBackgroundColor: ["#66A2EB", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56", "#FCCE56"]
+                            data: [1, 1, 1, 1, 1, 1, 1],
+                            backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
+                            hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
+                            //backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
+                            //hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
                         }]
                     };
 

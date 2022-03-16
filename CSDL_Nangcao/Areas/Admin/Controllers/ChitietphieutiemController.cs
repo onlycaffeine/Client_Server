@@ -77,10 +77,11 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             else
             {
                 ModelState.AddModelError("", "Cập nhật chi tiết phiếu tiêm không thành công");
+
             }
 
-            //SetViewBag(pr.CategoryID);
-            return View("Index");
+            ////SetViewBag(pr.CategoryID);
+            return RedirectToAction("Index", "Phieutiem");
         }
     }
 }

@@ -17,6 +17,75 @@ namespace Model1.Dao
             db = new CSDL_NangcaoDbContext();
         }
 
+        public bool Checktk(string tk) // trung -> true
+        {
+            var model = from a in db.Nhanviens where a.Taikhoan == tk select new { a.Manhanvien };
+            if (model.LongCount() > 0)
+                return true;
+            return false;
+        }
+
+        public string Maphuongdk(string ten)
+        {
+            if (ten.Length > 7)
+            {
+                var p = db.Phuongs.SingleOrDefault(x => x.Tenphuong == ten.Substring(7));
+                return p.Maphuong;
+            }
+
+            else
+            {
+                return ten;
+            }
+        }
+
+        public string Maquandk(string ten)
+        {
+            if (ten.Length > 7)
+            {
+                var p = db.Quans.SingleOrDefault(x => x.Tenquan == ten.Substring(5));
+                return p.Maquan;
+            }
+
+            else
+            {
+                return ten;
+            }
+        }
+
+        public string Matpdk(string ten)
+        {
+            if (ten.Length > 7)
+            {
+                var p = db.Thanhphoes.SingleOrDefault(x => x.Tenthanhpho == ten.Substring(10));
+                return p.Mathanhpho;
+            }
+            else
+            {
+                return ten;
+            }
+        }
+
+        public string Madtdk(string ten)
+        {
+            if (ten[0] == 'd' && ten[1] == 't')
+            {
+                return ten;
+            }
+            else
+            {
+                var p = db.Diemtiems.SingleOrDefault(x => x.Tendiemtiem == ten);
+                return p.Madiemtiem;
+            }
+
+        }
+
+        public long Sldong()
+        {
+            long a = db.Nhanviens.LongCount();
+            return a;
+        }
+
         public string Insert(Nhanvien entity)
         {
             db.Nhanviens.Add(entity);
@@ -48,8 +117,8 @@ namespace Model1.Dao
                 {
                     user.Matkhau = entity.Matkhau;
                 }
-                user.Chucvu = entity.Chucvu;
-                user.Manhom = entity.Manhom;
+                user.SDT = entity.SDT;
+                //user.Manhom = entity.Manhom;
                 db.SaveChanges();
                 return true;
             }
@@ -61,13 +130,47 @@ namespace Model1.Dao
 
         }
 
-        public IEnumerable<NhanvienDTO> ListAllPaging(string searchString, int page, int pageSize)
+        public IEnumerable<NhanvienDTO> ListAllPaging(string searchString, string maquyen, string madt, string map, string maq, string matp, int page, int pageSize)
         {
             List<NhanvienDTO> listLinks = new List<NhanvienDTO>();
             var model = from a in db.Nhanviens
                         join b in db.Nhomnhanviens on a.Manhom equals b.Manhomnv
-                        select new {a.Manhanvien,a.Tennhanvien,a.Taikhoan,a.Ngaysinh,a.SDT,
-                            b.Tennhomnv,a.Trangthai,a.Manhom,a.Matkhau,a.Madiemtiem};
+                        select new
+                        {
+                            a.Manhanvien,
+                            a.Tennhanvien,
+                            a.Taikhoan,
+                            a.Ngaysinh,
+                            a.SDT,
+                            b.Tennhomnv,
+                            a.Trangthai,
+                            a.Manhom,
+                            a.Matkhau,
+                            a.Madiemtiem,
+                            a.Maphuong,
+                            a.Maquan,
+                            a.Mathanhpho
+                        };
+            if (maquyen == "w_account")
+            {
+                model = model.Where(x => x.Manhom == "cadres" && x.Maphuong == map);
+            }
+
+            if (maquyen == "d_leader")
+            {
+                model = model.Where(x => x.Manhom == "cadres" || x.Manhom == "w_account" && x.Maquan == maq);
+            }
+
+            if (maquyen == "c_leader")
+            {
+                model = model.Where(x => x.Manhom == "d_account" || x.Manhom == "d_leader" && x.Mathanhpho == matp);
+            }
+
+            //if (maquyen == "leader")
+            //{
+            //    model = model.Where(x => x.Manhom == "c_account" || x.Manhom == "c_leader");
+            //}
+
             if (!string.IsNullOrEmpty(searchString))
             {
                 model = model.Where(x => x.Tennhanvien.Contains(searchString) || x.Tennhanvien.Contains(searchString));
@@ -138,7 +241,7 @@ namespace Model1.Dao
             {
                 if (isLoginAdmin == true)
                 {
-                    if (result.Manhom == CommonConstants.ADMIN_GROUP )
+                    if (result.Manhom == CommonConstants.ADMIN_GROUP)
                     {
                         if (result.Trangthai == false)
                         {
@@ -173,16 +276,16 @@ namespace Model1.Dao
                 }
             }
 
-            }
+        }
 
-            public bool ChangeStatus(string id)
-            {
-                var user = db.Nhanviens.Find(id);
-                user.Trangthai = !user.Trangthai;
-                db.SaveChanges();
-                return user.Trangthai;
-            }
-            public bool Delete(string id)
+        public bool ChangeStatus(string id)
+        {
+            var user = db.Nhanviens.Find(id);
+            user.Trangthai = !user.Trangthai;
+            db.SaveChanges();
+            return user.Trangthai;
+        }
+        public bool Delete(string id)
         {
             try
             {

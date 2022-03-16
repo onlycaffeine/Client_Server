@@ -12,44 +12,52 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
     {
         CSDL_NangcaoDbContext db = new CSDL_NangcaoDbContext();
         // GET: Admin/Regis
-        public ActionResult Index()
+        public ActionResult Index(string tt, string muidk, string nhomut, string vc1)
         {
-            //return View();
-            var dao = new PhieudangkyDao();
-            var model = dao.ListAllPaging("",1,10);
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            //Session["madt"] = session.Maphuong;
 
-            var nguons = from n in db.Vattuytes where n.Maloaivattu == "lvt001" select n;
-            ViewBag.nguon = new SelectList(nguons, "Mavattu", "Tenvattu");
-            //ViewBag.SearchString = searchString;
+            var dao = new PhieudangkyDao();
+            var model = dao.ListAllPaging(tt, muidk, nhomut, vc1,session.Maphuong,1,10);
+
+            var mattduyets = from n in db.Tinhtrangphieudks where n.Matrangthai != "tt004" select n;
+            ViewBag.mattduyet = new SelectList(mattduyets, "Matrangthai", "Tentranthai");
+            ViewBag.tt = tt;
+            ViewBag.muidk = muidk;
+            ViewBag.nhomut = nhomut;
+            ViewBag.vc1 = vc1;
             return View(model);
         }
 
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Update()
         {
             //SetViewBag();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Phieudangky pr)
+        public ActionResult Update(string sophieudk, string trangthaichitiet)
         {
-            if (ModelState.IsValid)
-            {
-                var dao = new PhieudangkyDao();
-                string id = dao.Insert(pr);
-                if (id != null)
-                {
-                    return RedirectToAction("Index", "Regis");
-                }
+            //if (ModelState.IsValid)
+            //{
+            var pr = new PhieudangkyDao();
+                //pr.Matrangthai = trangthaichitiet;
+                //db.SaveChanges();
+            bool ok = pr.Updatett(sophieudk, trangthaichitiet);
+            //string id = dao.Insert(pr);
+            //if (pr.Tentt != null)
+            //{
+            //    return RedirectToAction("Index", "Regis");
+            //}
 
-                else
-                {
-                    ModelState.AddModelError("", "Thêm thành công");
-                }
-            }
-            return View("Index");
+            //else
+            //{
+            //    ModelState.AddModelError("", "update thành công");
+            //}
+            //}
+            return RedirectToAction("Index", "Regis");
         }
     }
 }

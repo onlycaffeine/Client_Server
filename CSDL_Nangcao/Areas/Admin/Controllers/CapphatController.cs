@@ -37,7 +37,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             model.Dongxuats = model2;
 
             var nguons = from n in db.Phieulinhs where n.Matt == "tt002" select n;
-            
             ViewBag.nguon = new SelectList(nguons, "Sophieulinh", "Sophieulinh");
             ViewBag.mahoadonauto = mahoadonauto;
             ViewBag.SearchString = searchString;
@@ -80,7 +79,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         public ActionResult CreateCT(string nguon)
         {
             nguon = Request["nguon"];
-            var loes = from l in db.Loes where l.SLnhap > 0 select l;
+            var loes = from l in db.Loes where l.SLnhap > 0 && l.Sohoadon != null select l;
             //var tenthuocs = from m in db.Vattuytes select m;
 
             var dao1 = new PhieulinhDao();
@@ -108,6 +107,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             string pr = dao1.ViewDetailTenDiemtiem(nguon);
             Session["sophieudutru"] = nguon;
             Session["tendiemtiem"] = pr;
+            var nguons = from n in db.Phieulinhs where n.Matt == "tt002" select n;
+            ViewBag.nguon = new SelectList(nguons, "Sophieulinh", "Sophieulinh");
             ViewBag.maloauto = maloauto;
             ViewBag.malo = new SelectList(loes, "Malo", "Malo");
             //ViewBag.tenthuoc = new SelectList(tenthuocs, "Mavattu", "Tenvattu");
@@ -121,14 +122,17 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             order.SLxuat = slxuat;
             order.Madongxuat = madx;
 
-            try
-            {
+            var nguons = from n in db.Phieulinhs where n.Matt == "tt002" select n;
+            ViewBag.nguon = new SelectList(nguons, "Sophieulinh", "Sophieulinh");
+
+            //try
+            //{
                 var id3 = new DongxuatDao().Insert(order);
-            }
-            catch (Exception ex)
-            {
-                return Redirect("/loi-thanh-toan");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Redirect("/loi-thanh-toan");
+            //}
 
             return RedirectToAction("Index", "Capphat");
         }
@@ -216,14 +220,15 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult Payment()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Payment()
+        //{
+        //    return View();
+        //}
 
+        [ActionName("MultiDelete")]
         [HttpPost]
-        public ActionResult Payment(string sophieux, string sophieudutru)
+        public ActionResult MultiDelete(string sophieux, string sophieudutru)
         {
             var dao = new PhieulinhDao();
             var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
@@ -233,19 +238,17 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             order.Manhanvien = session.UserID;
             order.Matinhtrang = "tt001";
             order.Madiemtiem = dao.GetMadt(sophieudutru);
-            var pr = dao.ViewDetail(sophieudutru);
-            pr.Matt = "tt003";
-            try
-            {
+            //var pr = new PhieulinhDao().ViewDetail(sophieudutru);
+            //pr.Matt = "tt003";
+            //db.SaveChanges();
+                //var ccc = new PhieulinhDao().Updatettvanchuyen(sophieudutru);
                 var cc = new PhieuxuatDao().Insert(order);
                 var c = new DongxuatDao().Update1(ref cc);
-                if (c == false)
-                    return Redirect("/loi-thanh-toan");
-            }
-            catch (Exception ex)
-            {
-                return Redirect("/loi-thanh-toan");
-            }
+                //var d = new LoDao().Updatexuat(ref cc);
+            //if (c == false)
+            //    return Redirect("/loi-thanh-toan");
+            new PhieulinhDao().Updateghichu1(sophieudutru);
+            db.SaveChanges();
 
             return View("~/Areas/Admin/Views/Capphat/Success.cshtml");
         }

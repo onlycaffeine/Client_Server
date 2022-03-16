@@ -107,7 +107,10 @@ namespace Model1.EF
         [StringLength(50)]
         public string Donvicongtac { get; set; }
 
-        [StringLength(10)]
+        [StringLength(30)]
+        public string Tentt { get; set; }
+
+        [StringLength(15)]
         public string Tenthuoc1 { get; set; }
 
         [StringLength(500)]

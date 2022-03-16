@@ -8,6 +8,7 @@
 }
 
 @section header{
+    <link rel="stylesheet" href="~/Assets/Client/css/page/index.css">
     <b class="panel-heading" style="color:black; font-size:x-large">
         Kết quả tiêm chủng
     </b>
@@ -50,7 +51,7 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-lg-pull-3 thuan-body-content">
+        <div class="col-lg-pull-3 thuan-body-content" style="height:489px">
             <div class="section group">
                 <div class="col-md-12">
                 </div>
@@ -61,7 +62,12 @@
                     Thông tin phiếu tiêm
                 </b>
 
-                <button id="btnAddEmployee" type="button" class="btn btn-primary" style=" margin:0 0 0 68px">Thêm</button>
+
+                <button title="Tìm kiếm" class="btn btn-primary"  id="btnAddEmployee" type="button" style="margin: 0px 0 0px 68px">
+                    <i class="fas fa-plus"></i><b style="font-size: 14px;
+                                margin-left: 5px;"> Thêm mới</b>
+                </button>
+
                 <hr />
 
                 <div class="panel-body">
@@ -78,7 +84,12 @@
                                     Đến
                                     <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />*@
 
-                                <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 30px">Tìm kiếm</button></p>
+                                <p>
+                                    <button title="Tìm kiếm" class="btn btn-primary" style="margin: 0px 0 0px 30px">
+                                        <i class="fas fa-search"></i><b style="font-size: 14px;
+                                margin-left: 5px;"> Tìm kiếm</b>
+                                    </button>
+                                </p>
 
                             </div>
 
@@ -109,8 +120,8 @@
                                 <tr>
                                     <th>Mã phiếu</th>
                                     <th>Tên người dân</th>
-                                    <th>CCCD</th>
-                                    <th>SĐT</th>
+                                    <th>Căn cước công dân</th>
+                                    <th>Số điện thoại</th>
                                     <th>Ngày sinh</th>
                                     <th></th>
                                 </tr>
@@ -123,13 +134,16 @@
                                         <td>@item.Tennguoidan</td>
                                         <td>@item.CCCD</td>
                                         <td>@item.SDT</td>
-                                        <td>@item.Ngaysinh</td>
+                                        @{DateTime a = @item.Ngaysinh;
+                                            string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        }
+                                        <td>@Html.Raw(b)</td>
                                         <td style="text-align: center">
-                                            <a title="Cập nhật" href="/Admin/Phieutiem/Edithd/@item.Sophieu"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
-                                            @Ajax.ActionLink(" ", "Delete", new { @id = item.Sophieu }, new AjaxOptions
+                                            <a title="Cập nhật" href="/Admin/Phieutiem/Edithd/@item.Sophieu"><i class="fas fa-pen" style="margin-right:5px"></i></a>
+                                            @*@Ajax.ActionLink(" ", "Delete", new { @id = item.Sophieu }, new AjaxOptions
                                             { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Sophieu + "').remove()", },
-                                            new { @class = "fas fa-trash", @title = "Xóa" })
-                                            |<a title="Chi tiết" href="/Admin/Phieutiem/Detailpn/@item.Sophieu"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
+                                            new { @class = "fas fa-trash", @title = "Xóa" })*@|
+                                            <a title="Chi tiết" href="/Admin/Phieutiem/Detailpn/@item.Sophieu"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
                                         </td>
 
                                     </tr>
@@ -188,17 +202,17 @@
                                 <p><input name="tennd" class="form-control" style="width:145px; margin:0 0px 0 19px" /></p>
 
                                 <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">CCCD</label>
-                                <p><input name="cccd" class="form-control" style="width:145px; margin:0 18px 0 19px" /></p>
+                                <p><input name="cccd" class="form-control" style="width:145px; margin:0 18px 0 54px" /></p>
 
                             </div>
                         </div>
 
                         <div class="form-group" style="">
                             <div class="form-group" style="display: flex ;  width:100%;align-items:center">
-                                <label style="margin-left:24px; width: 100px;">SĐT</label>
-                                <p><input name="sdt" class="form-control" style="width:145px;margin-left: -30px;" /></p>
+                                <label style="margin-left:24px; width: 100px;">Số điện thoại</label>
+                                <p><input name="sdt" class="form-control" style="width:145px;margin-left: 25px;" /></p>
 
-                                <label style=" margin-left:24px;width: 130px; box-sizing:border-box; flex-wrap:nowrap">Ngày sinh:</label>
+                                <label style=" margin-left:25px;width: 79px; box-sizing:border-box; flex-wrap:nowrap">Ngày sinh:</label>
                                 <p><input name="ngaysinh" type="date" class="form-control" style="width:147px;margin:0 16px" /></p>
 
                                 @*<label style="margin-left:24px">Hạn sử dụng:</label>
@@ -210,7 +224,7 @@
                         <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
                         align-items: center; justify-content: end; margin:49px 0 0 0; width:628px">
                             <button id="btnCancel" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
-                            <button id="btnSave" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm mới</button>
+                            <button id="btnSave" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Lưu</button>
                         </div>
                     }
 

@@ -103,7 +103,7 @@ namespace Model1.Dao
 
             var model = from l in db.Donglinhs // lấy toàn bộ sp
                         join p in db.Vattuytes on l.Mathuoc equals p.Mavattu
-                        where l.Sophieulinh == null
+                        where l.Sophieulinh == mathuoc
                         select new { l.Mathuoc, p.Tenvattu, l.SLyeucau, l.SLcapphat, l.Madonglinh};
 
             foreach (var item in model)

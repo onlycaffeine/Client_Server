@@ -26,6 +26,67 @@ namespace Model1.Dao
             return entity.Madiemtiem;
         }
 
+        public bool Update(Diemtiem entity)
+        {
+            try
+            {
+                var user = db.Diemtiems.Find(entity.Madiemtiem);
+                user.Tendiemtiem = entity.Tendiemtiem;
+                user.Tennguoidungdau = entity.Tennguoidungdau;
+                user.Diachi = entity.Diachi;
+                user.Sobantiem = entity.Sobantiem;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //logging
+                return false;
+            }
+
+        }
+
+        public string Maphuongdk(string ten)
+        {
+            if (ten.Length > 7)
+            {
+                var p = db.Phuongs.SingleOrDefault(x => x.Tenphuong == ten.Substring(7));
+                return p.Maphuong;
+            }
+
+            else
+            {
+                return ten;
+            }
+        }
+
+        public string Maquandk(string ten)
+        {
+            if (ten.Length > 7)
+            {
+                var p = db.Quans.SingleOrDefault(x => x.Tenquan == ten.Substring(5));
+                return p.Maquan;
+            }
+
+            else
+            {
+                return ten;
+            }
+        }
+
+        public string Matpdk(string ten)
+        {
+            if (ten.Length > 7)
+            {
+                var p = db.Thanhphoes.SingleOrDefault(x => x.Tenthanhpho == ten.Substring(10));
+                return p.Mathanhpho;
+            }
+            else
+            {
+                return ten;
+            }
+        }
+
         public string Check(string id)
         {
             Diemtiem dt =  db.Diemtiems.Find(id);
@@ -38,22 +99,36 @@ namespace Model1.Dao
             return dt.Tendiemtiem;
         }
 
-        public bool Update(Diemtiem entity)
+        public long Sldong()
         {
-            try
-            {
-                var user = db.Diemtiems.Find(entity.Madiemtiem);
-                user.Tendiemtiem = entity.Tendiemtiem;
-                user.Madiemtiem = entity.Madiemtiem;
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
+            long a = db.Diemtiems.LongCount();
+            return a;
         }
+
+        public bool ChangeStatus(string id)
+        {
+            var user = db.Diemtiems.Find(id);
+            user.Trangthai = !user.Trangthai;
+            db.SaveChanges();
+            return user.Trangthai;
+        }
+
+        //public bool Update(Diemtiem entity)
+        //{
+        //    try
+        //    {
+        //        var user = db.Diemtiems.Find(entity.Madiemtiem);
+        //        user.Tendiemtiem = entity.Tendiemtiem;
+        //        user.Madiemtiem = entity.Madiemtiem;
+        //        db.SaveChanges();
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+
+        //}
 
         //List<LoDTO> listLinks = new List<LoDTO>();
 
@@ -86,6 +161,7 @@ namespace Model1.Dao
                         join p in db.Phuongs on l.Maphuong equals p.Maphuong
                         join q in db.Quans on p.Maquan equals q.Maquan
                         join k in db.Thanhphoes on q.Mathanhpho equals k.Mathanhpho
+                        where l.Trangthai == true
                         select new
                         {
                             l.Madiemtiem,
@@ -95,11 +171,12 @@ namespace Model1.Dao
                             l.Diachi,
                             p.Tenphuong,
                             q.Tenquan,
-                            k.Tenthanhpho
+                            k.Tenthanhpho,
+                            l.Trangthai
                         };
             if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(x => x.Tendiemtiem.Contains(searchString.Substring(7)) || x.Tendiemtiem.Contains(searchString.Substring(7)));
+                model = model.Where(x => x.Tendiemtiem.Contains(searchString.Substring(7)) || x.Tendiemtiem.Contains(searchString.Substring(7)) && x.Trangthai == true);
             }
 
             foreach (var item in model)
@@ -113,6 +190,72 @@ namespace Model1.Dao
                 temp.Tenquan = item.Tenquan;
                 temp.Tenthanhpho = item.Tenthanhpho;
                 temp.Tenphuong = item.Tenphuong;
+                temp.Trangthai = item.Trangthai;
+                listLinks.Add(temp);
+            }
+            return listLinks.OrderByDescending(x => x.Madiemtiem).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<DiemtiemDTO> ListAllPagingQl(string searchString, string maquyen, string map, string maq, string matp, int page, int pageSize)
+        {
+            //IQueryable<Diemtiem> model = db.Diemtiems;
+            List<DiemtiemDTO> listLinks = new List<DiemtiemDTO>();
+            var model = from l in db.Diemtiems
+                        join p in db.Phuongs on l.Maphuong equals p.Maphuong
+                        join q in db.Quans on p.Maquan equals q.Maquan
+                        join k in db.Thanhphoes on q.Mathanhpho equals k.Mathanhpho
+                        select new
+                        {
+                            l.Madiemtiem,
+                            l.Tendiemtiem,
+                            l.Tennguoidungdau,
+                            l.Sobantiem,
+                            l.Diachi,
+                            p.Tenphuong,
+                            q.Tenquan,
+                            k.Tenthanhpho,
+                            l.Maphuong,
+                            l.Maquan,
+                            l.Mathanhpho,
+                            l.Trangthai
+                        };
+            if (maquyen == "w_account")
+            {
+                model = model.Where(x => x.Maphuong == map);
+            }
+
+            if (maquyen == "d_leader")
+            {
+                model = model.Where(x => x.Maquan == maq);
+            }
+
+            if (maquyen == "c_leader")
+            {
+                model = model.Where(x => x.Mathanhpho == matp);
+            }
+
+            //if (maquyen == "leader")
+            //{
+            //    model = model.Where(x => x.Manhom == "c_account" || x.Manhom == "c_leader");
+            //}
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.Tendiemtiem.Contains(searchString) || x.Tendiemtiem.Contains(searchString));
+            }
+
+            foreach (var item in model)
+            {
+                DiemtiemDTO temp = new DiemtiemDTO();
+                temp.Madiemtiem = item.Madiemtiem;
+                temp.Tendiemtiem = item.Tendiemtiem;
+                temp.Tennguoidungdau = item.Tennguoidungdau;
+                temp.Diachi = item.Diachi;
+                temp.Sobantiem = item.Sobantiem;
+                temp.Tenquan = item.Tenquan;
+                temp.Tenthanhpho = item.Tenthanhpho;
+                temp.Tenphuong = item.Tenphuong;
+                temp.Trangthai = item.Trangthai;
                 listLinks.Add(temp);
             }
             return listLinks.OrderByDescending(x => x.Madiemtiem).ToPagedList(page, pageSize);
@@ -170,6 +313,28 @@ namespace Model1.Dao
                 return sl1;
             }
             
+        }
+
+        public int Sltiem1(string matp)
+        {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "show_sltiem1";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+
+                cmd.Parameters.Add("@matp", SqlDbType.VarChar).Value = matp;
+
+                conn.Open();
+                object sl = cmd.ExecuteScalar();
+                int sl1 = Int32.Parse(sl.ToString());
+                //string sl1 = sl.ToString();
+                conn.Close();
+                return sl1;
+            }
+
         }
 
         public List<Diemtiem> ListAll()

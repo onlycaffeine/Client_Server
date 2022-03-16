@@ -220,6 +220,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             {
                 var lo = db.Dongxuattralais.Find(item.Madongxuattralai);
                 lo.SLnhap = arr[j];
+                var looo = db.Loes.Find(lo.Malo);
+                looo.SLnhap += arr[j];
                 db.SaveChanges();
                 //item.SLnhap = arr[j];
                 j += 1;

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Quản lý điểm tiêm
+    </b>
+}
+
+<div class="alert alert-danger" style="width:428px">
+    Bạn không thể thêm điểm tiêm ở khu vực khác
+</div>
+
+<div>
+    @Html.ActionLink("Quay lại", "Index")
+</div>

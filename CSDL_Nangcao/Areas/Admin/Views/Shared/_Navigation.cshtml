@@ -57,7 +57,7 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     @{
-        if (q == "admin" || q == "w_account" || q == "c_account" || q == "d_account" || q == "n_account" || q == "leader")
+        if (q == "admin" || q == "w_account" || q == "leader" || q == "c_leader" || q == "d_leader")
         {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -67,33 +67,34 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @*<h6 class="collapse-header">Tùy chọn:</h6>
-                            <a class="collapse-item" href="/Admin/About/Index">Giới thiệu</a>
-                            <a class="collapse-item" href="/Admin/Footer/Index">Footer</a>
-                            <a class="collapse-item" href="/Admin/Menu/Index">Menu</a>
-                            <a class="collapse-item" href="/Admin/Slide/Index">Slide</a>
-                            <a class="collapse-item" href="/Admin/FeedBack/Index">Phản hồi</a>
-                            <div class="collapse-divider"></div>*@
-                        @{
-                            if (q == "admin" || q == "leader")
-                            {
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @*<h6 class="collapse-header">Tùy chọn:</h6>
+        <a class="collapse-item" href="/Admin/About/Index">Giới thiệu</a>
+        <a class="collapse-item" href="/Admin/Footer/Index">Footer</a>
+        <a class="collapse-item" href="/Admin/Menu/Index">Menu</a>
+        <a class="collapse-item" href="/Admin/Slide/Index">Slide</a>
+        <a class="collapse-item" href="/Admin/FeedBack/Index">Phản hồi</a>
+        <div class="collapse-divider"></div>*@
+                            @{
                                 <h6 class="collapse-header">Phân quyền:</h6>
                                 <a class="collapse-item" href="/Admin/User/Index">Người dùng</a>
-                                <a class="collapse-item" href="/Admin/UserGroup/Index">Nhóm người dùng</a>
-                                <a class="collapse-item" href="/Admin/Home/Index">Điểm tiêm</a>
-                                <a class="collapse-item" href="/Admin/Home/Index">Vật tư</a>
-                            }
+                                <a class="collapse-item" href="/Admin/Diemtiem/Index">Điểm tiêm</a>
+                                if (q == "admin" || q == "leader")
+                                {
+
+                                    @*<a class="collapse-item" href="/Admin/UserGroup/Index">Nhóm người dùng</a>*@
+                                    <a class="collapse-item" href="/Admin/Vattuyte/Index">Vật tư</a>
+                                }
 
 
-                            if (q == "admin" || q == "w_account" || q == "c_account" || q == "d_account" || q == "n_account")
-                            {
-                                <h6 class="collapse-header">Chức năng:</h6>
-                                <a class="collapse-item" href="/Home/Search">Tra cứu thông tin tiêm</a>
-                                <a class="collapse-item" href="/Admin/Regis/Index">Duyệt thông tin đký tiêm</a>
+                                if (q == "admin" || q == "w_account")
+                                {
+                                    <h6 class="collapse-header">Chức năng:</h6>
+                                    <a class="collapse-item" href="/Home/Search">Tra cứu thông tin tiêm</a>
+                                    <a class="collapse-item" href="/Admin/Regis/Index">Duyệt thông tin đký tiêm</a>
+                                }
                             }
-                        }
-                    </div>
+                        </div>
                 </div>
             </li>
         }

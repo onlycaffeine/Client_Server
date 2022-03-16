@@ -54,6 +54,7 @@ namespace Model1.EF
         public virtual DbSet<Trangthai> Trangthais { get; set; }
         public virtual DbSet<Trangthaitiensu> Trangthaitiensus { get; set; }
         public virtual DbSet<Vattuyte> Vattuytes { get; set; }
+        public virtual DbSet<Loaimui> Loaimuis { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -224,6 +225,10 @@ namespace Model1.EF
                 .HasMany(e => e.Dongxuattralais)
                 .WithRequired(e => e.Lo)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Loaimui>()
+                .Property(e => e.Maloaimui)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Loaitochuc>()
                 .Property(e => e.Maloaitochuc)

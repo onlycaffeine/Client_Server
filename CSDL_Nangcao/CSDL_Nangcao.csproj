@@ -157,6 +157,7 @@
     <Compile Include="Areas\Admin\Controllers\ThongkephieutiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserGroupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\VattuyteController.cs" />
     <Compile Include="Areas\Admin\Controllers\XuathuyController.cs" />
     <Compile Include="Areas\Admin\Controllers\XuattralaiController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
@@ -1166,12 +1167,14 @@
     <Content Include="Assets\Admin\js\ckfinder\_samples\standalone.html" />
     <Content Include="Assets\Admin\js\ckfinder\_samples\standalone_v1.html" />
     <Content Include="Assets\Admin\js\controller\capphat.js" />
+    <Content Include="Assets\Admin\js\controller\DiemtiemController.js" />
     <Content Include="Assets\Admin\js\controller\nhaptuncc.js" />
     <Content Include="Assets\Admin\js\controller\productController.js" />
     <Content Include="Assets\Admin\js\controller\regis.js" />
     <Content Include="Assets\Admin\js\controller\thongkephtiem.js" />
     <Content Include="Assets\Admin\js\controller\tonkho.js" />
     <Content Include="Assets\Admin\js\controller\userController.js" />
+    <Content Include="Assets\Admin\js\controller\vattuyteController.js" />
     <Content Include="Assets\Admin\js\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\js\demo\chart-bar-demo.js" />
     <Content Include="Assets\Admin\js\demo\chart-pie-demo.js" />
@@ -2863,6 +2866,7 @@
     <Content Include="Assets\Client\css\page\style.css" />
     <Content Include="Assets\Client\img\u7.png" />
     <Content Include="Assets\Client\js\page1.js" />
+    <Content Include="Assets\Client\js\pageuser.js" />
     <Content Include="Assets\Login\css\main.css" />
     <Content Include="Assets\Login\css\util.css" />
     <Content Include="Assets\Login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -5054,6 +5058,20 @@
     <Content Include="Areas\Admin\Views\Nhapcapphat\Edithd.cshtml" />
     <Content Include="Areas\Admin\Views\Nhapcapphat\Detailhd.cshtml" />
     <Content Include="Areas\Admin\Views\Phieutiem\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Phieutiem\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Fail1.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Diemtiem\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Diemtiem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Diemtiem\Fail0.cshtml" />
+    <Content Include="Areas\Admin\Views\Diemtiem\Fail1.cshtml" />
+    <Content Include="Areas\Admin\Views\Diemtiem\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Vattuyte\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\Vattuyte\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Vattuyte\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5094,7 +5112,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Diemtiem\" />
     <Folder Include="Assets\Admin\css\layout\" />
     <Folder Include="Assets\Admin\js\plugins\ckfinder\" />
     <Folder Include="Models\" />

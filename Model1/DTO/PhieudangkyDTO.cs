@@ -24,6 +24,7 @@ namespace Model1.DTO
 
         public string Diachi { get; set; }
 
+        //public DateTime Ngaymongmuon { get; set; }
         public DateTime? Ngaymongmuon { get; set; }
 
         public string Matrangthai { get; set; }
@@ -43,6 +44,8 @@ namespace Model1.DTO
         public string Dantoc { get; set; }
 
         public string Quoctich { get; set; }
+
+        public string Tentt { get; set; }
 
         public string Hotengiamho { get; set; }
 
@@ -74,5 +77,6 @@ namespace Model1.DTO
 
         public string Tenthuoc1 { get; set; }
 
+        public string Dstiensu { get; set; }
     }
 }

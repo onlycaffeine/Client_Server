@@ -14,6 +14,7 @@
     <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/Admin/css/lib/combobox.js"></script>
     <script src="~/Assets/Admin/js/controller/tonkho.js"></script>
+    
 }
 
 <head>
@@ -55,13 +56,19 @@
                         <div class="form-group" style=" display:flex;  width:100%;">
                             @*@Html.TextBox("SearchString", null, new { @style = " height:38px; width:184px; margin:10px 0 0px 2px", @class = "form-control", @placeholder = "Tìm kiếm vật tư" })*@
                             <label style="margin-left: 1px;line-height: 55px;margin-right:10px">Tên vật tư </label>
-                            @Html.DropDownList("nguon", null, "Tất cả", new { @style = " height:38px; width:184px; margin:10px 0 0px 2px", @class = "form-control", @name = "nguon", @id = "nguon" })
+                            @*@Html.DropDownList("nguon", null, "Tất cả", new { @style = " height:38px; width:184px; margin:10px 0 0px 2px", @class = "form-control", @name = "nguon", @id = "nguon" })*@
+                            <select name="tenvts" id="tenvts" class="form-control" style="height:38px; width:184px; margin:10px 0 0px 2px">
+                                <option value="tatca">Tất cả</option>
+                                <option value="vt001">AstraZeneca</option>
+                                <option value="vt002">Pfizer</option>
+                                <option value="vt003">Vero Cell</option>
+                            </select>
                             <label style="margin-left: 17px;line-height: 55px;margin-right:10px">Hạn sử dụng </label>
-                            <select name="topic" id="topic" class="form-control" style="height:38px; width:184px; margin:10px 0 0px 2px">
-                                <option value="0">Tất cả</option>
-                                <option value="1">Sắp hết hạn</option>
-                                <option value="2">Đã hết hạn</option>
-                                <option value="3">Chưa hết hạn</option>
+                            <select name="hsds" id="hsds" class="form-control" style="height:38px; width:184px; margin:10px 0 0px 2px">
+                                <option value="tatca">Tất cả</option>
+                                <option value="saphethan">Sắp hết hạn</option>
+                                <option value="dahethan">Đã hết hạn</option>
+                                <option value="chuahethan">Chưa hết hạn</option>
                             </select>
                             <p style="margin-top: -18px;">
                                 <button title="Tìm kiếm" class="btn" type="submit" style="color:white; background-color:royalblue; margin-left:10px; margin-top:28px">
@@ -193,7 +200,7 @@
                             <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
                         align-items: center; justify-content: end; margin:49px 0 0 0; width:929px">
                                 <button id="@Html.Raw(cancel)" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
-                                <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm mới</button>
+                                <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Cập nhật</button>
                             </div>
                         }
 

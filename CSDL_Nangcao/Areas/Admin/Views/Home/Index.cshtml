@@ -17,25 +17,28 @@
     </b>
 }
 
-<div class="col-lg-12">
+@if (ViewBag.Maquyen == "storage" || ViewBag.Maquyen == "admin")
+{
+    <div class="col-lg-12">
 
-    <div class="panel panel-default thuan-body-content">
-        <b class="panel-heading" style="color:coral; font-size:large">
-            Thông số của hệ thống
-        </b>
-        <br />
-        <br />
+        <div class="panel panel-default thuan-body-content">
+            <b class="panel-heading" style="color:coral; font-size:large">
+                Thông số của hệ thống
+            </b>
+            <br />
+            <br />
 
-        <ul>
-            <li>Số lô vaccine hết hạn <a href="/gio-hang" title="Xem số lô hết hạn" rel="nofollow"> @ViewBag.soluong1 lô</ span > </a></li>
-            <li>Số lô vaccine sắp hết hạn <a href="/gio-hang" title="Xem số lô sắp hết hạn" rel="nofollow"> @ViewBag.soluong1 lô</ span > </a> (có hạn dùng dưới <input type="number" value="30" style="width:50px" name="ngay" /> ngày)</li>
-            <li>Chênh lệch giữa phiếu xuất và phiếu cấp phát: <a href="/gio-hang" title="Xem phiếu xuất/ phiếu cấp phát" rel="nofollow"> @ViewBag.soluong3 phiếu</ span > </a></li>
-            @*<li>Số vaccine dưới mức tối thiểu: <a href="/gio-hang" title="Xem số lượng dưới tối thiểu" rel="nofollow"> @ViewBag.soluong1 vaccine</ span > </a></li>
-            <li>Số vaccine trên mức tối đa: <a href="/gio-hang" title="Xem số lượng trên tối đa" rel="nofollow"> @ViewBag.soluong1 vaccine</ span > </a></li>*@
-            <li>Phiếu đã xuất nhưng tuyến dưới chưa xác nhận nhập kho: <a href="/gio-hang" title="Xem chưa xác nhận nhập kho" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
-            @*<li>Phiếu đã xuất nhưng tuyến dưới mới xác nhận một phần: <a href="/gio-hang" title="Xem xác nhận nhập 1 phần" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>
-            <li>Phiếu được cấp nhưng chưa xác nhận nhập kho: <a href="/gio-hang" title="Xem chưa nhập kho từ ncc" rel="nofollow"> @ViewBag.soluong phiếu</ span > </a></li>*@
-        </ul>
+            <ul>
+                <li>Số lô vaccine hết hạn <a href="/Admin/Lo/Index1" title="Xem số lô hết hạn" rel="nofollow"> @ViewBag.sllohethan lô </a></li>
+                <li>Số lô vaccine sắp hết hạn <a href="/Admin/Lo/Index1" title="Xem số lô sắp hết hạn" rel="nofollow"> @ViewBag.sllosaphethan lô</a> (có hạn dùng dưới 30 ngày)</li>
+                <li>Số phiếu dự trù đã duyệt nhưng chưa cấp phát: <a href="/Admin/Capphat/Index" title="Xem chưa cấp phát" rel="nofollow"> @ViewBag.slduyet phiếu</a></li>
+                <li>Chênh lệch giữa phiếu cấp phát và phiếu nhập cấp phát: <a href="/Admin/Capphat/Index" title="Xem phiếu xuất/ phiếu cấp phát" rel="nofollow"> @ViewBag.slpx phiếu</a></li>
+                <li>Chênh lệch giữa phiếu xuất trả lại và phiếu nhập trả lại: <a href="/Admin/Nhaptralai/Index" title="Xem phiếu trả lại/ phiếu nhập trả lại" rel="nofollow"> @ViewBag.sltl phiếu</a></li>
+            </ul>
+
+        </div>
 
     </div>
-</div>
+
+}
+

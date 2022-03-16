@@ -58,11 +58,13 @@ namespace Model1.Dao
         {
             try
             {
-                var model = from l in db.Dongxuats where l.Sophieuxuat == null select new { l.Madongxuat };
+                var model = from l in db.Dongxuats where l.Sophieuxuat == null select new { l.Madongxuat, l.Malo, l.SLxuat };
                 foreach (var item in model)
                 {
                     var pr = db.Dongxuats.Find(item.Madongxuat);
                     pr.Sophieuxuat = cc;
+                    var pr1 = db.Loes.Find(item.Malo); /////
+                    pr1.SLnhap -= item.SLxuat; ////////
 
                 }
                 db.SaveChanges();
@@ -74,6 +76,27 @@ namespace Model1.Dao
             }
             return true;
         }
+
+        //public bool Update3(string ma)
+        //{
+        //    try
+        //    {
+        //        var model = from l in db.Loes where l.Malo == ma select new { l.Malo, l.SLnhap };
+        //        foreach (var item in model)
+        //        {
+        //            var pr = db.Loes.Find(item.Malo);
+        //            pr.SLnhap += sl;
+
+        //        }
+        //        db.SaveChanges();
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         public bool Delete(string id)
         {
@@ -197,7 +220,7 @@ namespace Model1.Dao
             var model = from l in db.Dongxuats
                         join p in db.Loes on l.Malo equals p.Malo
                         join k in db.Vattuytes on p.Mavattu equals k.Mavattu
-                        where l.Sophieuxuat == null
+                        where l.Sophieuxuat == null /*&& l.SLnhap != 0*/
                         select new { l.Malo, k.Tenvattu, l.SLxuat, l.Dongia, l.Thanhtien, l.Madongxuat, p.HSD, l.Sophieuxuat };
 
             foreach (var item in model)

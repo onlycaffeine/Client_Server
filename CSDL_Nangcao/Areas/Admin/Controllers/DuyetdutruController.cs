@@ -34,6 +34,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var nguons = from n in db.Phieulinhs where n.Matt == "tt001" select n;
             ViewBag.nguon = new SelectList(nguons, "Sophieulinh", "Sophieulinh");
 
+
             ViewBag.SearchString = searchString;
             return View(model);
         }
@@ -43,6 +44,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public ActionResult Index1(string searchString, string searchString3, string a, string b)
         {
             var dao1 = new PhieulinhDao();
@@ -177,11 +179,11 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult MultiDelete(IEnumerable<int> dsslhuy, string sophieu, int check)
         {
-            if (check != 5)
-            {
-                ModelState.AddModelError("", "Duyệt không thành công");
-                return RedirectToAction("Fail0", "Duyetdutru");
-            }
+            //if (check != 5)
+            //{
+            //    ModelState.AddModelError("", "Duyệt không thành công");
+            //    return RedirectToAction("Fail0", "Duyetdutru");
+            //}
 
             var dao3 = new DonglinhDao();
             var model3 = dao3.ListAllPaging(sophieu);
@@ -211,7 +213,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 var lo = db.Donglinhs.Find(item.Madonglinh);
                 lo.SLcapphat = arr[j];
                 db.SaveChanges();
-                //item.SLnhap = arr[j];
                 j += 1;
             }
 

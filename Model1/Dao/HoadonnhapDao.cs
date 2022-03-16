@@ -152,7 +152,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Ngaynhap);
+            return listLinks.OrderByDescending(x => x.Sohoadon);
         }
     }
 }

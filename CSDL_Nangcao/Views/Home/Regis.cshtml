@@ -3,7 +3,6 @@
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-
 @*@section jsFooter{
         <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
         <script src="~/Assets/Admin/css/lib/combobox.js"></script>
@@ -76,11 +75,13 @@
                             <div class="content-input-row2 content-input-row">
                                 <div class="content-input-row2-col1">
                                     <div class="content-input-row-text">Họ và tên <span style="color: red;">(*)</span></div>
-                                    <input id="hotendk" name="hotendk" type="text" class="m-input content-input-row2" placeholder="Họ và tên">
+                                    <input id="hotendk" name="hotendk" type="text" class="m-input content-input-row2" placeholder="Họ và tên" onblur="validate1()" oninput="validate1()">
+                                    <div id="validate1" class="validate-input">Họ tên không được phép để trống</div>
                                 </div>
                                 <div class="content-input-row2-col2">
                                     <div class="content-input-row-text">Số điện thoại<span style="color: red;">(*)</span></div>
-                                    <div><input id="sdtdk" name="sdtdk" type="tel" value="" class="m-input content-input-row2" placeholder="Số điện thoại"></div>
+                                    <div><input id="sdtdk" name="sdtdk" type="tel" value="" class="m-input content-input-row2" placeholder="Số điện thoại" onblur="validate2()" oninput="validate2()"></div>
+                                    <div id="validate2" class="validate-input">Số điện thoại không được phép để trống</div>
                                 </div>
                             </div>
                         </div>
@@ -88,13 +89,14 @@
                         <div class="content-input-row1 content-input-row">
                             <div class="content-input-row-text">Đăng ký mũi tiêm thứ <span style="color: red;">(*)</span></div>
                             <div id="div-department" class="mcombobox">
-                                <input class="m-combobox m-combobox-input" type="text" id="loaimui" name="loaimui" placeholder="Đăng ký mũi tiêm thứ" />
-                                <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                <div id="m-combobox-data" class="m-combobox-data">
-                                    <div class="m-combobox-item" value="0">Mũi tiêm thứ nhất</div>
-                                    <div class="m-combobox-item" value="1">Mũi tiêm tiếp theo</div>
+                                <input class="m-combobox m-combobox-input" type="text" id="loaimui" name="loaimui" placeholder="Đăng ký mũi tiêm thứ" onblur="validate3()" oninput="validate3()" />
+                                <button type="button" tabindex="-1" class="m-combobox-button" onclick="choose3()"><i class="fas fa-chevron-down"></i></button>
+                                <div id="m-combobox-data" class="m-combobox-data" onclick="choose4()">
+                                    <div onclick="loaimuitiem()" class="m-combobox-item m-combobox-item-1" value="0">Mũi tiêm thứ nhất</div>
+                                    <div onclick="loaimuitiem1()" class="m-combobox-item m-combobox-item-1" value="1">Mũi tiêm tiếp theo</div>
                                 </div>
                             </div>
+                            <div id="validate3" class="validate-input">Vui lòng chọn số mũi tiêm</div>
                         </div>
                         <div class="content-input-row2 content-input-row content-input-row-text">
                             <Span style="font-size: 20px;font-weight: 700;">1. Thông tin người đăng ký tiêm</Span>
@@ -102,36 +104,43 @@
                         <div class="content-input-row2 content-input-row">
                             <div class="content-input-row2-col1">
                                 <div class="content-input-row-text">Họ và tên <span style="color: red;">(*)</span></div>
-                                <input type="text" name="fullname" id="fullname" class="m-input content-input-row2" placeholder="Họ và tên">
+                                <input type="text" name="fullname" id="fullname" class="m-input content-input-row2" placeholder="Họ và tên" onblur="validatename()" oninput="validatename()">
+                                <div id="validateName" class="validate-input">Họ tên không được phép để trống</div>
                             </div>
                             <div class="content-input-row2-col2">
                                 <div class="content-input-row-text">Ngày Sinh <span style="color: red;">(*)</span></div>
-                                <div><input type="date" name="dateof" id="dateof" value="a" oninput="updateValue()" class="m-input content-input-row2" placeholder="Ngày/Tháng/Năm"></div>
+                                <div><input type="date" name="dateof" id="dateof" value="a" oninput="updateValue()" class="m-input content-input-row2" placeholder="Ngày/Tháng/Năm" onblur="updateValue()"></div>
+                                <div id="validatedate" class="validate-input">Ngày sinh không được để trống</div>
                             </div>
                             <div class="content-input-row2-col3">
                                 <div class="content-input-row-text">Giới tính<span style="color: red;">(*)</span></div>
                                 <div id="div-department" class="mcombobox">
-                                    <input class="m-combobox m-combobox-input" type="text" name="gender" id="gender" placeholder="Giới tính">
-                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data">
+                                    <input class="m-combobox m-combobox-input" type="text" value="" name="gender" id="gender" placeholder="Giới tính" onblur="validategender()" oninput="validategender()">
+                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down" onclick="choosegender()"></i></button>
+                                    <div onclick="validategender1()" id="m-combobox-data" class="m-combobox-data">
                                         <div class="m-combobox-item" value="0">Nam</div>
                                         <div class="m-combobox-item" value="1">Nữ</div>
                                     </div>
                                 </div>
+                                <div id="validategender" class="validate-input">Vui lòng chọn giới tính</div>
                             </div>
                             <div class="content-input-row2-col4">
                                 <div class="content-input-row-text">Số điện thoại<span style="color: red;">(*)</span></div>
-                                <input type="text" id="phonenumber" name="phonenumber" class="m-input content-input-row2" placeholder="Số điện thoại">
+                                <input type="text" id="phonenumber" name="phonenumber" class="m-input content-input-row2" placeholder="Số điện thoại" onblur="validatephonenumber()" oninput="validatephonenumber()">
+                                <div id="validatephonenumber" class="validate-input">Vui lòng nhập số điện thoại</div>
+                                <div id="validatephonenumber1" class="validate-input">Vui lòng nhập đúng định dạng</div>
                             </div>
                         </div>
                         <div class="content-input-row2 content-input-row">
                             <div class="content-input-row2-col1">
                                 <div class="content-input-row-text">Email</div>
-                                <input type="text" id="email" name="email" class="m-input content-input-row2" placeholder="Email">
+                                <input type="text" id="email" name="email" class="m-input content-input-row2" placeholder="Email" onblur="validateemail()" oninput="validateemail()">
+                                <div id="validateemail" class="validate-input">Email không đúng định dạng</div>
                             </div>
                             <div class="content-input-row2-col2">
                                 <div class="content-input-row-text">CCCD/Mã định danh công dân<span style="color: red;">(*)</span></div>
-                                <input type="text" id="identity" name="identity" class="m-input content-input-row2-col2" placeholder="CCCD/Mã định danh công dân">
+                                <input type="text" id="identity" name="identity" class="m-input content-input-row2-col2" placeholder="CCCD/Mã định danh công dân" onblur="validateidentity()" oninput="validateidentity()">
+                                <div id="validatidentity" class="validate-input">Vui lòng nhập mã định danh</div>
                             </div>
 
                             <div class="content-input-row3-col3">
@@ -158,34 +167,37 @@
                             <div class="content-input-row2-col1">
                                 <div class="content-input-row-text">Tỉnh/Thành phố<span style="color: red;">(*)</span></div>
                                 <div id="div-department" class="mcombobox">
-                                    <input class="m-combobox m-combobox-input" type="text" id="province" placeholder="Tỉnh/Thành phố">
-                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data">
+                                    <input class="m-combobox m-combobox-input" type="text" id="province" placeholder="Tỉnh/Thành phố" onblur="validatecity()" oninput="validatecity()">
+                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down" onclick="choosecity()"></i></button>
+                                    <div id="m-combobox-data" class="m-combobox-data" onclick="choosecity1()">
                                         <div class="m-combobox-item" value="0">Hà Nội</div>
                                         @*<div class="m-combobox-item" value="1">Hồ Chí Minh</div>*@
                                     </div>
                                 </div>
+                                <div id="validatecity" class="validate-input">Vui lòng chọn thành phố</div>
                             </div>
                             <div class="content-input-row4-col2 content-input-row5-col2">
                                 <div class="content-input-row-text">Quận/Huyện<span style="color: red;">(*)</span></div>
                                 <div id="div-department" class="mcombobox">
-                                    <input class="m-combobox m-combobox-input" type="text" id="district" placeholder="Quận/Huyện">
-                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data">
+                                    <input class="m-combobox m-combobox-input" type="text" id="district" placeholder="Quận/Huyện" onblur="validatedistrict()" oninput="validatedistrict()">
+                                    <button type="button" tabindex="-1" class="m-combobox-button" onclick="choosedistrict()"><i class="fas fa-chevron-down"></i></button>
+                                    <div id="m-combobox-data" class="m-combobox-data" onclick="choosedistrict1()">
                                         <div class="m-combobox-item" value="1">Hà Đông</div>
                                         @*<div class="m-combobox-item" value="0">Thanh Xuân</div>*@
                                     </div>
                                 </div>
+                                <div id="validatedistrict" class="validate-input">Vui lòng chọn huyện thị trấn</div>
                             </div>
                             <div class="content-input-row2-col2 content-input-row5-col3">
                                 <div class="content-input-row-text">Xã/Phường<span style="color: red;">(*)</span></div>
-                                <div id="div-department" class="mcombobox m-combobox-max-width">
-                                    <input placeholder="Xã/Phường" class="m-combobox m-combobox-input m-combobox-input-fix" type="text" id="tenphuong" name="tenphuong">
-                                    <button type="button" tabindex="-1" class="m-combobox-button m-combobox-button-fix"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data m-combobox-data-fix">
+                                <div class="mcombobox m-combobox-max-width">
+                                    <input placeholder="Xã/Phường" class="m-combobox m-combobox-input m-combobox-input-fix" type="text" id="tenphuong" name="tenphuong" onblur="validateward()" onclick="validateward()">
+                                    <button type="button" tabindex="-1" class="m-combobox-button m-combobox-button-fix" onclick="chooseward()"><i class="fas fa-chevron-down"></i></button>
+                                    <div id="m-combobox-data" class="m-combobox-data m-combobox-data-fix" onclick="chooseward1()" style="max-width:657px;">
                                         <div class="m-combobox-item" value="1">Yên Nghĩa</div>
                                     </div>
                                 </div>
+                                <div id="validateward" class="validate-input">Vui lòng chọn xã phường</div>
                             </div>
 
                         </div>
@@ -201,9 +213,10 @@
                                         <div class="m-combobox-item" value="0">Mường</div>
                                     </div>
                                 </div>
+                                <div id="validateethnic" class="validate-input">Vui lòng chọn xã phường</div>
                             </div>
                             <div class="content-input-row4-col2 content-input-row5-col2">
-                                <div class="content-input-row-text">Quốc tịch<span style="color: red;">(*)</span></div>
+                                <div class="content-input-row-text">Quốc tịch<span style="color: red;"></span></div>
                                 <div id="div-department" class="mcombobox">
                                     <input class="m-combobox m-combobox-input" type="text" id="nuoc" name="nuoc" placeholder="Quốc tịch">
                                     <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
@@ -215,40 +228,44 @@
                             <div class="content-input-row2-col2 content-input-row5-col3">
                                 <div class="content-input-row-text">Nhóm ưu tiên<span style="color: red;">(*)</span></div>
                                 <div id="div-department" class="mcombobox m-combobox-max-width">
-                                    <input placeholder="Nhóm ưu tiên" class="m-combobox m-combobox-input m-combobox-input-fix" type="text" id="uutien" name="uutien">
-                                    <button type="button" tabindex="-1" class="m-combobox-button m-combobox-button-fix"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data m-combobox-data-fix">
+                                    <input placeholder="Nhóm ưu tiên" class="m-combobox m-combobox-input m-combobox-input-fix" type="text" id="uutien" name="uutien" onblur="validateprioritized()">
+                                    <button type="button" tabindex="-1" class="m-combobox-button m-combobox-button-fix" onclick="chooseprioritized()"><i class="fas fa-chevron-down"></i></button>
+                                    <div id="m-combobox-data" class="m-combobox-data m-combobox-data-fix" onclick="chooseprioritized1()">
                                         <div class="m-combobox-item" value="1">Nhân viên y tế</div>
                                         <div class="m-combobox-item" value="0">Giáo viên</div>
                                         <div class="m-combobox-item" value="0">Quân nhân</div>
                                         <div class="m-combobox-item" value="0">Không</div>
                                     </div>
                                 </div>
+                                <div id="validateprioritized" class="validate-input">Vui lòng chọn đối tượng ưu tiên</div>
                             </div>
 
                         </div>
                         <div class="content-input-row2 content-input-row">
                             <div class="content-input-row2-col1">
                                 <div class="content-input-row-text">Họ và tên người giám hộ<span style="color: red;">(*)</span></div>
-                                <input type="text" id="input_name_guardian" name="input_name_guardian" class="m-input content-input-row2" placeholder="Họ và tên người giám hộ">
+                                <input type="text" id="input_name_guardian" name="input_name_guardian" class="m-input content-input-row2" placeholder="Họ và tên người giám hộ" onblur="validateguardian()" oninput="validateguardian()">
+                                <div id="validateguardian" class="validate-input">Vui lòng nhập tên</div>
                             </div>
 
                             <div class="content-input-row2-col3">
                                 <div class="content-input-row-text">Quan hệ<span style="color: red;">(*)</span></div>
                                 <div id="div-department" class="mcombobox">
-                                    <input class="m-combobox m-combobox-input" type="text" id="input_relation" name="input_relation" placeholder="Quan hệ">
-                                    <button type="button" id="btn-relation" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data">
+                                    <input class="m-combobox m-combobox-input" type="text" id="input_relation" name="input_relation" placeholder="Quan hệ" onblur="validaterelation()" oninput="validaterelation()">
+                                    <button type="button" id="btn-relation" tabindex="-1" class="m-combobox-button" onclick="chooserelation()"><i class="fas fa-chevron-down"></i></button>
+                                    <div id="m-combobox-data" class="m-combobox-data" onclick="chooserelation1()">
                                         <div class="m-combobox-item" value="1">Bố</div>
                                         <div class="m-combobox-item" value="0">Mẹ</div>
                                         <div class="m-combobox-item" value="0">Anh</div>
                                         <div class="m-combobox-item" value="0">Chị</div>
                                     </div>
                                 </div>
+                                <div id="validaterelation" class="validate-input">Vui lòng chọn mối quan hệ</div>
                             </div>
                             <div class="content-input-row2-col4">
                                 <div class="content-input-row-text">Số điện thoại người giám hộ<span style="color: red;">(*)</span></div>
-                                <input id="input_phone_guardian" name="input_phone_guardian" type="text" class="m-input content-input-row2" placeholder="Số điện thoại người giám hộ">
+                                <input id="input_phone_guardian" name="input_phone_guardian" type="text" class="m-input content-input-row2" placeholder="Số điện thoại người giám hộ" onblur="validate_phone_guardian()" oninput="validate_phone_guardian()">
+                                <div id="validate_phone_guardian" class="validate-input">Vui lòng nhập số điện thoại</div>
                             </div>
                         </div>
                         <div class="content-input-row2 content-input-row" style="font-weight: 700">
@@ -273,49 +290,51 @@
                             </div>
 
                         </div>
+                        <div id="mui1">
+                            <div class="content-input-row2 content-input-row" style="font-weight: 700">
+                                3.Lịch sử mũi tiêm thứ 1
+                            </div>
+                            <div class="content-input-row2 content-input-row">
 
-                        <div class="content-input-row2 content-input-row" style="font-weight: 700">
-                            3.Lịch sử mũi tiêm thứ 1
-                        </div>
-                        <div class="content-input-row2 content-input-row">
+                                <div class="content-input-row2-col2">
+                                    <div class="content-input-row-text">Ngày tiêm<span style="color: red;">(*)</span></div>
+                                    <input min="2018-01-01" max="2018-12-31" type="date" id="ngaytiem1" name="ngaytiem1" class="m-input content-input-row2" placeholder="Ngày tiêm" onblur="validateday()" oninput="validateday()">
+                                    <div id="validateday" class="validate-input">Vui lòng  nhập thời gian tiêm</div>
+                                </div>
 
-                            <div class="content-input-row2-col2">
-                                <div class="content-input-row-text">Ngày tiêm<span style="color: red;">(*)</span></div>
-                                <input min="2018-01-01" max="2018-12-31" type="date" id="ngaytiem1" name="ngaytiem1" class="m-input content-input-row2" placeholder="Ngày tiêm">
+                                <div class="content-input-row2-col3">
+                                    <div class="content-input-row-text">Tên vắc xin<span style="color: red;">(*)</span></div>
+                                    <div id="div-department" class="mcombobox">
+                                        <input class="m-combobox m-combobox-input" type="text" id="tenvc1" name="tenvc1" placeholder="Tên vắc xin" onblur="validatetype()" oninput="validatetype()">
+                                        <button type="button" tabindex="-1" class="m-combobox-button" onclick="choosetype()"><i class="fas fa-chevron-down"></i></button>
+                                        <div id="m-combobox-data" class="m-combobox-data" onclick="choosetype1()">
+                                            <div class="m-combobox-item" value="vt001">AstraZeneca</div>
+                                            <div class="m-combobox-item" value="vt002">Pfizer</div>
+                                            <div class="m-combobox-item" value="vt003">Vero Cell</div>
+                                        </div>
+                                    </div>
+                                    <div id="validatetype" class="validate-input">Vui lòng chọn loại mũi tiêm</div>
+                                </div>
+
+                                <div class="content-input-row2-col4">
+                                    <div class="content-input-row-text">Số lô</div>
+                                    <input id="malo1" name="malo1" type="text" class="m-input content-input-row2" placeholder="Số lô">
+                                </div>
+
+                                <div class="content-input-row2-col4" style="margin-left: -5px">
+                                    <div class="content-input-row-text">Địa điểm tiêm</div>
+                                    <input id="diemtiem1" name="diemtiem1" type="text" class="m-input content-input-row2" placeholder="Địa điểm tiêm">
+                                </div>
+
                             </div>
 
-                            <div class="content-input-row2-col3">
-                                <div class="content-input-row-text">Tên vắc xin<span style="color: red;">(*)</span></div>
-                                <div id="div-department" class="mcombobox">
-                                    <input class="m-combobox m-combobox-input" type="text" id="tenvc1" name="tenvc1" placeholder="Tên vắc xin">
-                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data">
-                                        <div class="m-combobox-item" value="vt001">AstraZeneca</div>
-                                        <div class="m-combobox-item" value="vt002">Pfizer</div>
-                                        <div class="m-combobox-item" value="vt003">Vero Cell</div>
-                                    </div>
+                            <div class="content-input-row2 content-input-row">
+                                <div class="content-input-row2-col2">
+                                    <div class="content-input-row-text">Phản ứng sau tiêm</div>
+                                    <input id="phanung" style="width:1350px" name="phanung" type="text" class="m-input content-input-row2" placeholder="Phản ứng sau tiêm">
                                 </div>
                             </div>
-
-                            <div class="content-input-row2-col4">
-                                <div class="content-input-row-text">Số lô</div>
-                                <input id="malo1" name="malo1" type="text" class="m-input content-input-row2" placeholder="Số lô">
-                            </div>
-
-                            <div class="content-input-row2-col4" style="margin-left: -5px">
-                                <div class="content-input-row-text">Địa điểm tiêm</div>
-                                <input id="diemtiem1" name="diemtiem1" type="text" class="m-input content-input-row2" placeholder="Địa điểm tiêm">
-                            </div>
-
                         </div>
-
-                        <div class="content-input-row2 content-input-row">
-                            <div class="content-input-row2-col2">
-                                <div class="content-input-row-text">Phản ứng sau tiêm</div>
-                                <input id="phanung" style="width:1350px" name="phanung" type="text" class="m-input content-input-row2" placeholder="Phản ứng sau tiêm">
-                            </div>
-                        </div>
-
                         <div class="content-input-row2 content-input-row content-input-row2-fix-text">
                             <span style="color: red;">
                                 Lưu ý:
@@ -336,14 +355,22 @@
                         <div class="content-input-row2 content-input-row button-bottom-fix">
 
                             <button type="button" class="m-btn button-bottom"> Hủy bỏ</button>
-                            <button type="button" class="m-btn button-bottom" onclick="next()"> Tiếp tục</button>
+                            <button type="button" class="m-btn button-bottom" id="button1" onclick="next()"> Tiếp tục</button>
                         </div>
                     </div>
 
 
-                    <div class="toatmessage">
+                    <div class="toatmessage" id="toatmessage">
                         <div class="toast-messge-icon"><i class="fa fa-times"></i></div>
                         <div class="toast-messge-icon">Bạn phải đủ 12 tuổi mới có thể tiêm được vaccin</div>
+                    </div>
+                    <div class="toatmessage" id="toatmessage1">
+                        <div class="toast-messge-icon"><i class="fa fa-times"></i></div>
+                        <div class="toast-messge-icon">Bạn phải điền đủ thông tin</div>
+                    </div>
+                    <div class="toatmessage" id="toatmessage2">
+                        <div class="toast-messge-icon"><i class="fa fa-times"></i></div>
+                        <div class="toast-messge-icon">Bạn phải chọn thông tin mũi tiêm</div>
                     </div>
 
 
@@ -376,10 +403,11 @@
                                         {
                                             <td></td>
                                         }
-                                        <td class="content-checkbox-1">
-                                            <input value="1" type="checkbox" id="checkts" name="checkts">
+                                    <td class="content-checkbox-1">
+                                        <input value="0" type="hidden" id="checkts" name="checkts">
+                                        <input value="1" type="checkbox" id="checkts" name="checkts">
 
-                                        </td>
+                                    </td>
                                         @*<td class="content-checkbox-1">
                                                 <input type="radio" id="test2" name="radio-group">
                                                 <label for="test2"></label>
@@ -640,6 +668,13 @@
         border-radius: 4px;
         background-image: url(/content/icon/refresh.png);
         cursor: pointer;
+    }
+
+    .validate-input {
+        display: none;
+        width: 244px;
+        color: red;
+        font-size: 13px;
     }
 
     html,
@@ -1290,7 +1325,7 @@
         background-color: #FF4747;
         position: fixed;
         right: 16px;
-        display: flex;
+        display: none;
         top: 2px;
         align-items: center;
         justify-content: space-between;
@@ -1331,7 +1366,7 @@
 <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-
+        document.getElementById('fullname').focus();
         // Khởi tạo sự kiện cho button của combobox:
         $('.m-combobox-button').on('click', btnComboboxOnClick);
 
@@ -1486,6 +1521,8 @@
         let comboboxData = $(this).siblings('.m-combobox-data');
         // 2 - hiển thị
         comboboxData.toggle();
+
+
     }
 
     function itemComboboxOnClick() {
@@ -1563,7 +1600,7 @@
         var identity = document.getElementById('identity').value;
         var province = document.getElementById('province').value;
         var district = document.getElementById('district').value;
-        var ward = document.getElementById('ward').value;
+        var ward = document.getElementById('tenphuong').value;
         var insurance = document.getElementById('insurance').value;
         document.getElementById('show-fullname').innerHTML = fullName;
         document.getElementById('show-dateofbird').innerHTML = date;
@@ -1583,7 +1620,7 @@
         document.getElementById("step3").classList.add("content-steps-1");
         document.getElementById("step4").classList.remove("content-steps-1");
     }
-
+    //hàm sử lí tiêm cho người thân hay cho bản thân
     document.getElementById('checkbox-check').onclick = function () {
         console.log(this.checked)
 
@@ -1604,6 +1641,7 @@
     document.getElementById('test2').onclick = function () {
         if (this.checked == true) {
             document.getElementById('input-info-regis').style.display = 'block';
+            document.getElementById('hotendk').focus();
         }
         if (this.checked == false) {
             document.getElementById('input-info-regis').style.display = 'none';
@@ -1611,6 +1649,14 @@
     }
     function updateValue() {
         var x = document.getElementById("dateof").value;
+        if (x == "" || x == null) {
+            document.getElementById('validatedate').style.display = "block";
+            document.getElementById('button1').style.cursor = "no-drop";
+            document.getElementById("button1").disabled = true;
+        } else {
+            document.getElementById('validatedate').style.display = "none";
+            document.getElementById("button1").disabled = false;
+        }
         var date = new Date(x);
         if (date.getDate() > 0) {
             var today = new Date();
@@ -1643,13 +1689,554 @@
 
         }
     }
+    function check() {
+        document.getElementById('toatmessage').style.display = "none";
+    }
+    function show() {
+        document.getElementById('toatmessage1').style.display = "none";
+    }
+    function show2() {
+        document.getElementById('toatmessage2').style.display = "none";
+    }
     function next() {
+        var hotendk = document.getElementById('hotendk').value;
+        var sdtdk = document.getElementById('sdtdk').value;
+        var loaimui = document.getElementById('loaimui').value;
+        var fullname = document.getElementById('fullname').value;
+        var dateof = document.getElementById('dateof').value;
+        var gender = document.getElementById('gender').value;
+        var phonenumber = document.getElementById('phonenumber').value;
+        var province = document.getElementById('province').value;
+        var district = document.getElementById('district').value;
+        var validateward = document.getElementById('tenphuong').value;
+        var uutien = document.getElementById('uutien').value;
+        var input_name_guardian = document.getElementById('input_name_guardian').value;
+        var input_relation = document.getElementById('input_relation').value;
+        var input_phone_guardian = document.getElementById('input_phone_guardian').value;
+        var ngaytiem1 = document.getElementById('ngaytiem1').value;
+        var tenvc1 = document.getElementById('tenvc1').value;
 
-        document.getElementById("m-dialog-modal").style.display = "block";
-        document.getElementById("content").style.display = "none";
-        document.documentElement.scrollTop = 0;
-        document.getElementById("step2").classList.add("content-steps-1");
-        document.getElementById("step1").classList.remove("content-steps-1");
+        //mũi tiếp đki cho người thân
+        if (document.getElementById('test2').checked == true && loaimui == "Mũi tiêm tiếp theo") {
+            if (hotendk == ""
+                || hotendk == null
+                || sdtdk == ""
+                || sdtdk == null
+                || loaimui == ""
+                || loaimui == null
+                || fullname == ""
+                || fullname == null
+                || dateof == ""
+                || dateof == null
+                || gender == ""
+                || gender == null
+                || phonenumber == ""
+                || phonenumber == null
+                || province == ""
+                || province == null
+                || district == ""
+                || district == null
+                || validateward == ""
+                || validateward == null
+                || input_name_guardian == ""
+                || input_name_guardian == null
+                || input_relation == ""
+                || input_relation == null
+                || input_phone_guardian == ""
+                || input_phone_guardian == null
+                || ngaytiem1 == ""
+                || ngaytiem1 == null
+                || tenvc1 == ""
+                || tenvc1 == null) {
+                document.getElementById('toatmessage1').style.display = 'flex';
+                setTimeout(show, 3000);
+            }
+            else {
+                let a = document.getElementById("dateof").value;
+                var date = new Date(a);
+                if (date.getDate() > 0) {
+                    var today = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth();
+                    var day = date.getDay();
+                    var age = today.getFullYear() - year;
+                    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+                        age--;
+                    }
+
+                    if (age <= 12) {
+                        document.getElementById('toatmessage').style.display = 'flex';
+                        setTimeout(check, 3000);
+                    }
+                    else {
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
+                    }
+                }
+            }
+        }
+        //trương hopwp mũi thứ nhất đk cho bản thân
+        else if (document.getElementById('test1').checked == true && loaimui == "Mũi tiêm thứ nhất") {
+            if (
+                loaimui == ""
+                || loaimui == null
+                || fullname == ""
+                || fullname == null
+                || dateof == ""
+                || dateof == null
+                || gender == ""
+                || gender == null
+                || phonenumber == ""
+                || phonenumber == null
+                || province == ""
+                || province == null
+                || district == ""
+                || district == null
+                || validateward == ""
+                || validateward == null
+                || input_name_guardian == ""
+                || input_name_guardian == null
+                || input_relation == ""
+                || input_relation == null
+                || input_phone_guardian == ""
+                || input_phone_guardian == null) {
+                document.getElementById('toatmessage1').style.display = 'flex';
+                setTimeout(show, 3000);
+            }
+            else {
+
+                let a = document.getElementById("dateof").value;
+                var date = new Date(a);
+                if (date.getDate() > 0) {
+                    var today = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth();
+                    var day = date.getDay();
+                    var age = today.getFullYear() - year;
+                    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+                        age--;
+                    }
+
+                    if (age <= 12) {
+                        document.getElementById('toatmessage').style.display = 'flex';
+                        setTimeout(check, 3000);
+                    }
+                    else {
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
+                    }
+                }
+            }
+        }
+        //trường hợp mũi đâu đăng kí cho người thân
+        else if (document.getElementById('test2').checked == true && loaimui == "Mũi tiêm thứ nhất") {
+            if (hotendk == ""
+                || hotendk == null
+                || sdtdk == ""
+                || sdtdk == null
+                || loaimui == ""
+                || loaimui == null
+                || fullname == ""
+                || fullname == null
+                || dateof == ""
+                || dateof == null
+                || gender == ""
+                || gender == null
+                || phonenumber == ""
+                || phonenumber == null
+                || province == ""
+                || province == null
+                || district == ""
+                || district == null
+                || validateward == ""
+                || validateward == null
+                || input_name_guardian == ""
+                || input_name_guardian == null
+                || input_relation == ""
+                || input_relation == null
+                || input_phone_guardian == ""
+                || input_phone_guardian == null
+            ) {
+                document.getElementById('toatmessage1').style.display = 'flex';
+                setTimeout(show, 3000);
+            }
+            else {
+                let a = document.getElementById("dateof").value;
+                var date = new Date(a);
+                if (date.getDate() > 0) {
+                    var today = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth();
+                    var day = date.getDay();
+                    var age = today.getFullYear() - year;
+                    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+                        age--;
+                    }
+
+                    if (age <= 12) {
+                        document.getElementById('toatmessage').style.display = 'flex';
+                        setTimeout(check, 3000);
+                    }
+                    else {
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
+                    }
+                }
+            }
+        }
+        //mũi tiếp theo đăng kí cho bản thân
+        else if (document.getElementById('test1').checked == true && loaimui == "Mũi tiêm tiếp theo") {
+            if (
+                loaimui == ""
+                || loaimui == null
+                || fullname == ""
+                || fullname == null
+                || dateof == ""
+                || dateof == null
+                || gender == ""
+                || gender == null
+                || phonenumber == ""
+                || phonenumber == null
+                || province == ""
+                || province == null
+                || district == ""
+                || district == null
+                || validateward == ""
+                || validateward == null
+                || input_name_guardian == ""
+                || input_name_guardian == null
+                || input_relation == ""
+                || input_relation == null
+                || input_phone_guardian == ""
+                || input_phone_guardian == null
+                || ngaytiem1 == ""
+                || ngaytiem1 == null
+                || tenvc1 == ""
+                || tenvc1 == null) {
+                document.getElementById('toatmessage1').style.display = 'flex';
+                setTimeout(show, 3000);
+            }
+            else {
+                let a = document.getElementById("dateof").value;
+                var date = new Date(a);
+                if (date.getDate() > 0) {
+                    var today = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth();
+                    var day = date.getDay();
+                    var age = today.getFullYear() - year;
+                    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+                        age--;
+                    }
+
+                    if (age <= 12) {
+                        document.getElementById('toatmessage').style.display = 'flex';
+                        setTimeout(check, 3000);
+                    }
+                    else {
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
+                    }
+                }
+            }
+        }
+        //trường hợp còn lại
+        else {
+
+            document.getElementById('loaimui').focus();
+            document.documentElement.scrollTop = 0;
+            document.getElementById('toatmessage2').style.display = 'flex';
+            setTimeout(show2, 3000);
+        }
+    }
+
+    function loaimuitiem() {
+        document.getElementById('mui1').style.display = 'none';
+
+    }
+    function loaimuitiem1() {
+        document.getElementById('mui1').style.display = 'block';
+    }
+    function validatename() {
+        var x = document.getElementById('fullname').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validateName').style.display = "block";
+
+            document.getElementById("button1").disabled = true;
+        } else {
+            document.getElementById('validateName').style.display = "none";
+            document.getElementById("button1").disabled = false;
+        }
+
+    }
+    function choosegender() {
+        document.getElementById("gender").focus();
+        var x = document.getElementById('gender').value;
+
+        console.log(x);
+    }
+    function choosecity() {
+        document.getElementById("province").focus();
+    }
+    function choosecity1() {
+        document.getElementById('validatecity').style.display = "none";
+    }
+    function validatecity() {
+        var x = document.getElementById('province').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validatecity').style.display = "block";
+
+            document.getElementById("button1").disabled = true;
+        } else {
+            document.getElementById('validatecity').style.display = "none";
+            document.getElementById("button1").disabled = false;
+        }
+    }
+    function choosedistrict() {
+        document.getElementById("district").focus();
+    }
+    function choosedistrict1() {
+        document.getElementById('validatedistrict').style.display = "none";
+    }
+    function validatedistrict() {
+        var x = document.getElementById('district').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validatedistrict').style.display = "block";
+
+            document.getElementById("button1").disabled = true;
+        } else {
+            document.getElementById('validatedistrict').style.display = "none";
+            document.getElementById("button1").disabled = false;
+        }
+    }
+    function chooserelation() {
+        document.getElementById("input_relation").focus();
+    }
+    function chooserelation1() {
+        document.getElementById('validaterelation').style.display = "none";
+    }
+    function validaterelation() {
+        var x = document.getElementById('input_relation').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validaterelation').style.display = "block";
+
+            document.getElementById("button1").disabled = true;
+        } else {
+            document.getElementById('validaterelation').style.display = "none";
+            document.getElementById("button1").disabled = false;
+        }
+    }
+    function choosetype() {
+        document.getElementById("tenvc1").focus();
+    }
+    function choosetype1() {
+        document.getElementById('validatetype').style.display = "none";
+    }
+    function validatetype() {
+        var x = document.getElementById('tenvc1').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validatetype').style.display = "block";
+
+
+        } else {
+            document.getElementById('validatetype').style.display = "none";
+
+        }
+    }
+    function chooseprioritized() {
+        document.getElementById("uutien").focus();
+    }
+    function chooseprioritized1() {
+        document.getElementById('validateprioritized').style.display = "none";
+    }
+    function validateprioritized() {
+        var x = document.getElementById('uutien').value;
+        if (x == "" || x == null) {
+            document.getElementById('validateprioritized').style.display = "block";
+
+        } else {
+            document.getElementById('validateprioritized').style.display = "none";
+
+        }
+    }
+    function chooseward() {
+        document.getElementById("tenphuong").focus();
+    }
+    function chooseward1() {
+        document.getElementById('validateward').style.display = "none";
+    }
+    function validateward() {
+        var x = document.getElementById('tenphuong').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validateward').style.display = "block";
+
+
+        } else {
+            document.getElementById('validateward').style.display = "none";
+
+        }
+    }
+    function choose3() {
+        document.getElementById("loaimui").focus();
+    }
+    function choose4() {
+        document.getElementById('validate3').style.display = "none";
+    }
+    function validate3() {
+        var x = document.getElementById('loaimui').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validate3').style.display = "block";
+
+
+        } else {
+            document.getElementById('validate3').style.display = "none";
+
+        }
+    }
+    function validategender() {
+        var x = document.getElementById('gender').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validategender').style.display = "block";
+
+
+        } else {
+            document.getElementById('validategender').style.display = "none";
+
+        }
+    }
+    function validategender1() {
+        document.getElementById('validategender').style.display = "none";
+    }
+    function validatephonenumber() {
+        var x = document.getElementById('phonenumber').value;
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        if (x == "" || x == null) {
+            document.getElementById('validatephonenumber').style.display = "block";
+            document.getElementById('validatephonenumber1').style.display = "none";
+
+
+        }
+
+        else {
+            document.getElementById('validatephonenumber').style.display = "none";
+
+            if (vnf_regex.test(x) == false) {
+                document.getElementById('validatephonenumber1').style.display = "block";
+            }
+            else {
+                document.getElementById('validatephonenumber1').style.display = "none";
+            }
+        }
+    }
+    function validateemail() {
+
+        var x = document.getElementById('email').value;
+        var filter = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (x != "") {
+            if (!filter.test(x)) {
+                document.getElementById('validateemail').style.display = "block";
+            }
+            else {
+                document.getElementById('validateemail').style.display = "none";
+            }
+        }
+        else {
+            document.getElementById('validateemail').style.display = "none";
+        }
+
+
+    }
+    function validateidentity() {
+        var x = document.getElementById('identity').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validatidentity').style.display = "block";
+
+
+        } else {
+            document.getElementById('validatidentity').style.display = "none";
+
+        }
+    }
+    function validateguardian() {
+        var x = document.getElementById('input_name_guardian').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validateguardian').style.display = "block";
+
+
+        } else {
+            document.getElementById('validateguardian').style.display = "none";
+
+        }
+    }
+    function validate_phone_guardian() {
+        var x = document.getElementById('input_phone_guardian').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validate_phone_guardian').style.display = "block";
+
+
+        } else {
+            document.getElementById('validate_phone_guardian').style.display = "none";
+
+        }
+    }
+    function validateday() {
+        var x = document.getElementById('ngaytiem1').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validateday').style.display = "block";
+
+
+        } else {
+            document.getElementById('validateday').style.display = "none";
+
+        }
+    }
+    function validate1() {
+        var x = document.getElementById('hotendk').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validate1').style.display = "block";
+
+
+        } else {
+            document.getElementById('validate1').style.display = "none";
+
+        }
+    }
+    function validate2() {
+        var x = document.getElementById('sdtdk').value;
+        if (x == "" || x == null) {
+
+            document.getElementById('validate2').style.display = "block";
+
+
+        } else {
+            document.getElementById('validate2').style.display = "none";
+
+        }
     }
 </script>
 

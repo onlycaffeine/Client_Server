@@ -115,6 +115,7 @@
     <Compile Include="EF\Hoadonnhap.cs" />
     <Compile Include="EF\Kho.cs" />
     <Compile Include="EF\Lo.cs" />
+    <Compile Include="EF\Loaimui.cs" />
     <Compile Include="EF\Loaitochuc.cs" />
     <Compile Include="EF\Loaitrieuchung.cs" />
     <Compile Include="EF\Loaivattuyte.cs" />

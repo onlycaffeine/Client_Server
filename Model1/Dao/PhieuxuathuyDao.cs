@@ -144,7 +144,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Ngayxuat);
+            return listLinks.OrderByDescending(x => x.Sophieuxuat);
         }
     }
 }

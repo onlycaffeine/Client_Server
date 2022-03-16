@@ -21,6 +21,13 @@ namespace Model1.Dao
             return a;
         }
 
+        public long Sldongchuanhap()
+        {
+            var model = from l in db.Phieuxuattralais where l.Matinhtrang == "tt001" select new { l.Sophieuxuat, };
+            long a = model.LongCount();
+            return a;
+        }
+
         public string Insert(Phieuxuattralai order)
         {
             db.Phieuxuattralais.Add(order);
@@ -212,7 +219,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Ngayxuat);
+            return listLinks.OrderByDescending(x => x.Sophieuxuat);
         }
 
         public IEnumerable<Phieuxuattralai> ListAllPagingXuatTL(string searchString, string a, string b, string madt)

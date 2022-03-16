@@ -1,0 +1,73 @@
+﻿@model Model1.EF.Vattuyte
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b class="panel-heading" style="color:black; font-size:x-large">
+        Quản lý vật tư
+    </b>
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/Admin/css/main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/thuan-main.css">
+    <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+</head>
+
+<body>
+    <div class="row">
+
+        <div class="col-lg-pull-3 thuan-body-content">
+            @using (Html.BeginForm("Edit", "Vattuyte", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(Model => Model.Mavattu)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="display:none">
+                    <label class="lable-thuan" style="margin-right: 19px;width:100px">Mã vật tư</label>
+                    @Html.EditorFor(model => model.Mavattu, new { htmlAttributes = new { @class = "form-control", @readonly = "True" } })
+                    @Html.ValidationMessageFor(model => model.Mavattu, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label class="lable-thuan" style="margin-right: 19px;width: 100px;">Tên vật tư</label>
+                    @Html.EditorFor(model => model.Tenvattu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tenvattu, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    <label class="lable-thuan" style="margin-right: 19px;width: 130px;">Tên loại vật tư</label>
+                    @Html.EditorFor(model => model.Maloaivattu, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Malvt, @readonly = "True" } })
+
+                </div>
+
+                <div class="form-group">
+                    <label class="lable-thuan" style="margin-right: 19px;width: 100px;">Nhà sản xuất</label>
+                    @Html.EditorFor(model => model.Mansx, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Mansx, @readonly = "True" } })
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Cập nhật" class="btn btn-primary" style=" margin:10px 0 0 0" />
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+    <div style="margin-top:13px">
+        @Html.ActionLink("Quay lại", "Index")
+    </div>
+</body>
+</html>

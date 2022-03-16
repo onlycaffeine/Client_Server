@@ -27,6 +27,8 @@ namespace Model1.EF
         [StringLength(10)]
         public string Mansx { get; set; }
 
+        public bool Trangthai { get; set; } // fix here
+
         [StringLength(10)]
         public string Maloaivattu { get; set; }
 

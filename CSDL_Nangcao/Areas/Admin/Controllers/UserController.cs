@@ -16,15 +16,28 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         // GET: Admin/User
         [HasCredential(RoleID = "QLY_ND")]
 
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult Index(string searchString1, int page = 1, int pageSize = 10)
         {
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
             var dao = new UserDao();
-            var model = dao.ListAllPaging(searchString, page, pageSize);
 
+            var model = dao.ListAllPaging(searchString1, session.Maquyen, session.Madiemtiem, session.Maphuong, session.Maquan, session.Matp, page, pageSize);
             var nhomnvs = from k in db.Nhomnhanviens select k;
+            var nhomnvws = from j in db.Nhomnhanviens where j.Manhomnv == "cadres" select j;
+            var nhomnvds = from x in db.Nhomnhanviens where x.Manhomnv == "w_account" select x;
+            var nhomnvcs = from y in db.Nhomnhanviens where y.Manhomnv == "d_account" || y.Manhomnv == "d_leader" select y;
+            var dts = from l in db.Diemtiems where l.Maphuong == session.Maphuong select l;
 
-            ViewBag.SearchString = searchString;
+            ViewBag.SearchString1 = searchString1;
             ViewBag.nhomnv = new SelectList(nhomnvs, "Manhomnv", "Tennhomnv");
+            ViewBag.nhomnvw = new SelectList(nhomnvws, "Manhomnv", "Tennhomnv");
+            ViewBag.nhomnvd = new SelectList(nhomnvds, "Manhomnv", "Tennhomnv");
+            ViewBag.nhomnvc = new SelectList(nhomnvcs, "Manhomnv", "Tennhomnv");
+            ViewBag.dt = new SelectList(dts, "Madiemtiem", "Tendiemtiem");
+            ViewBag.Maquyen = session.Maquyen;
+            ViewBag.Mathanhpho = session.Matp;
+            ViewBag.Maquan = session.Maquan;
+            ViewBag.Maphuong = session.Maphuong;
             string[] arr = new string[5];
             ViewBag.arr = arr;
 
@@ -46,41 +59,151 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        [HasCredential(RoleID = "QLY_ND")]
+        public ActionResult Detail(string id)
+        {
+            //var nhomnvs = from k in db.Nhomnhanviens select k;
+            //ViewBag.Manhom = new SelectList(nhomnvs, "Manhomnv", "Tennhomnv");
+            //var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            var user = new UserDao().ViewDetail(id);
+            string tennhom = "", tentp = "", tenq = "", tenp = "", tendt = "";
+            if (user.Manhom != "")
+            {
+                tennhom = db.Nhomnhanviens.Find(user.Manhom).Tennhomnv;
+            }
+
+            if (user.Mathanhpho != "")
+            {
+                tentp = db.Thanhphoes.Find(user.Mathanhpho).Tenthanhpho;
+            }
+
+            if (user.Maquan != "")
+            {
+                tenq = db.Quans.Find(user.Maquan).Tenquan;
+            }
+
+            if (user.Maphuong != "")
+            {
+                tenp = db.Phuongs.Find(user.Maphuong).Tenphuong;
+            }
+
+            if (user.Madiemtiem != "")
+            {
+                tendt = db.Diemtiems.Find(user.Madiemtiem).Tendiemtiem;
+            }
+
+            if(user.Manhom == "storage" || user.Manhom == "leader" || user.Manhom == "admin" || user.Manhom == "n_account")
+            {
+                tentp = "Không có dữ liệu"; tenq = "Không có dữ liệu"; tenp = "Không có dữ liệu"; tendt = "Không có dữ liệu";
+            }
+
+            if (user.Manhom == "c_account" || user.Manhom == "c_leader")
+            {
+                tenq = "Không có dữ liệu"; tenp = "Không có dữ liệu"; tendt = "Không có dữ liệu";
+            }
+
+            if (user.Manhom == "d_account" || user.Manhom == "d_leader")
+            {
+                tenp = "Không có dữ liệu"; tendt = "Không có dữ liệu";
+            }
+
+            if (user.Manhom == "w_account" )
+            {
+                tendt = "Không có dữ liệu";
+            }
+
+            ViewBag.Manhom = tennhom;
+            ViewBag.Matp = tentp;
+            ViewBag.Maq = tenq;
+            ViewBag.Map = tenp;
+            ViewBag.Madt = tendt;
+            ViewBag.Maquyen = user.Manhom;
+            return View(user);
+        }
+
         [HttpPost]
         [HasCredential(RoleID = "QLY_ND")]
-        //public ActionResult Create(Nhanvien user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var dao = new UserDao();
-
-        //        var encryptedMd5Pas = Encryptor.MD5Hash(user.Matkhau);
-        //        user.Matkhau = encryptedMd5Pas;
-
-        //        string id = dao.Insert(user);
-        //        if (id != "")
-        //        {
-        //            //SetAlert("Thêm user thành công", "success");
-        //            return RedirectToAction("Index", "User");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Thêm user không thành công");
-        //        }
-        //    }
-        //    return View("Index");
-        //}
-        public ActionResult Create(string maphieu, string tennv, DateTime ngaynhap, string sdt, string nhomnv, bool trangthai )
+        public ActionResult Create(string tennv, DateTime ngaynhap, string sdt, string nhomnv, string nhomnvw, string nhomnvd,
+            string nhomnvc, bool trangthai, string tk, string mk, string tp, string q, string p, string dt)
         {
-            //var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            var dao = new UserDao();
+            string maphuong = dao.Maphuongdk(p);
+            string maquan = dao.Maquandk(q);
+            string matp = dao.Matpdk(tp);
+            string madt = "";
+            if (dt != null)
+            {
+                madt = dao.Madtdk(dt);
+            }
+
+            long sldonglo = dao.Sldong() + 1;
+            string maloauto = "nv00" + sldonglo.ToString();
+            if (sldonglo > 9)
+            {
+                maloauto = "nv0" + sldonglo.ToString();
+            }
+
+            if (dao.Checktk(tk))
+            {
+                return RedirectToAction("Fail", "User");
+            }
+
+            if (session.Maquyen == "d_leader" && maquan != session.Maquan)
+            {
+                return RedirectToAction("Fail0", "User");
+            }
+
+            if (session.Maquyen == "d_leader" && maphuong == "")
+            {
+                return RedirectToAction("Fail1", "User");
+            }
+
+            if (session.Maquyen == "c_leader" && matp != session.Matp)
+            {
+                return RedirectToAction("Fail0", "User");
+            }
+
+            if (session.Maquyen == "c_leader" && maquan == "")
+            {
+                return RedirectToAction("Fail1", "User");
+            }
+
+            string nhom = "";
+            if (session.Maquyen == "w_account")
+            {
+                nhom = nhomnvw;
+            }
+
+            if (session.Maquyen == "d_leader")
+            {
+                nhom = nhomnvd;
+            }
+
+            if (session.Maquyen == "c_leader")
+            {
+                nhom = nhomnvc;
+            }
+
+            if (session.Maquyen != "c_leader" && session.Maquyen != "d_leader")
+            {
+                nhom = nhomnv;
+            }
+
             var emp = new Nhanvien();
-            emp.Manhanvien = maphieu;
+            emp.Manhanvien = maloauto;
             emp.Tennhanvien = tennv;
             emp.Ngaysinh = ngaynhap;
             emp.SDT = sdt;
-            emp.Manhom = nhomnv;
+            emp.Manhom = nhom;
             emp.Trangthai = trangthai;
-            //order.Ngaynhap = ngaynhap;
+            emp.Taikhoan = tk;
+            emp.Matkhau = mk;
+            emp.Mathanhpho = matp;
+            emp.Maquan = maquan;
+            emp.Maphuong = maphuong;
+            emp.Madiemtiem = madt;
             //order.Manhanvien = session.UserID;
 
             try
@@ -92,9 +215,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 return Redirect("/loi-thanh-toan");
             }
 
-            //return Redirect("/hoan-thanh");
-            //return View("~/Areas/Admin/Views/Nhaptuncc/Success.cshtml");
-            return RedirectToAction("Index", "User");
+            return View("~/Areas/Admin/Views/User/Success.cshtml");
         }
 
         [HttpPost]
@@ -104,11 +225,11 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                if (!string.IsNullOrEmpty(user.Matkhau))
-                {
-                    var encryptedMd5Pas = Encryptor.MD5Hash(user.Matkhau);
-                    user.Matkhau = encryptedMd5Pas;
-                }
+                //if (!string.IsNullOrEmpty(user.Matkhau))
+                //{
+                //    var encryptedMd5Pas = Encryptor.MD5Hash(user.Matkhau);
+                //    user.Matkhau = encryptedMd5Pas;
+                //}
 
 
                 var result = dao.Update(user);
@@ -119,7 +240,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Cập nhật user không thành công");
+                    ModelState.AddModelError("", "Cập nhật user Không có dữ liệu thành công");
                 }
             }
             return View("Index");
@@ -160,14 +281,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             return View(forums);
         }
 
-        //[HttpPost]
-        //public ActionResult Delete(IEnumerable<string> employeeIdsToDelete)
-        //{
-        //    db.Nhanviens.Where(x => employeeIdsToDelete.Contains(x.Manhanvien)).ToList().ForEach(db.Nhanviens.Remove());
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
         [HttpPost]
         [ActionName("MultiDelete")]
         public ActionResult MultiDelete_Post(IEnumerable<string> employeeIdsToDelete)
@@ -183,7 +296,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             // select nv).ToList();
 
             string[] arr = new string[5];
-            int i = 0, j=0;
+            int i = 0, j = 0;
 
             foreach (var item in employeeIdsToDelete)
             {
@@ -233,5 +346,25 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //return Redirect("/hoan-thanh");
         }
 
+
+        public ActionResult Success()
+        {
+            return View("~/Areas/Admin/Views/User/Success.cshtml");
+        }
+
+        public ActionResult Fail1()
+        {
+            return View("~/Areas/Admin/Views/User/Fail1.cshtml");
+        }
+
+        public ActionResult Fail0()
+        {
+            return View("~/Areas/Admin/Views/User/Fail0.cshtml");
+        }
+
+        public ActionResult Fail()
+        {
+            return View("~/Areas/Admin/Views/User/Fail.cshtml");
+        }
     }
 }

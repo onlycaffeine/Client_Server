@@ -24,14 +24,15 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         }
 
         [HasCredential(RoleID = "TONKHO")]
-        public ActionResult Index1(string ctdb = "", string ctnd = "")
+        public ActionResult Index1(string tenvts, string hsds)
         {
             var dao = new LoDao();
-            var model = dao.ListAllPaging1(ctdb, ctnd);
+            var model = dao.ListAllPaging11(tenvts, hsds);
 
-            var nguons = from n in db.Vattuytes where n.Maloaivattu == "lvt001" select n;
-            ViewBag.nguon = new SelectList(nguons, "Mavattu", "Tenvattu");
-            //ViewBag.SearchString = searchString;
+            //var nguons = from n in db.Vattuytes where n.Maloaivattu == "lvt001" select n;
+            //ViewBag.nguon = new SelectList(nguons, "Mavattu", "Tenvattu");
+            ViewBag.tenvts = tenvts;
+            ViewBag.hsds = hsds;
             return View(model);
         }
 

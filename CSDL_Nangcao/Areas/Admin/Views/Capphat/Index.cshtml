@@ -18,9 +18,38 @@
 @section jsFooter{
     <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/Admin/css/lib/combobox.js"></script>
-    <script src="~/Assets/Admin/js/controller/capphat.js"></script>
-    <script>var element = document.getElementById("nguon").value;
-        document.getElementById("sophieudutru").value = element;</script>
+    <script>
+        var element = document.getElementById("nguon").value;
+        document.getElementById("sophieudutru").value = element;
+
+        input.addEventListener('nguon', updateValue);
+
+        function updateValue(e) {
+            debugger
+            var a = e.target.value;
+        }
+
+        function updateValue() {
+            var x = document.getElementById("nguon").value;
+            $.ajax({
+                url: "/Admin/Capphat/Index",
+                type: "GET",
+                data: { x: Id },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    debugger;
+                    alert(result)
+                },
+                error: function (response) {
+                    debugger;
+                    alert('eror');
+                }
+            });
+        }
+
+    </script>
+    <script src="~/assets/Client/js/page1.js"></script>
 }
 
 <head>
@@ -144,18 +173,25 @@
                     <div class="form-group">
                         <div class="form-group" style="display: flex ;  width:100%;align-items:center">
                             <label style="margin-left: 7px;">Từ phiếu dự trù</label>
-                            <p>@Html.DropDownList("nguon", null, new { @style = "width:100px; margin:0 16px", @class = "form-control", @name = "nguon", @id = "nguon" })</p>
-                            <p><button type="submit" title="Thêm lô xuất" class="btn btn-primary" style="margin: -130px 0 -3px -57px;"><i class="fas fa-plus"></i><b style="font-size: 14px;
-                             margin-left: 5px"> Thêm lô xuất</b></button></p>
+                            <p id="intro">@Html.DropDownList("nguon", null, new { @style = "width:100px; margin:0 16px", @class = "form-control", @name = "nguon", @id = "nguon" })</p>
+                            @*<p>@Html.DropDownList("nguon", null, new { @style = "width:100px; margin:0 16px", @class = "form-control", @name = "nguon", @id = "nguon" })</p>*@
+                            <p>
+                                <button type="submit" title="Thêm lô xuất" class="btn btn-primary" style="margin: -130px 0 -3px -57px;">
+                                    <i class="fas fa-plus"></i><b style="font-size: 14px;
+                             margin-left: 5px"> Thêm lô xuất</b>
+                                </button>
+                            </p>
                         </div>
                     </div>
                 }
 
-                @using (Html.BeginForm("Payment", "Capphat", FormMethod.Post))
+                @using (Html.BeginForm("MultiDelete", "Capphat", FormMethod.Post))
                 {
                     <div class="panel-heading" style="color:blue; font-size:large; margin-top:-70px">
-                        <button type="submit" title="Thêm phiếu" class="btn btn-primary" style="margin: -120px 0px -3px 349px"><i class="fas fa-save"></i><b style="font-size: 14px;
-                        margin-left: 5px;"> Lưu</b></button>
+                        <button type="submit" title="Thêm phiếu" class="btn btn-primary" style="margin: -120px 0px -3px 349px">
+                            <i class="fas fa-save"></i><b style="font-size: 14px;
+                        margin-left: 5px;"> Lưu</b>
+                        </button>
                     </div>
 
                     <div class="form-group" style="">
@@ -173,7 +209,8 @@
                             <label style="margin-left: 8px;">Tình trạng</label>
                             <p><input value="Đang vận chuyển" class="form-control" style="width:150px;margin:0 0 0 17px" readonly /></p>
 
-                            <p><input value="@ViewBag.nguon" style="display:none" id="sophieudutru", name="sophieudutru" class="form-control" /></p>
+                            @*<p><input value="" style="display:none" id="sophieudutru" name="sophieudutru" class="form-control" readonly /></p>*@
+                            <p><input value="" id="sophieudutru" name="sophieudutru" class="form-control" style="width:100px;margin:0 16px;display:none" readonly /></p>
                         </div>
 
 
@@ -214,8 +251,8 @@
                                                 <td>
                                                     @*<a title="Sửa" href="/Admin/Nhapcapphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
                                                     @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
-                                                    { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
-                                                    new { @class = "fas fa-trash", @title = "Xóa" })
+                                               { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
+         new { @class = "fas fa-trash", @title = "Xóa" })
                                                     @*|<a title="Chi tiết" href="/Admin/Nhapcapphat/Detail/@item.Madongxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>*@
                                                 </td>
                                             </tr>
@@ -235,8 +272,8 @@
                                                 <td>
                                                     @*<a title="Sửa" href="/Admin/Nhapcapphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
                                                     @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
-                                                    { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
-                                                    new { @class = "fas fa-trash", @title = "Xóa" })
+                                               { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
+         new { @class = "fas fa-trash", @title = "Xóa" })
                                                     @*|<a title="Chi tiết" href="/Admin/Nhapcapphat/Detail/@item.Madongxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>*@
                                                 </td>
                                             </tr>
@@ -256,8 +293,8 @@
                                                 <td>
                                                     @*<a title="Sửa" href="/Admin/Nhapcapphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
                                                     @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
-                                                    { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
-                                                    new { @class = "fas fa-trash", @title = "Xóa" })
+                                               { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
+                                                                             new { @class = "fas fa-trash", @title = "Xóa" })
                                                     @*|<a title="Chi tiết" href="/Admin/Nhapcapphat/Detail/@item.Madongxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>*@
                                                 </td>
                                             </tr>

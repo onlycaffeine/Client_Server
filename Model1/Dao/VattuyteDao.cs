@@ -16,6 +16,20 @@ namespace Model1.Dao
             db = new CSDL_NangcaoDbContext();
         }
 
+        public bool ChangeStatus(string id)
+        {
+            var user = db.Vattuytes.Find(id);
+            user.Trangthai = !user.Trangthai;
+            db.SaveChanges();
+            return user.Trangthai;
+        }
+
+        public long Sldong()
+        {
+            long a = db.Vattuytes.LongCount();
+            return a;
+        }
+
         public List<Vattuyte> ListAll()
         {
             return db.Vattuytes.Where(x => x.Tenvattu != "").OrderBy(x => x.Mavattu).ToList();
@@ -84,6 +98,35 @@ namespace Model1.Dao
             }
 
             return listLinks.OrderByDescending(x => x.Maloaivattu);
+        }
+
+        public IEnumerable<VattuyteDTO> ListAllPagingql()//string searchString, int page, int pageSize, int minp, int maxp)
+        {
+            List<VattuyteDTO> listLinks = new List<VattuyteDTO>();
+            var model = from l in db.Vattuytes // lấy toàn bộ sp
+                        join c in db.Loaivattuytes on l.Maloaivattu equals c.Maloaivattu
+                        join q in db.Nhasanxuats on l.Mansx equals q.Mansx
+                        select new { l.Mavattu, l.Tenvattu, c.Tenloaivattu, q.Tennsx, l.Trangthai, q.Quocgia };
+
+            //if (CategoryID != 0)
+            //{
+            //    model = model.Where(x => x.CategoryID == CategoryID);
+            //}
+
+            foreach (var item in model)
+            {
+                VattuyteDTO temp = new VattuyteDTO();
+                temp.Mavattu = item.Mavattu;
+                temp.Tenvattu = item.Tenvattu;
+                temp.Tenloaivattu = item.Tenloaivattu;
+                temp.Tennsx = item.Tennsx;
+                temp.Trangthai = item.Trangthai;
+                temp.Xuatxu = item.Quocgia;
+                listLinks.Add(temp);
+            }
+
+            return listLinks.OrderByDescending(x => x.Maloaivattu);
+            //return listLinks.OrderByDescending(x => x.Maloaivattu).ToPagedList(page, pageSize);
         }
 
         public IEnumerable<Vattuyte> ListAllPaging1()//string searchString, int page, int pageSize, int minp, int maxp)
@@ -253,9 +296,11 @@ namespace Model1.Dao
             try
             {
                 var pr = db.Vattuytes.Find(entity.Mavattu);
+                pr.Mavattu = entity.Mavattu;
                 pr.Tenvattu = entity.Tenvattu;
-                ///
-                ///
+                //pr.Tenvattu = entity.Tenvattu;
+                pr.Maloaivattu = entity.Maloaivattu;
+                pr.Mansx = entity.Mansx;
                 db.SaveChanges();
                 return true;
             }

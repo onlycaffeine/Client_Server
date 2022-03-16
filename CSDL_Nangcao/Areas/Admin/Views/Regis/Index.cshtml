@@ -17,6 +17,7 @@
     <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/Admin/css/lib/combobox.js"></script>
     <script src="~/Assets/Admin/js/controller/regis.js"></script>
+
 }
 
 <head>
@@ -29,10 +30,98 @@
     <link rel="stylesheet" href="~/Assets/Admin/css/page/user.css">
     <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
     <style>
-        /*.table-responsive {
-            height: 212px;
-        }*/
+
+        .m-combobox-max-width {
+            width: 619px !important;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+        }
+
+        .m-combobox-button-fix {
+            left: 618px !important;
+        }
+
+        .m-combobox-input-fix {
+            border: none !important;
+            outline: none !important;
+        }
+
+        .m-combobox-data-fix {
+            width: 740px !important;
+        }
+
+
+        .m-combobox {
+            height: 38px;
+            border: 1px solid #bbbbbb;
+            border-radius: 4px;
+            min-width: 259px;
+        }
+
+            .m-combobox:focus {
+                border-color: #019160;
+            }
+
+        .mcombobox {
+            display: flex;
+            position: relative;
+            width: 244px;
+        }
+
+            .mcombobox input {
+                border-radius: 4px;
+                padding: 0 16px;
+                padding-right: 56px;
+            }
+
+                .mcombobox input:focus ~ button {
+                    border-color: #019160;
+                    color: #019160;
+                }
+
+            .mcombobox button {
+                outline: none;
+                position: absolute;
+                left: 259px;
+                width: 39px;
+                height: 38px;
+                border: 0;
+                border: 1px solid #dddddd;
+                border-left: none;
+                border-radius: 0 4px 4px 0;
+                box-sizing: border-box;
+            }
+
+            .mcombobox .m-combobox-data {
+                display: none;
+                position: absolute;
+                top: calc(100% + 1px);
+                width: 100%;
+                box-shadow: 0px 2px 5px;
+                background-color: #fff;
+                z-index: 999;
+                width: 298px;
+            }
+
+        .content-input-row2-col4 {
+            margin-left: 108px;
+        }
+
+        .mcombobox .m-combobox-item {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding-left: 2px;
+            background-color: #fff;
+        }
+
+            .mcombobox .m-combobox-item:hover,
+            .m-combobox-item-hover {
+                background-color: #bbb !important;
+                cursor: pointer;
+            }
     </style>
+
     @{
         DateTime date = DateTime.Today;
         DateTime datedefault = Convert.ToDateTime("08/13/2000");
@@ -46,7 +135,7 @@
         <b class="panel-heading" style="color:coral; font-size:large">
             Phân loại phiếu đăng ký
         </b>
-        <hr />
+        <hr style="margin-bottom: -5px;" />
 
         <div class="panel-body">
             @using (Html.BeginForm("Index", "Regis", FormMethod.Get))
@@ -54,39 +143,50 @@
                 <div class="form-group">
                     <div class="form-group" style="display: flex ;  width:100%;align-items:center">
                         Trạng thái:
-                        <select name="trangthai" id="trangthai" style="margin:0 18px 0 18px;height:35px;width:110px">
-                            <option value="0">Chưa duyệt</option>
-                            <option value="1">Đã duyệt</option>
-                            <option value="2">Đã xác nhận</option>
-                            <option value="3">Đã tiêm</option>
+                        <select name="tt" id="tt" style="margin:0 18px 0 18px;height:35px;width:110px">
+                            <option value="tt001">Chưa duyệt</option>
+                            <option value="tt002">Đã duyệt</option>
+                            <option value="tt003">Đã xác nhận</option>
+                            @*<option value="tt004">Đã tiêm</option>*@
                         </select>
                         Mũi đăng ký:
-                        <select name="mui" id="mui" style="margin:0 18px 0 18px;height:35px;width:110px">
-                            <option value="0">Tất cả</option>
-                            <option value="1">Mũi đầu tiên</option>
-                            <option value="2">Mũi tiếp theo</option>
+                        <select name="muidk" id="muidk" style="margin:0 18px 0 18px;height:35px;width:110px">
+                            <option value="tatca">Tất cả</option>
+                            <option value="Mũi đầu tiên">Mũi đầu tiên</option>
+                            <option value="Mũi tiêp theo">Mũi tiếp theo</option>
                         </select>
+                        @*<div class="content-input-row1 content-input-row">
+                                <div class="content-input-row-text">Đăng ký mũi tiêm thứ <span style="color: red;">(*)</span></div>
+                                <div id="div-department" class="mcombobox">
+                                    <input class="m-combobox m-combobox-input" type="text" id="loaimui" name="loaimui" placeholder="Đăng ký mũi tiêm thứ" />
+                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
+                                    <div id="m-combobox-data" class="m-combobox-data">
+                                        <div class="m-combobox-item" value="0">Mũi tiêm thứ nhất</div>
+                                        <div class="m-combobox-item" value="1">Mũi tiêp theo</div>
+                                    </div>
+                                </div>
+                            </div>*@
                         Nhóm ưu tiên:
-                        <select name="nhomdoituong" id="nhomdoituong" style="margin:0 18px 0 18px;height:35px;width:110px">
-                            <option value="0">Tất cả</option>
-                            <option value="2">Nhân viên y tế</option>
-                            <option value="3">Quân nhân</option>
-                            <option value="4">Giáo viên</option>
-                            <option value="5">Không</option>
+                        <select name="nhomut" id="nhomut" style="margin:0 18px 0 18px;height:35px;width:110px">
+                            <option value="tatca">Tất cả</option>
+                            <option value="ut1">Nhân viên y tế</option>
+                            <option value="ut2">Quân nhân</option>
+                            <option value="ut3">Giáo viên</option>
+                            <option value="ut4">Không</option>
                         </select>
-                        vaccin lần 1:
-                        <select name="nhomdoituong" id="nhomdoituong" style="margin:0 18px 0 18px;height:35px;width:90px">
-                            <option value="0">Tất cả</option>
-                            <option value="2">AstraZeneca</option>
-                            <option value="3">Pfizer</option>
-                            <option value="4">Vero Cell</option>
+                        Vaccin lần 1:
+                        <select name="vc1" id="vc1" style="margin:0 18px 0 18px;height:35px;width:90px">
+                            <option value="tatca">Tất cả</option>
+                            <option value="vt001">AstraZeneca</option>
+                            <option value="vt002">Pfizer</option>
+                            <option value="vt003">Vero Cell</option>
                         </select>
-                        <p><button type="submit" class="btn btn-primary" style=" margin:0 0 0 20px">Phân loại</button></p>
+                        <p><button type="submit" class="btn btn-primary" style=" margin:15px 0 0 20px">Phân loại</button></p>
                     </div>
                 </div>
             }
 
-            <hr />
+            <hr style="margin-top: -22px;margin-bottom:7px" />
         </div>
 
         <div class="col-lg-pull-3" style="padding:10px">
@@ -102,8 +202,8 @@
                         <thead>
                             <tr>
                                 <th>Tên người dân</th>
-                                <th>Số CCCD</th>
-                                <th>SDT</th>
+                                <th>Trạng thái</th>
+                                <th>Vắc xin lần 1</th>
                                 @*<th>Ngày sinh</th>*@
                                 <th>Loại mũi đăng ký</th>
                                 <th style="width: 120px">Ngày mong muốn</th>
@@ -127,11 +227,13 @@
                                             //i += 1;
                                         }
                                         <td>@item.Tennguoidan</td>
-                                        <td>@item.CCCD</td>
-                                        <td>@item.SDT</td>
+                                        <td>@item.Tentt</td>
+                                        <td>@item.Tenthuoc1</td>
+                                        @*<td>@item.CCCD</td>
+                                            <td>@item.SDT</td>*@
                                         <td>@item.Loaimui</td>
-                                        @*<td>@Html.Raw(b)</td>*@
-                                        <td>@item.Ngaymongmuon</td>
+                                        @{ string sqlFormattedDate = item.Ngaymongmuon.HasValue ? item.Ngaymongmuon.Value.ToString("dd-MM-yyyy") : "<trống>";}
+                                        <td>@Html.Raw(sqlFormattedDate)</td>
                                         <td>@item.Buoimongmuon</td>
                                         <td>@item.Tennhomuutien</td>
 
@@ -164,59 +266,75 @@
                         <hr />
                     </div>
                     <div class="m-popup-content">
-                        @using (Html.BeginForm("Create", "Regis", FormMethod.Post, new { style = " width: 931px" }))
+                        @using (Html.BeginForm("Update", "Regis", FormMethod.Post, new { style = " width: 931px" }))
                         {
                             <div class="form-group" style="">
                                 <div class="form-group" style="display: flex ;  width:100%;align-items:center">
-                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Mã phiếu đăng ký:</label>
-                                    <p><input value="@item.Sophieudangky" name="malo" class="form-control" style="width:130px;margin:0 16px" readonly /></p>
+                                    <label style="margin-left: 24px;width: 100px;">Họ và tên:</label>
+                                    <p><input value="@item.Tennguoidan" name="dongia" class="form-control" style="width:175px;margin-left: 15px;" /></p>
 
                                     <label style="margin-left:24px">Số điện thoại:</label>
                                     <p><input value="@item.SDT" name="solieu" class="form-control" style="width:145px; margin:0 0px 0 19px" /></p>
 
                                     <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Trạng thái:</label>
-                                    <select class="form-group" name="machithinhietdo" id="machithinhietdo" style="margin:0 18px 0 18px;height:35px;width:175px">
-                                        <option value="ctnd001">Chưa duyệt</option>
-                                        <option value="ctnd002">Đã duyệt</option>
-                                        <option value="ctnd003">Đã xác nhận</option>
-                                    </select>
-                                </div>
-                            </div>
+                                    @*<p>@Html.DropDownList("mattduyet", null, new { @style = "width:130px; margin:-2px 18px 15px 18px", @class = "form-control", @name = "mattduyet", @value = item.Matrangthai })</p>*@
+                                    <select class="form-group" name="trangthaichitiet" id="trangthaichitiet" style="margin:-2px 18px 15px 18px;height:39px;width:175px">
+                                            <option value="tt001">Chưa duyệt</option>
+                                            <option value="tt002">Đã duyệt</option>
+                                            <option value="tt003">Đã xác nhận</option>
+                                        </select>
 
-                            <div class="form-group" style="">
-                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
-                                    <label style="        margin-left: 24px;
-        width: 100px;">Họ và tên:</label>
-                                    <p><input value="@item.Tennguoidan" name="dongia" class="form-control" style="width:175px;margin-left: 15px;" /></p>
-
-                                    <label style=" margin-left:24px;width: 130px; box-sizing:border-box; flex-wrap:nowrap">Giới tính:</label>
-                                    <p><input value="@item.Gioitinh" name="slnhap" class="form-control" style="width:130px;margin:0 16px" /></p>
-
-                                    <label style="margin-left:24px;width: 157px">Ngày mong muốn:</label>
-                                    <p><input value="@item.Ngaymongmuon" type="text" name="hsd" class="form-control" style="width:99px; margin:0 41px" /></p>
-                                    @*@Html.ValidationMessage("HSD", "", "text-danger")*@
+                                    @*<script>
+                                            $("document").ready(function () {
+                                                $('#mattduyet').val('@item.Matrangthai');
+                                                        });
+                                        </script> *@
                                 </div>
                             </div>
 
                             <div class="form-group" style="">
                                 <div class="form-group" style="display: flex ;  width:100%;align-items:center">
                                     <label style=" width: 100px; margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Loại mũi:</label>
-                                    @*<p>@Html.DropDownList("mavattu", null, new { @style = "width:130px; margin:0 16px 0 0px", @class = "form-control", @name = "mavattu" })</p>*@
-                                    <p><input value="@item.Loaimui" name="hs" class="form-control" style="width:130px; margin:0 16px 0 0px" /></p>
+                                    <p><input value="@item.Loaimui" name="hs" class="form-control" style="width:152px; margin:0 16px 0 0px" /></p>
+
+
+                                    <label style=" margin-left:6px;width: 76px; box-sizing:border-box; flex-wrap:nowrap">Giới tính:</label>
+                                    <p><input value="@item.Gioitinh" name="slnhap" class="form-control" style="width:130px;margin:0 16px" /></p>
+
+                                    <label style="margin-left:24px;width: 157px">Ngày mong muốn:</label>
+                                    @{ string sqlFormattedDatetmm = item.Ngaymongmuon.HasValue ? item.Ngaymongmuon.Value.ToString("dd-MM-yyyy") : "<trống>";}
+                                    <p><input value="@Html.Raw(sqlFormattedDatetmm)" type="text" name="hsd" class="form-control" style="width:139px; margin:0 34px" /></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Ngày tiêm lần 1:</label>
+                                    @{ string sqlFormattedDatet1 = item.Ngaytiem1.HasValue ? item.Ngaytiem1.Value.ToString("dd-MM-yyyy") : "<trống>";}
+                                    <p><input value="@Html.Raw(sqlFormattedDatet1)" name="n1" class="form-control" style="width:130px;margin:0 16px" /></p>
 
                                     <label style="width: 130px;margin-left:24px">Tên vaccine lần 1:</label>
                                     <p><input value="@item.Tenthuoc1" name="nsx" class="form-control" style="width:145px; margin-left: 13px;" /></p>
                                     @*@Html.ValidationMessage("NSX", "", "text-danger")*@
 
-                                    <label style=" margin-left:65px;width: 90px; box-sizing:border-box; flex-wrap:nowrap">Phản ứng:</label>
-                                    <p><input value="@item.Phanungtiem1"  name="ns" class="form-control" style="width:145px; margin: 0 18px 0 18px" /></p>
+                                    <label style=" margin-left:42px;width: 73px; box-sizing:border-box; flex-wrap:nowrap">Phản ứng:</label>
+                                    <p><input value="@item.Phanungtiem1" name="ns" class="form-control" style="width:145px; margin: 0 18px 0 18px" /></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Tiền sử:</label>
+                                    <p><input value="@item.Dstiensu" name="ts" class="form-control" style="width:796px;margin:0 16px" /></p>
+
+                                    <p><input value="@item.Sophieudangky" id="sophieudk" name="sophieudk" class="form-control" style=" display:none" /></p>
                                 </div>
                             </div>
 
                             <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
-                        align-items: center; justify-content: end; margin:49px 0 0 0; width:929px">
+                                align-items: center; justify-content: end; margin:-7px 0 0 -1px; width:929px">
                                 <button id="@Html.Raw(cancel)" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
-                                <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm mới</button>
+                                <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Lưu</button>
                             </div>
                         }
 
@@ -228,3 +346,192 @@
     }
 
 </body>
+
+
+
+<script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Khởi tạo sự kiện cho button của combobox:
+        $('.m-combobox-button').on('click', btnComboboxOnClick);
+
+        // $('.mcombobox .m-combobox-item').click(itemComboboxOnClick);
+        $('.mcombobox').on('click', '.m-combobox-item', itemComboboxOnClick);
+
+        $('table.m-table').on('click', 'tbody tr button', btnComboboxOnClick);
+
+        $(".mcombobox input").keypress(function (e) {
+            console.log("keypress")
+        });
+
+        // $(".mcombobox input").keydown(inputComboboxOnKeyDown);
+
+        // $(".mcombobox input").keyup(inputComboboxOnKeyUp);
+
+        // Lưu trữ thông tin combobox data:
+        let comboboxs = $('.mcombobox');
+        for (const combobox of comboboxs) {
+            let itemDataElements = $(combobox).find('.m-combobox-data').html();
+            $(combobox).data("itemDataElement", itemDataElements);
+            // $(combobox).find('.m-combobox-data').empty();
+        }
+
+    })
+
+    function inputComboboxOnKeyUp() {
+
+        // Loại bỏ một số phím đặc biệt:
+        switch (event.keyCode) {
+            case 13:
+            case 40:
+            case 38:
+                break;
+            default:
+                $(this).siblings('.m-combobox-data').empty();
+                let itemDataElement = $(this.parentElement).data('itemDataElement');
+
+                // Build html cho các combobox data item:
+                $(this).siblings('.m-combobox-data').html(itemDataElement);
+
+                // Thực hiện lọc dữ liệu trong combobox data item:
+                // 1. Lấy value đã nhập trên input:
+                const valueInput = this.value;
+                // 2. Duyệt từng item và thực hiện kiểm tra xem element nào có text trùng với value đã nhâp:
+                // Lấy tất cả item element của combobox:
+                let items = $(this).siblings('.m-combobox-data').children();
+                //let items = $(this.parentElement).data('itemDataElement')
+                for (const item of items) {
+
+                    let text = item.textContent;
+                    if (!text.toLowerCase().includes(valueInput.toLowerCase())) {
+                        item.remove();
+                    }
+
+                }
+                $(this).siblings('.m-combobox-data').show();
+                break;
+        }
+
+    }
+
+    function inputComboboxOnKeyDown() {
+        // Lấy tất cả item element của combobox:
+        let items = $(this).siblings('.m-combobox-data').children();
+
+        // Kiểm tra xem có item nào đã ở trạng thái được hover chưa:
+        let itemHoverred = items.filter('.m-combobox-item-hover');
+        // Bỏ hover tất cả những item đã được set trước đó:
+        // $(items).removeClass("m-combobox-item-hover");
+
+
+        switch (event.keyCode) {
+            case 13: // Khi nhấn phím Enter:
+                // Nếu có item nào được chọn thì lấy text -> gán cho input và value -> gán cho combobox:
+                if (itemHoverred.length == 1) {
+                    // Lấy HTML element:
+                    itemHoverred = itemHoverred[0];
+                    let text = itemHoverred.textContent;
+                    let value = itemHoverred.getAttribute('value');
+
+                    // 3 - gán text vào input của combobox:
+                    // 3.1 - lấy ra element cha:
+                    let parentElement = itemHoverred.parentElement;
+                    // 3.2 - Tìm element input ngang cấp với element cha và thực hiện gán text:
+                    $(parentElement).siblings('input').val(text);
+                    $(itemHoverred).siblings('input').val(text);
+
+                    //4 . Gán value cho combobox:
+                    // 4.1  Tìm element mcombobox chứa item hiện tại:
+                    let parentComboboxElement = $(itemHoverred).parents('.mcombobox');
+
+                    // cách 1 - thực hiện lưu value vào attribute của element:
+                    parentComboboxElement.attr('value', value);
+                    // cách 2 - gán vào data của element:
+                    parentComboboxElement.data('value', value);
+
+
+                    // Ẩn combobox data đi:
+                    $(parentElement).hide();
+                }
+                break;
+            case 40: // Nhấn phím mũi tên xuống trên bàn phím
+                // Nếu đã có item được hover trước đó thì hover tới item kế tiếp:
+                if (itemHoverred.length > 0) {
+                    // Lấy element kế tiếp:
+                    let nextElement = itemHoverred.next();
+                    // Thêm class hover cho item kế tiếp:
+                    nextElement.addClass('m-combobox-item-hover');
+                    // Xóa class hover của item hiện tại:
+                    itemHoverred.removeClass('m-combobox-item-hover');
+                } else {
+                    // Nếu chưa item nào được hover thì mặc định focus vào item đầu tiên trong data của combobox:
+                    // Chọn item đầu tiên:
+                    let firstItem = items[0];
+                    firstItem.classList.add('m-combobox-item-hover');
+                }
+                // Hiển thị data của combobox hiện tại:
+                $(this).siblings('.m-combobox-data').show();
+                break;
+            case 38: // Nhấn phím mũi tên lên trên bàn phím
+                // Nếu đã có item được hover trước đó thì hover tới item kế tiếp:
+                if (itemHoverred.length > 0) {
+                    // Lấy element trước đó:
+                    let prevElement = itemHoverred.prev();
+                    // Thêm class hover cho item kế tiếp:
+                    prevElement.addClass('m-combobox-item-hover');
+                    // Xóa class hover của item hiện tại:
+                    itemHoverred.removeClass('m-combobox-item-hover');
+                } else {
+                    // Mặc định focus vào item cuối cùng trong data của combobox:
+                    // Chọn item cuối cùng:
+                    let lastItem = items[items.length - 1];
+                    lastItem.classList.add('m-combobox-item-hover');
+                }
+                // Hiển thị data của combobox hiện tại:
+                $(this).siblings('.m-combobox-data').show();
+                break;
+            default:
+
+                break;
+        }
+
+    }
+
+    function btnComboboxOnClick() {
+        console.log(1111);
+        // Hiển thị combobox data của chính combobox hiện tại:
+        // 1 - xác định combobox- data của combobox hiện tại:
+        let comboboxData = $(this).siblings('.m-combobox-data');
+        // 2 - hiển thị
+        comboboxData.toggle();
+    }
+
+    function itemComboboxOnClick() {
+        // Hiển thị text ở item vừa chọn lên input của comboboxbox:
+        // 1 - Lấy text trong item vừa chọn:
+        const text = this.textContent;
+
+        // 2-  Lấy ra value của item vừa chọn:
+        const value = this.getAttribute('value');
+
+        // 3 - gán text vào input của combobox:
+        // 3.1 - lấy ra element cha:
+        let parentElement = this.parentElement;
+        // 3.2 - Tìm element input ngang cấp với element cha và thực hiện gán text:
+        $(parentElement).siblings('input').val(text);
+        // $(this).siblings('input').val(text);
+
+        //4 . Gán value cho combobox:
+        // 4.1  Tìm element mcombobox chứa item hiện tại:
+        let parentComboboxElement = $(this).parents('.mcombobox');
+
+        // cách 1 - thực hiện lưu value vào attribute của element:
+        parentComboboxElement.attr('value', value);
+        // cách 2 - gán vào data của element:
+        parentComboboxElement.data('value', value);
+
+        // Ẩn combobox data đi:
+        $(parentElement).hide();
+    }
+</script>

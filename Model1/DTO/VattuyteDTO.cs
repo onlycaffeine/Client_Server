@@ -21,6 +21,7 @@ namespace Model1.DTO
 
         public string Tenvattu { get; set; }
 
+        public bool Trangthai { get; set; } // fix here
         public string Malo { get; set; }
 
         public string Mansx { get; set; }
@@ -30,6 +31,8 @@ namespace Model1.DTO
         public string Tenloaivattu { get; set; }
 
         public string Tennsx { get; set; }
+
+        public string Xuatxu { get; set; }
 
         public int Tongsoluong { get; set; }
 

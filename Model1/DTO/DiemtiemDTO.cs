@@ -13,6 +13,9 @@ namespace Model1.DTO
         public string Tendiemtiem { get; set; }
         public string Tennguoidungdau { get; set; }
 
+        public string Mathanhpho { get; set; }
+
+        public bool Trangthai { get; set; } // fix here
         public string Maquan { get; set; }
 
         public string Tenquan { get; set; }

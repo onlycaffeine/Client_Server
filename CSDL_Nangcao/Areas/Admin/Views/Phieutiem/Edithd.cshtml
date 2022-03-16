@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label class="lable-thuan">Số phiếu</label>
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Sophieu, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Sophieu, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                             @Html.ValidationMessageFor(model => model.Sophieu, "", new { @class = "text-danger" })
                         </div>
                     </div>

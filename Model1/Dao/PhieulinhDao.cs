@@ -17,6 +17,25 @@ namespace Model1.Dao
         {
             db = new CSDL_NangcaoDbContext();
         }
+
+        public bool Updateghichu1(string sophieudutru)
+        {
+            try
+            {
+                var pr = db.Phieulinhs.Find(sophieudutru);
+                //pr.Ghichu = ghichu;
+                pr.Matt = "tt003";
+                //pr.Ngayyeucau = DateTime.Now;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //logging
+                return false;
+            }
+        }
+
         public long Sldong()
         {
             long a = db.Phieulinhs.LongCount();
@@ -154,6 +173,13 @@ namespace Model1.Dao
             return db.Phieulinhs.Find(id);
         }
 
+        public bool Updatettvanchuyen(string id)
+        {
+            db.Phieulinhs.Find(id).Matt = "tt003";
+            db.SaveChanges();
+            return true;
+        }
+
         public string ViewDetailTenDiemtiem(string id)
         {
             var pr = db.Phieulinhs.Find(id);
@@ -188,7 +214,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Ngayyeucau);
+            return listLinks.OrderByDescending(x => x.Sophieulinh);
         }
 
         public IEnumerable<PhieulinhDTO> ListAllPaging1(string searchString)//, string Madt)
@@ -225,7 +251,7 @@ namespace Model1.Dao
                 listLinks.Add(temp);
             }
 
-            return listLinks.OrderByDescending(x => x.Madiemtiem);
+            return listLinks.OrderByDescending(x => x.Sophieulinh);
         }
 
         public IEnumerable<PhieulinhDTO> ListAllPaging3(string searchString)//, string Madt)

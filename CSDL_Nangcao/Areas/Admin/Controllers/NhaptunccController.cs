@@ -50,7 +50,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             var ctdbs = from p in db.Chithidongbangs select p;
             var ctnds = from q in db.Chithinhietdoes select q;
-            var mavattus = from z in db.Vattuytes select z;
+            var mavattus = from z in db.Vattuytes where z.Trangthai == true select z;
 
             ViewBag.ncc = new SelectList(nccs, "Mancc", "Tencc"); // danh sách ncc
             ViewBag.nguon = new SelectList(nguons, "Manguon", "Tennguon"); // danh sách nguon

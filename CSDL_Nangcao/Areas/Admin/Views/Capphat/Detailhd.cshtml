@@ -34,8 +34,8 @@
                                 <td>Mã lô</td>
                                 <td>Tên vật tư</td>
                                 <td>Số lượng xuất</td>
-                                <td>Đơn giá</td>
-                                <td>Thành tiền</td>
+                                @*<td>Đơn giá</td>
+                                <td>Thành tiền</td>*@
                                 <td></td>
                             </tr>
                         </thead>
@@ -49,8 +49,8 @@
                                         <td>@item.Malo</td>
                                         <td>@item.Tenthuoc</td>
                                         <td>@item.SLxuat</td>
-                                        <td>@item.Dongia</td>
-                                        <td>@((item.Dongia * item.SLxuat))</td>
+                                        @*<td>@item.Dongia</td>
+                                        <td>@((item.Dongia * item.SLxuat))</td>*@
                                         <td>
                                             <a title="Sửa" href="/Admin/Capphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
                                             @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
