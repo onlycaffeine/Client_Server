@@ -299,8 +299,8 @@ namespace Model1.Dao
                 pr.Mavattu = entity.Mavattu;
                 pr.Tenvattu = entity.Tenvattu;
                 //pr.Tenvattu = entity.Tenvattu;
-                pr.Maloaivattu = entity.Maloaivattu;
-                pr.Mansx = entity.Mansx;
+                //pr.Maloaivattu = entity.Maloaivattu;
+                //pr.Mansx = entity.Mansx;
                 db.SaveChanges();
                 return true;
             }

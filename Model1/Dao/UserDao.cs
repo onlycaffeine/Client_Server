@@ -271,7 +271,7 @@ namespace Model1.Dao
                         if (result.Matkhau == passWord)
                             return 1;
                         else
-                            return 1;
+                            return -2;
                     }
                 }
             }

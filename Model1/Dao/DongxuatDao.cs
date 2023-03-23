@@ -241,6 +241,34 @@ namespace Model1.Dao
             return listLinks.OrderByDescending(x => x.Malo);
         }
 
+        public List<DongxuatDTO> ListAllPagingWithoutSohddto()
+        {
+            List<DongxuatDTO> listLinks = new List<DongxuatDTO>();
+
+            var model = from l in db.Dongxuats
+                        join p in db.Loes on l.Malo equals p.Malo
+                        join k in db.Vattuytes on p.Mavattu equals k.Mavattu
+                        where l.Sophieuxuat == null /*&& l.SLnhap != 0*/
+                        select new { l.Malo, k.Tenvattu, l.SLxuat, l.Dongia, l.Thanhtien, l.Madongxuat, p.HSD, l.Sophieuxuat };
+
+            foreach (var item in model)
+            {
+                DongxuatDTO temp = new DongxuatDTO();
+                temp.Madongxuat = item.Madongxuat;
+                temp.Malo = item.Malo;
+                temp.Tenthuoc = item.Tenvattu;
+                temp.Dongia = item.Dongia;
+                temp.Thanhtien = item.Thanhtien;
+                temp.SLxuat = item.SLxuat;
+                temp.HSD = item.HSD;
+                temp.Sophieuxuat = item.Sophieuxuat;
+                temp.Tenthuoc = item.Tenvattu;
+                listLinks.Add(temp);
+            }
+
+            return listLinks;
+        }
+
         public IEnumerable<Dongxuat> ListAllPagingWithoutSohd()
         {
             List<Dongxuat> listLinks = new List<Dongxuat>();

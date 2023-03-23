@@ -176,7 +176,7 @@ namespace Model1.Dao
                         };
             if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(x => x.Tendiemtiem.Contains(searchString.Substring(7)) || x.Tendiemtiem.Contains(searchString.Substring(7)) && x.Trangthai == true);
+                model = model.Where(x => x.Tenphuong.Contains(searchString.Substring(7)) || x.Tenphuong.Contains(searchString.Substring(7)) && x.Trangthai == true);
             }
 
             foreach (var item in model)

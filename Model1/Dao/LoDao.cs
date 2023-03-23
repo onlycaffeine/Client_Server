@@ -414,7 +414,12 @@ namespace Model1.Dao
                             b.Tennguon
                         };
 
-            if (tenvt != "tatca")
+            //if (string.IsNullOrEmpty(tenvt) && string.IsNullOrEmpty(hsd))
+            //{
+            //    model = model.Where(x => ((x.HSD) > x.NSX));//all product
+            //}
+
+            if (tenvt != "tatca" && !string.IsNullOrEmpty(tenvt))
             {
                 model = model.Where(x => x.Mavattu.Contains(tenvt) || x.Mavattu.Contains(tenvt));
             }
@@ -433,6 +438,7 @@ namespace Model1.Dao
             {
                 model = model.Where(x => ((x.HSD) > DateTime.Now));
             }
+
 
             foreach (var item in model)
             {

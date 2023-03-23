@@ -127,8 +127,12 @@ namespace Model1.Dao
 
         public string Mathuocdk(string ten)
         {
-            var p = db.Vattuytes.SingleOrDefault(x => x.Tenvattu == ten);
-            return p.Mavattu;
+            //if (ten != "")
+            //{
+                var p = db.Vattuytes.SingleOrDefault(x => x.Tenvattu == ten);
+                return p.Mavattu;
+            //}
+            //return ten;
         }
 
         public string Dstiensu(string maphieu)
@@ -222,22 +226,22 @@ namespace Model1.Dao
                             l.Buoimongmuon
                         };
 
-            if (!string.IsNullOrEmpty(tt))
+            if (tt != "tatca" && !string.IsNullOrEmpty(tt))
             {
                 model = model.Where(x => x.Matrangthai.Contains(tt) || x.Matrangthai.Contains(tt));
             }
 
-            if (muidk != "tatca")
+            if (muidk != "tatca" && !string.IsNullOrEmpty(muidk))
             {
                 model = model.Where(x => x.Loaimui.Contains(muidk) || x.Loaimui.Contains(muidk));
             }
 
-            if (nhomut != "tatca")
+            if (nhomut != "tatca" && !string.IsNullOrEmpty(nhomut))
             {
                 model = model.Where(x => x.Manhomuutien.Contains(nhomut) || x.Manhomuutien.Contains(nhomut));
             }
 
-            if (vc1 != "tatca")
+            if (vc1 != "tatca" && !string.IsNullOrEmpty(vc1))
             {
                 model = model.Where(x => x.Mathuoc1.Contains(vc1) || x.Mathuoc1.Contains(vc1));
             }

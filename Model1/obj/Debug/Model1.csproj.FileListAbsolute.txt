@@ -1,36 +1,18 @@
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Model1.dll.config
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Model1.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Model1.pdb
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Common.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\EntityFramework.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\EntityFramework.SqlServer.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.Mvc.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Common.pdb
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\EntityFramework.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\EntityFramework.SqlServer.xml
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.csprojAssemblyReference.cache
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.Mvc.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.csproj.CoreCompileInputs.cache
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.csproj.CopyComplete
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.pdb
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Common.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\Common.pdb
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.Mvc.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.xml
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\bin\Debug\PagedList.Mvc.xml
-E:\Client_Server\Model1\obj\Debug\Model1.csproj.AssemblyReference.cache
-E:\Client_Server\Model1\obj\Debug\Model1.csproj.CoreCompileInputs.cache
-E:\Client_Server\Model1\obj\Debug\Model1.dll
-E:\Client_Server\Model1\obj\Debug\Model1.pdb
-E:\Client_Server\Model1\bin\Debug\Model1.dll.config
-E:\Client_Server\Model1\bin\Debug\Model1.dll
-E:\Client_Server\Model1\bin\Debug\Model1.pdb
-E:\Client_Server\Model1\bin\Debug\Common.dll
-E:\Client_Server\Model1\bin\Debug\EntityFramework.dll
-E:\Client_Server\Model1\bin\Debug\EntityFramework.SqlServer.dll
-E:\Client_Server\Model1\bin\Debug\PagedList.dll
-E:\Client_Server\Model1\bin\Debug\PagedList.Mvc.dll
-E:\Client_Server\Model1\bin\Debug\Common.pdb
-E:\Client_Server\Model1\bin\Debug\EntityFramework.xml
-E:\Client_Server\Model1\bin\Debug\EntityFramework.SqlServer.xml
-E:\Client_Server\Model1\bin\Debug\PagedList.xml
-E:\Client_Server\Model1\bin\Debug\PagedList.Mvc.xml
-E:\Client_Server\Model1\obj\Debug\Model1.csproj.CopyComplete
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.csproj.AssemblyReference.cache
