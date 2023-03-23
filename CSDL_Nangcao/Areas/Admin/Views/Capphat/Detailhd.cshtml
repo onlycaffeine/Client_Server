@@ -22,7 +22,7 @@
             <div class="section group">
                 <b class="panel-heading" style="color:coral; font-size:large">
                     Danh sách lô/ Vật tư
-                    <a class="btn btn-primary" href="/Admin/Dongxuat/Create" style=" margin:0 0 0 36px">Thêm</a>
+                    @*<a class="btn btn-primary" href="/Admin/Dongxuat/Create" style=" margin:0 0 0 36px">Thêm</a>*@
                 </b>
                 <hr style="margin-top: 8px" />
 
@@ -36,7 +36,7 @@
                                 <td>Số lượng xuất</td>
                                 @*<td>Đơn giá</td>
                                 <td>Thành tiền</td>*@
-                                <td></td>
+                                @*<td></td>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -51,12 +51,12 @@
                                         <td>@item.SLxuat</td>
                                         @*<td>@item.Dongia</td>
                                         <td>@((item.Dongia * item.SLxuat))</td>*@
-                                        <td>
+                                        @*<td>
                                             <a title="Sửa" href="/Admin/Capphat/Edit/@item.Madongxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
                                             @Ajax.ActionLink(" ", "Delete", new { @id = item.Madongxuat }, new AjaxOptions
                                             { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Madongxuat + "').remove()", },
                                             new { @class = "fas fa-trash", @title = "Xóa" })
-                                        </td>
+                                        </td>*@
                                     </tr>
                                 }
                             }

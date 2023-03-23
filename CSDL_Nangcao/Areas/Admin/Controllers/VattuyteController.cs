@@ -94,13 +94,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new VattuyteDao();
-                //if (!string.IsNullOrEmpty(user.Matkhau))
-                //{
-                //    var encryptedMd5Pas = Encryptor.MD5Hash(user.Matkhau);
-                //    user.Matkhau = encryptedMd5Pas;
-                //}
-
-
                 var result = dao.Update(user);
                 if (result)
                 {

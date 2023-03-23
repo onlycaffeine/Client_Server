@@ -97,7 +97,6 @@
                     <div class="form-group">
                         <label class="lable-thuan">Tên thuốc</label>
                         <div class="col-md-10">
-                            @*@Html.EditorFor(model => model.Mathuoc, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.DropDownListFor(model => model.Mathuoc, null, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Mathuoc, "", new { @class = "text-danger" })
                         </div>

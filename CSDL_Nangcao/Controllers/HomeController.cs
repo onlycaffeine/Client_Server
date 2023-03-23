@@ -125,7 +125,11 @@ namespace CSDL_Nangcao.Controllers
             //}
 
             string maphuong = dao2.Maphuongdk(tenphuong);
-            string mathuocdk = dao2.Mathuocdk(tenvc1);
+            string mathuocdk = "vt001";
+            if (tenvc1 != "")
+            {
+                mathuocdk = dao2.Mathuocdk(tenvc1);
+            }
             string manhomdk = dao2.Manhomdk(uutien);
 
             var order = new Phieudangky();

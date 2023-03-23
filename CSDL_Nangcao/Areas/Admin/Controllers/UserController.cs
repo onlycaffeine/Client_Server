@@ -176,17 +176,17 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 nhom = nhomnvw;
             }
 
-            if (session.Maquyen == "d_leader")
+            else if (session.Maquyen == "d_leader")
             {
                 nhom = nhomnvd;
             }
 
-            if (session.Maquyen == "c_leader")
+            else if (session.Maquyen == "c_leader")
             {
                 nhom = nhomnvc;
             }
 
-            if (session.Maquyen != "c_leader" && session.Maquyen != "d_leader")
+            else if (session.Maquyen != "c_leader" && session.Maquyen != "d_leader")
             {
                 nhom = nhomnv;
             }

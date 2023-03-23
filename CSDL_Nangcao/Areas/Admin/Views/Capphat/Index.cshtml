@@ -19,6 +19,18 @@
     <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/Admin/css/lib/combobox.js"></script>
     <script>
+        $(document).ready(function () {
+
+            $('#btnExportPdf').on('click', function () {
+                $.get("/Capphat/ExportPdf", function (resp) {
+                    location.href = "/Resource/Pdf/" + resp;
+                });
+            });
+
+        });
+    </script>
+
+    <script>
         var element = document.getElementById("nguon").value;
         document.getElementById("sophieudutru").value = element;
 
@@ -181,9 +193,18 @@
                              margin-left: 5px"> Thêm lô xuất</b>
                                 </button>
                             </p>
+
+                            <p>
+                                <button id="btnExportPdf" name="btnExportPdf" type="button" title="Xuất pdf" class="btn btn-primary" style="margin: -130px 0 -3px 116px;">
+                                    <b style="font-size: 14px;
+                             margin-left: 5px"> Xuất pdf</b>
+                                </button>
+                            </p>
                         </div>
                     </div>
                 }
+
+                
 
                 @using (Html.BeginForm("MultiDelete", "Capphat", FormMethod.Post))
                 {
@@ -193,6 +214,7 @@
                         margin-left: 5px;"> Lưu</b>
                         </button>
                     </div>
+
 
                     <div class="form-group" style="">
                         <div class="form-group" style="display: flex ;  width:100%;align-items:center; margin-top: -28px">

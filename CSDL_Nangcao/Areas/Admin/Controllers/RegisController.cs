@@ -29,6 +29,10 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult Index1(string tt, string muidk, string nhomut, string vc1)
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult Update()

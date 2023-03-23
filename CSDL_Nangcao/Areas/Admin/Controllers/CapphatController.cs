@@ -1,6 +1,7 @@
 ﻿using Model1;
 using Model1.Dao;
 using Model1.EF;
+using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.Mvc;
 
 namespace CSDL_Nangcao.Areas.Admin.Controllers
 {
-    public class CapphatController : Controller
+    //[Authorize]
+    public class CapphatController : BaseController
     {
         CSDL_NangcaoDbContext db = new CSDL_NangcaoDbContext();
 
@@ -44,6 +46,48 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //var pr = dao4.ViewDetail(sophieu);
 
             return View(model);
+        }
+
+        public ActionResult PartialView()
+        {
+            var dao2 = new DongxuatDao();
+            var ls = dao2.ListAllPagingWithoutSohddto();
+            return View(ls);
+        }
+        public ActionResult ExportPdf()
+        {
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.WebPageWidth = 1000;
+            converter.Options.WebPageHeight = 1000;
+            converter.Options.MarginLeft = 10;
+            converter.Options.MarginRight = 10;
+            converter.Options.MarginBottom = 20;
+            converter.Options.MarginTop = 20;
+            
+            var dao2 = new DongxuatDao();
+            var ls = dao2.ListAllPagingWithoutSohddto();
+            var lss = db.Dongxuats.ToList();
+
+            var htmlPdf = base.RenderPartialToString("~/Areas/Admin/Views/Capphat/PartialView.cshtml", ls, ControllerContext);
+
+            // create a new pdf document converting an html string
+            PdfDocument doc = converter.ConvertHtmlString(htmlPdf);
+
+            string filename = string.Format("{0}.pdf", DateTime.Now.Ticks);
+            string pathfile = string.Format("{0}/{1}", Server.MapPath("~/Resource/Pdf"), filename);
+
+            // save pdf document
+            doc.Save(pathfile);
+
+            // close pdf document
+            doc.Close();
+
+            return Json(filename, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

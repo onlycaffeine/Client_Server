@@ -1,12 +1,16 @@
 ﻿var subjectObject = {
     "Thành phố Hà Nội": {
-        "Quận Hà Đông": ["Phường Quang Trung", "Phường Hà Cầu", "Phường Yên Nghĩa", "Phường La Khê"],
-        "Quận Nam Từ Liêm": ["Phường Mỹ Đình 1", "Phường Cầu Diễn", "Phường Mễ Trì", "Phường Trung Văn", "Phường Đại Mỗ"],
-        "Quận Cầu Giấy": ["Phường Trung Hòa", "Phường Quan Hoa", "Phường Dịch Vọng", "Phường Nghĩa Tân"]
+        "Quận Hà Đông": ["Phường Hà Cầu", "Phường Yên Nghĩa", "Phường La Khê"],
+        "Quận Cầu Giấy": ["Phường Trung Hòa", "Phường Dịch Vọng", "Phường Nghĩa Tân"],
+        "Quận Nam Từ Liêm": ["Phường Mỹ Đình 1", "Phường Cầu Diễn", "Phường Mễ Trì", "Phường Trung Văn", "Phường Đại Mỗ"]
     },
     "Thành phố Hồ Chí Minh": {
-        "Quận Thủ Đức": ["Phường Bình Chiểu", "Phường Bình Chánh", "Phường Hiệp Bình Phước"],
-        "Quận 1": ["Phường Bến Nghé", "Phường Bến Thành", "Phường Tân Định"]
+        "Quận Thủ Đức": ["Phường Bình Chiểu", "Phường Tam Bình", "Phường Linh Đông"],
+        "Quận 1": ["Phường Đa Kao", "Phường Bến Thành", "Phường Tân Định"]
+    },
+    "Tỉnh Bắc Ninh": {
+        "Huyện Thuận Thành": ["Xã An Bình", "Xã Xuân Lâm"],
+        "Huyện Quế Võ": ["Xã Nhân Hòa", "Xã Phù Lương"]
     }
 }
 

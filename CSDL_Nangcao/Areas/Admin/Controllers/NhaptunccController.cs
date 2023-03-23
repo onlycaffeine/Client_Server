@@ -1,5 +1,4 @@
-﻿using CSDL_Nangcao.Areas.Admin.Models;
-using Model1;
+﻿using Model1;
 using Model1.Dao;
 using Model1.EF;
 using System;

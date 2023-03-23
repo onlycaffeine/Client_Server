@@ -1,5 +1,3 @@
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csprojAssemblyReference.cache
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.CoreCompileInputs.cache
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\CSDL_Nangcao.dll.config
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\CSDL_Nangcao.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\CSDL_Nangcao.pdb
@@ -30,9 +28,17 @@ D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\roslyn\vbc.rsp
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\roslyn\VBCSCompiler.exe
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\roslyn\VBCSCompiler.exe.config
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Antlr3.Runtime.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\ASPSnippets.SmsAPI.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Common.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.SqlServer.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Microsoft.Web.Infrastructure.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Model1.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Newtonsoft.Json.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.Mvc.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Select.HtmlToPdf.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.Helpers.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.Mvc.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.Optimization.dll
@@ -41,6 +47,14 @@ D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.WebP
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.WebPages.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.WebPages.Razor.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\WebGrease.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Model1.pdb
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Model1.dll.config
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Common.pdb
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.SqlServer.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.Mvc.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Select.HtmlToPdf.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.Helpers.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.Mvc.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.Optimization.xml
@@ -51,89 +65,13 @@ D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\System.Web.WebP
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Newtonsoft.Json.xml
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Antlr3.Runtime.pdb
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Select.Html.dep
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.CoreCompileInputs.cache
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.CopyComplete
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.pdb
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Model1.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Model1.pdb
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Model1.dll.config
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.xml
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Common.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\Common.pdb
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.SqlServer.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EntityFramework.SqlServer.xml
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.Mvc.dll
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.xml
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\PagedList.Mvc.xml
-D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\ASPSnippets.SmsAPI.dll
-E:\Client_Server\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.AssemblyReference.cache
-E:\Client_Server\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.CoreCompileInputs.cache
-E:\Client_Server\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.dll
-E:\Client_Server\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.pdb
-E:\Client_Server\CSDL_Nangcao\bin\CSDL_Nangcao.dll.config
-E:\Client_Server\CSDL_Nangcao\bin\CSDL_Nangcao.dll
-E:\Client_Server\CSDL_Nangcao\bin\CSDL_Nangcao.pdb
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\csc.exe
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\csc.exe.config
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\csc.rsp
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\csi.exe
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\csi.rsp
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.CodeAnalysis.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.CSharp.Core.targets
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\Microsoft.VisualBasic.Core.targets
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\System.AppContext.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\System.Collections.Immutable.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\System.Diagnostics.StackTrace.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\System.IO.FileSystem.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\System.IO.FileSystem.Primitives.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\System.Reflection.Metadata.dll
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\vbc.exe
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\vbc.exe.config
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\vbc.rsp
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\VBCSCompiler.exe
-E:\Client_Server\CSDL_Nangcao\bin\roslyn\VBCSCompiler.exe.config
-E:\Client_Server\CSDL_Nangcao\bin\Antlr3.Runtime.dll
-E:\Client_Server\CSDL_Nangcao\bin\Common.dll
-E:\Client_Server\CSDL_Nangcao\bin\EntityFramework.dll
-E:\Client_Server\CSDL_Nangcao\bin\EntityFramework.SqlServer.dll
-E:\Client_Server\CSDL_Nangcao\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-E:\Client_Server\CSDL_Nangcao\bin\Microsoft.Web.Infrastructure.dll
-E:\Client_Server\CSDL_Nangcao\bin\Model1.dll
-E:\Client_Server\CSDL_Nangcao\bin\Newtonsoft.Json.dll
-E:\Client_Server\CSDL_Nangcao\bin\PagedList.dll
-E:\Client_Server\CSDL_Nangcao\bin\PagedList.Mvc.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Helpers.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Mvc.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Optimization.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Razor.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.WebPages.Deployment.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.WebPages.dll
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.WebPages.Razor.dll
-E:\Client_Server\CSDL_Nangcao\bin\WebGrease.dll
-E:\Client_Server\CSDL_Nangcao\bin\Model1.pdb
-E:\Client_Server\CSDL_Nangcao\bin\Model1.dll.config
-E:\Client_Server\CSDL_Nangcao\bin\Common.pdb
-E:\Client_Server\CSDL_Nangcao\bin\EntityFramework.xml
-E:\Client_Server\CSDL_Nangcao\bin\EntityFramework.SqlServer.xml
-E:\Client_Server\CSDL_Nangcao\bin\PagedList.xml
-E:\Client_Server\CSDL_Nangcao\bin\PagedList.Mvc.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Helpers.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Mvc.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Optimization.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.Razor.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.WebPages.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.WebPages.Deployment.xml
-E:\Client_Server\CSDL_Nangcao\bin\System.Web.WebPages.Razor.xml
-E:\Client_Server\CSDL_Nangcao\bin\Newtonsoft.Json.xml
-E:\Client_Server\CSDL_Nangcao\bin\Antlr3.Runtime.pdb
-E:\Client_Server\CSDL_Nangcao\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\Client_Server\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.CopyComplete
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\obj\Debug\CSDL_Nangcao.csproj.AssemblyReference.cache
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.Interfaces.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.System.Drawing.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.xml

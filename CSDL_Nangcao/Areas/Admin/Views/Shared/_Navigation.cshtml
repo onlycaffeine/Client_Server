@@ -15,7 +15,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="/Admin/Home/Index">
             <i class="fas underline"></i>
-            <span>VACCINE PHÒNG COVID-19</span>
+            <span>VACCINE CỦA BỘ Y TẾ</span>
         </a>
     </li>
 
@@ -57,7 +57,7 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     @{
-        if (q == "admin" || q == "w_account" || q == "leader" || q == "c_leader" || q == "d_leader")
+        if (q == "admin" || q == "cadres" || q == "leader" || q == "c_leader" || q == "d_leader" || q == "w_account")
         {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -87,7 +87,7 @@
                                 }
 
 
-                                if (q == "admin" || q == "w_account")
+                                if (q == "admin" || q == "cadres") //w_account
                                 {
                                     <h6 class="collapse-header">Chức năng:</h6>
                                     <a class="collapse-item" href="/Home/Search">Tra cứu thông tin tiêm</a>

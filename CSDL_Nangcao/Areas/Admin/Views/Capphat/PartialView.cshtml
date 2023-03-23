@@ -1,0 +1,26 @@
+﻿@model List<Model1.DTO.DongxuatDTO>
+
+<table>
+    <thead>
+        <tr>
+            <th>Ten vt</th>
+            <th>Ma lo</th>
+            <th>Hsd</th>
+            <th style="width:160px">Slcp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="row_@item.Madongxuat" class="red-row" style="">
+                @{DateTime a = @item.HSD;
+                    string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                }
+                <td>@item.Tenthuoc</td>
+                <td>@item.Malo</td>
+                <td style="width:138px">@Html.Raw(b)</td>
+                <td style="text-align:center">@item.SLxuat</td>
+            </tr>
+        }
+    </tbody>
+</table>

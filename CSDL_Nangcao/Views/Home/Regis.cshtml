@@ -26,7 +26,6 @@
 
 <body>
     <div>
-
         <div class="content">
             <div class="content-header">
                 <div class="content-header-text-left"> Đăng ký tiêm cá nhân</div>
@@ -91,8 +90,8 @@
                             <div id="div-department" class="mcombobox">
                                 <input class="m-combobox m-combobox-input" type="text" id="loaimui" name="loaimui" placeholder="Đăng ký mũi tiêm thứ" onblur="validate3()" oninput="validate3()" />
                                 <button type="button" tabindex="-1" class="m-combobox-button" onclick="choose3()"><i class="fas fa-chevron-down"></i></button>
-                                <div id="m-combobox-data" class="m-combobox-data" onclick="choose4()">
-                                    <div onclick="loaimuitiem()" class="m-combobox-item m-combobox-item-1" value="0">Mũi tiêm thứ nhất</div>
+                                <div id="m-combobox-data" class="m-combobox-data" onclick="choose4()" tabindex=-1>
+                                    <div onclick="loaimuitiem()" class="m-combobox-item m-combobox-item-1 " value="0">Mũi tiêm thứ nhất</div>
                                     <div onclick="loaimuitiem1()" class="m-combobox-item m-combobox-item-1" value="1">Mũi tiêm tiếp theo</div>
                                 </div>
                             </div>
@@ -362,7 +361,7 @@
 
                     <div class="toatmessage" id="toatmessage">
                         <div class="toast-messge-icon"><i class="fa fa-times"></i></div>
-                        <div class="toast-messge-icon">Bạn phải đủ 12 tuổi mới có thể tiêm được vaccin</div>
+                        <div class="toast-messge-icon">Bạn phải đủ 12 tuổi mới có thể tiêm được vaccine</div>
                     </div>
                     <div class="toatmessage" id="toatmessage1">
                         <div class="toast-messge-icon"><i class="fa fa-times"></i></div>
@@ -523,6 +522,7 @@
 
     </div>
 </body>
+</html>
 <style>
     .infor-commit {
         left: 15%;
@@ -1362,7 +1362,7 @@
         opacity: 0;
     }
 </style>
-</html>
+
 <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {

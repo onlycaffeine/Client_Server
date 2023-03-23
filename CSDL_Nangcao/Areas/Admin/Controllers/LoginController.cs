@@ -1,4 +1,4 @@
-﻿using CSDL_Nangcao.Areas.Admin.Models;
+﻿using CSDL_Nangcao.Models;
 using Model1;
 using Model1.Dao;
 using CSDL_Nangcao.Common;
@@ -24,7 +24,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                var result = dao.Login(model.UserName, model.Password); //Encryptor.MD5Hash(model.Password)
+                //var result = dao.Login(model.UserName, model.Password); //Encryptor.MD5Hash(model.Password)
+                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password));
                 if (result == 1)
                 {
                     var user = dao.GetById(model.UserName);

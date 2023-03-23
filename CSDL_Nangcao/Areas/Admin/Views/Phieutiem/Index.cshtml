@@ -63,10 +63,17 @@
                 </b>
 
 
-                <button title="Tìm kiếm" class="btn btn-primary"  id="btnAddEmployee" type="button" style="margin: 0px 0 0px 68px">
+                <button title="Thêm phiếu tiêm từ người dân không đăng ký" class="btn btn-primary" id="btnAddEmployee" type="button" style="margin: 0px 0 0px 68px">
                     <i class="fas fa-plus"></i><b style="font-size: 14px;
                                 margin-left: 5px;"> Thêm mới</b>
                 </button>
+
+                <p style="margin-bottom: -27px;">
+                    <a href="/Admin/Regis/Index" title="Thêm phiếu tiêm từ phiếu đăng ký" class="btn btn-primary scroll-bottom" style="margin: -63px 0 0px 368px">
+                        <i class="fas fa-plus"></i><b style="font-size: 14px;
+                            margin-left: 5px;">Thêm từ phiếu đăng ký</b>
+                    </a>
+                </p>
 
                 <hr />
 
@@ -80,9 +87,9 @@
                                 CCCD: @Html.TextBox("SearchString", null, new { @style = " height:35px; width:150px; margin:0 10px 10px 10px", @class = "form-control" })
 
                                 @*Thời gian:
-                                    <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="a" />
-                                    Đến
-                                    <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />*@
+                        <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="a" />
+                        Đến
+                        <input type="datetime" value="@Html.Raw(date)" class="form-control" style="width:105px; margin:0 10px 10px 10px" name="b" />*@
 
                                 <p>
                                     <button title="Tìm kiếm" class="btn btn-primary" style="margin: 0px 0 0px 30px">
@@ -185,7 +192,7 @@
         <div class="m-row">
             <div class="m-popup" style="height: 339px; width: 630px ">
                 <div class="m-popup-header">
-                    <div class="m-popup-header-title">Đóng Form thông tin chung</div>
+                    <div class="m-popup-header-title">Thêm mới phiếu tiêm dành cho đối tượng không đăng ký online</div>
                     <div id="btnCloseDialog" class="m-popup-close"><i class="fas fa-times"></i></div>
                     <hr />
                 </div>
