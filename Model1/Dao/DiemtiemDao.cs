@@ -295,7 +295,7 @@ namespace Model1.Dao
 
         public int Sltiem(int ngaytiem)
         {
-            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
+            string connString = @"Data Source=DESKTOP-LLN1SST;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -317,7 +317,7 @@ namespace Model1.Dao
 
         public int Sltiem1(string matp)
         {
-            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
+            string connString = @"Data Source=DESKTOP-LLN1SST;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand();

@@ -34,6 +34,11 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //Session["maquyen"] = session.Maquyen;
             ViewBag.Maquyen = session.Maquyen;
             ViewBag.khuvuc = khuvuc;
+            if(a != null && b != null)
+            {
+                TempData["a"] = a;
+                TempData["b"] = b;
+            }
 
             return View(model);
         }
