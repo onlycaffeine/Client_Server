@@ -119,7 +119,7 @@
 }
 
 <div class="row">
-    
+
     <div class="col-lg-pull-3 thuan-body-content">
 
 
@@ -130,7 +130,7 @@
                     <form class="col-md-4">
                         @if (ViewBag.Maquyen == "n_account" || ViewBag.Maquyen == "admin")
                         {
-                            <select name="khuvuc" id="khuvuc" style="margin-right:18px;height:35px;width:175px">
+                            <select class="form-control" name="khuvuc" id="khuvuc" style="margin-right:18px;height:40px;width:175px">
                                 <option value="tq">Toàn quốc</option>
                                 <option value="ttp">Tỉnh/Thành phố</option>
                             </select>
@@ -138,7 +138,7 @@
 
                         @if (ViewBag.Maquyen == "c_account")
                         {
-                            <select name="khuvuc" id="khuvuc" style="margin-right:18px;height:35px;width:175px">
+                            <select class="form-control" name="khuvuc" id="khuvuc" style="margin-right:18px;height:40px;width:175px">
                                 <option value="ttp">Tỉnh/Thành phố</option>
                                 <option value="qh">Quận/Huyện</option>
                             </select>
@@ -146,7 +146,7 @@
 
                         @if (ViewBag.Maquyen == "d_account")
                         {
-                            <select name="khuvuc" id="khuvuc" style="margin-right:18px;height:35px;width:175px">
+                            <select class="form-control" name="khuvuc" id="khuvuc" style="margin-right:18px;height:40px;width:175px">
                                 <option value="qh">Quận/Huyện</option>
                                 <option value="ptx">Phường/Thị xã</option>
                             </select>
@@ -154,7 +154,7 @@
 
                         @if (ViewBag.Maquyen == "w_account")
                         {
-                            <select name="khuvuc" id="khuvuc" style="margin-right:18px;height:35px;width:175px">
+                            <select class="form-control" name="khuvuc" id="khuvuc" style="margin-right:18px;height:40px;width:175px">
                                 <option value="ptx">Phường/Thị xã</option>
                                 <option value="dt">Điểm tiêm</option>
                             </select>
@@ -176,8 +176,14 @@
                     </div>
 
                     <div class="col-md-4" style="margin-left:-170px">
-                        <a class="Button" href="@Url.Action("ExportToExcel","Thongkephieutiem")">Xuất Excel</a>
-                        @*<button type="submit" class="btn btn-primary">Xuất Excel</button>*@
+                        @*<a class="Button" href="@Url.Action("ExportToExcel","Thongkephieutiem")">Xuất Excel</a>*@
+                        @using (Html.BeginForm("Export", "Thongkephieutiem", new { a = ViewBag.a, b = ViewBag.b, khuvuc = ViewBag.khuvuc }, FormMethod.Post))
+                        {
+                            @*<input type="submit" value="Export" />*@
+                            <div>
+                                <button type="submit" class="btn btn-primary">Xuất Excel</button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -25,11 +25,11 @@ namespace CSDL_Nangcao.Controllers
             return View(model);
         }
 
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 4)
+        public ActionResult Index(string ward, int page = 1, int pageSize = 4)
         {
             int[] sltiems = new int[31];
             var dao = new DiemtiemDao();
-            var model = dao.ListAllPaging(searchString, page, pageSize);
+            var model = dao.ListAllPaging(ward, page, pageSize);
 
             for (int i = 1; i < 31; i++)
             {
@@ -38,7 +38,7 @@ namespace CSDL_Nangcao.Controllers
 
             int sltiem1 = dao.Sltiem1("tp001");
 
-            ViewBag.SearchString = searchString;
+            ViewBag.ward = ward;
             ViewBag.sltiem = sltiems;
             ViewBag.sltiem1 = sltiem1;
             return View(model);
