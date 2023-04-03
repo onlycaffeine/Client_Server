@@ -75,3 +75,6 @@ D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.Interfaces.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.System.Drawing.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\EPPlus.xml
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\ClosedXML.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\DocumentFormat.OpenXml.dll
+D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\CSDL_Nangcao\bin\ClosedXML.xml

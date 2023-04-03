@@ -8,6 +8,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using System.IO;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using ClosedXML.Excel;
+
 
 namespace CSDL_Nangcao.Areas.Admin.Controllers
 {
@@ -43,64 +50,12 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult Edithd(string id, string a, string b, string passdt)
+        [HttpPost]
+        public FileResult Export(string a, string b, string khuvuc = "")
         {
-            var dao = new DiemtiemDao();
-            var pr = dao.ViewDetail(id);
-
-            var dao1 = new ThongkephieutiemDao();
-            var model = dao1.ListAllPagingWithMadt(pr, a, b);
-
-            string check = dao.Check(id);
-            if (passdt == check)
-                return View(model);
-            return View("SaiPass");
-        }
-
-        [HasCredential(RoleID = "D_TKE_TIEM")]
-        [HttpGet]
-        public ActionResult Thongkequan(string maquan, string a, string b, string passquan)
-        {
-            var dao = new QuanDao();
-
-            var dao1 = new ThongkephieutiemDao();
-            var model2 = dao1.ListAllPagingWithMaquan(maquan, a, b);
-            string check = dao.Check(maquan);
-            if (passquan == check)
-                return View(model2);
-            return View("SaiPass");
-        }
-
-        [HasCredential(RoleID = "C_TKE_TIEM")]
-        [HttpGet]
-        public ActionResult Thongkethanhpho(string a, string b, string passtp)
-        {
-            var dao1 = new ThongkephieutiemDao();
-            var model2 = dao1.ListAllPaging(a, b);
-
-            if (passtp == "thanhpho")
-                return View(model2);
-            return View("SaiPass");
-        }
-
-        public ActionResult SaiPass()
-        {
-            return View("~/Areas/Admin/Views/Thongkephieutiem/SaiPass.cshtml");
-        }
-
-        public void ExportToExcel(string a, string b, string khuvuc = "")
-        {
-
-            //var dao = new ThongkephieutiemDao();
-            //var emplist = dao.ListAll1();
-
             var dao = new ThongkephieutiemDao();
 
             var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
-            //var model = dao.ListAllPagingQG(matp, maquan, map, a, b, khuvuc, maquyen);
-            //string a = "4-4-2012";
-            //string b = "4-4-2023";
             var emplist = dao.ListAllPagingQG(session.Matp, session.Maquan, session.Maphuong, a, b, khuvuc, session.Maquyen);
 
             ExcelPackage pck = new ExcelPackage();
@@ -111,7 +66,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             ws.Cells["G4"].Style.Font.Size = 16;
             ws.Cells["G4"].Style.Font.Bold = true;
 
-            ws.Cells["I5"].Value = "Tháng   /";
+            ws.Cells["I5"].Value = "Tháng /";
             ws.Cells["B7"].Value = "Tỉnh/thành phố:";
             ws.Cells["H7"].Value = "Xã gửi lên huyện trước ngày 05 tháng sau";
             ws.Cells["B8"].Value = "Huyện/Quận/Thị xã:";
@@ -169,10 +124,6 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             ws.Cells[12, 14, 13, 14].Merge = true;
             ws.Cells[12, 15, 13, 15].Merge = true;
 
-
-            //ws.Cells["A3"].Value = "Date";
-            //ws.Cells["B3"].Value = string.Format("{0:dd MMMM yyyy} at {0:H: mm tt}", DateTimeOffset.Now);
-
             int rowStart = 14;
             int cnt = 1;
             foreach (var item in emplist)
@@ -195,17 +146,61 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 cnt++;
             }
 
-            ws.Column(3).BestFit = true;
+            ws.Column(13).BestFit = true;
             ws.Cells[11, 2, rowStart, 15].AutoFitColumns();
             Border border = ws.Cells[11, 2, rowStart, 15].Style.Border;
             border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+            ws.Column(13).Width = 17;
+            ws.Column(15).Width = 14;
 
-            Response.Clear();
-            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            Response.AddHeader("content-disposition", "attachment: filename=" + "ExcelReport.xlsx");
-            Response.BinaryWrite(pck.GetAsByteArray());
-            Response.End();
-
+            return File(pck.GetAsByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Grid.xlsx");
         }
+
+        [HttpGet]
+        public ActionResult Edithd(string id, string a, string b, string passdt)
+        {
+            var dao = new DiemtiemDao();
+            var pr = dao.ViewDetail(id);
+
+            var dao1 = new ThongkephieutiemDao();
+            var model = dao1.ListAllPagingWithMadt(pr, a, b);
+
+            string check = dao.Check(id);
+            if (passdt == check)
+                return View(model);
+            return View("SaiPass");
+        }
+
+        [HasCredential(RoleID = "D_TKE_TIEM")]
+        [HttpGet]
+        public ActionResult Thongkequan(string maquan, string a, string b, string passquan)
+        {
+            var dao = new QuanDao();
+
+            var dao1 = new ThongkephieutiemDao();
+            var model2 = dao1.ListAllPagingWithMaquan(maquan, a, b);
+            string check = dao.Check(maquan);
+            if (passquan == check)
+                return View(model2);
+            return View("SaiPass");
+        }
+
+        [HasCredential(RoleID = "C_TKE_TIEM")]
+        [HttpGet]
+        public ActionResult Thongkethanhpho(string a, string b, string passtp)
+        {
+            var dao1 = new ThongkephieutiemDao();
+            var model2 = dao1.ListAllPaging(a, b);
+
+            if (passtp == "thanhpho")
+                return View(model2);
+            return View("SaiPass");
+        }
+
+        public ActionResult SaiPass()
+        {
+            return View("~/Areas/Admin/Views/Thongkephieutiem/SaiPass.cshtml");
+        }
+
     }
 }

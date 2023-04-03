@@ -49,6 +49,12 @@
     <Reference Include="ASPSnippets.SmsAPI">
       <HintPath>..\..\..\nam4_2\Web\otp\ASPSnippets.SmsAPI.dll</HintPath>
     </Reference>
+    <Reference Include="ClosedXML, Version=0.64.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.0.64.0\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.1.0\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -1197,6 +1203,7 @@
     <Content Include="Assets\Admin\js\demo\chart-bar-demo.js" />
     <Content Include="Assets\Admin\js\demo\chart-pie-demo.js" />
     <Content Include="Assets\Admin\js\demo\datatables-demo.js" />
+    <Content Include="Assets\Admin\js\districts.min.js" />
     <Content Include="Assets\Admin\js\jquery-3.6.0.min.js" />
     <Content Include="Assets\Admin\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Assets\Admin\js\sb-admin-2.js" />

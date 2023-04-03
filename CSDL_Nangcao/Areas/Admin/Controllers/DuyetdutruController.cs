@@ -45,18 +45,18 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index1(string searchString, string searchString3, string a, string b)
+        public ActionResult Index1(string tenvattu, string ward, string a, string b)
         {
             var dao1 = new PhieulinhDao();
             var dao3 = new VattuyteDao();
-            var model1 = dao1.ListAllPaging3(searchString3);
-            var model3 = dao3.ListAllPaging(searchString);
+            var model1 = dao1.ListAllPaging3(ward);
+            var model3 = dao3.ListAllPaging(tenvattu);
             ModelCollection model = new ModelCollection();
             model.PhieulinhDTOs = model1;
             model.VattuyteDTOs = model3;
             var nguons = from n in db.Phieulinhs where n.Matt == "tt001" select n;
             ViewBag.nguon = new SelectList(nguons, "Sophieulinh", "Sophieulinh");
-            ViewBag.SearchString3 = searchString3;
+            ViewBag.ward = ward;
             return View(model);
         }
 

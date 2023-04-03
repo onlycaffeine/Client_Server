@@ -45,10 +45,54 @@
                     alert('eror');
                 }
             });
-            }
-        
+        }
+
     </script>
     <script src="~/Assets/Client/js/page1.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+        var promise = axios(Parameter);
+        promise.then(function (result) {
+            renderCity(result.data);
+        });
+
+        function renderCity(data) {
+            for (const x of data) {
+                citis.options[citis.options.length] = new Option(x.Name, x.Id);
+            }
+            citis.onchange = function () {
+                district.length = 1;
+                ward.length = 1;
+                if (this.value != "") {
+                    const result = data.filter(n => n.Id === this.value);
+
+                    for (const k of result[0].Districts) {
+                        district.options[district.options.length] = new Option(k.Name, k.Id);
+                    }
+                }
+            };
+            district.onchange = function () {
+                ward.length = 1;
+                const dataCity = data.filter((n) => n.Id === citis.value);
+                if (this.value != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                    for (const w of dataWards) {
+                        wards.options[wards.options.length] = new Option(w.Name, w.Name);
+                    }
+                }
+            };
+        }
+    </script>
 }
 <html>
 <head>
@@ -157,10 +201,18 @@
                         <div class="form-group" style="display: flex ;  width:100%;align-items:center">
                             <label style="margin-left: 4px;">Từ phiếu dự trù</label>
                             <p id="intro">@Html.DropDownList("nguon", null, new { @style = "width:100px; margin:0 16px", @class = "form-control", @name = "nguon", @id = "nguon" })</p>
-                            <p><button title="Xem phiếu dự trù" type="submit" class="btn btn-primary" style="margin: -130px -4px -3px -21px;"><i class="fas fa-eye"></i><b style="font-size: 14px;
-                            margin-left: 5px;"> Xem</b></button></p>
-                            <p><a href="#finish" title="Tìm kiếm theo địa phương" class="btn btn-primary scroll-bottom" style="margin: -130px 0 -3px 184px"><i class="fas fa-search"></i><b style="font-size: 14px;
-                            margin-left: 5px;"> Tìm kiếm</b></a></p>
+                            <p>
+                                <button title="Xem phiếu dự trù" type="submit" class="btn btn-primary" style="margin: -130px -4px -3px -21px;">
+                                    <i class="fas fa-eye"></i><b style="font-size: 14px;
+                            margin-left: 5px;"> Xem</b>
+                                </button>
+                            </p>
+                            <p>
+                                <a href="#finish" title="Tìm kiếm theo địa phương" class="btn btn-primary scroll-bottom" style="margin: -130px 0 -3px 184px">
+                                    <i class="fas fa-search"></i><b style="font-size: 14px;
+                            margin-left: 5px;"> Tìm kiếm</b>
+                                </a>
+                            </p>
 
                         </div>
                     </div>
@@ -168,8 +220,10 @@
                 @using (Html.BeginForm("MultiDelete", "Duyetdutru", FormMethod.Post))
                 {
                     <div class="panel-heading" style="color:blue; font-size:large; margin-top:-70px">
-                        <button type="submit" title="Lưu" class="btn btn-primary" style="margin: -120px 0px -3px 316px"><i class="fas fa-save"></i><b style="font-size: 14px;
-                         margin-left: 5px;"> Lưu</b></button>
+                        <button type="submit" title="Lưu" class="btn btn-primary" style="margin: -120px 0px -3px 316px">
+                            <i class="fas fa-save"></i><b style="font-size: 14px;
+                         margin-left: 5px;"> Lưu</b>
+                        </button>
                     </div>
 
                     <div class="form-group" style="">
@@ -250,21 +304,35 @@
             <div class="panel-body">
                 @using (Html.BeginForm("Index1", "Duyetdutru", FormMethod.Post))
                 {
+
                     <div class="row form-group">
                         <div class="col-lg-12" style="display:flex">
+                            @*<form class="col-md-4">
+                                    <select class="form-control" name="subject" id="subject" style="height:35px;width:175px; margin-right:18px">
+                                        <option value="" selected="selected">Tỉnh/Thành phố</option>
+                                    </select>
+                                    <br><br>
+                                    <select class="form-control" name="topic" id="topic" style="margin-right:18px;height:35px;width:175px">
+                                        <option value="" selected="selected">Quận/Huyện</option>
+                                    </select>
+                                    <br><br>
+                                    <select class="form-control" name="searchString3" id="searchString" style="margin-right:18px;height:35px;width:175px">
+                                        <option value="" selected="selected">Phường/Thị xã</option>
+                                    </select>
+                                    <br><br>
+                                </form>*@
                             <form class="col-md-4">
-                                <select class="form-control"  name="subject" id="subject" style="height:35px;width:175px; margin-right:18px">
-                                    <option value="" selected="selected">Tỉnh/Thành phố</option>
+                                <select class="form-control" style="height:35px;width:175px; margin-right:18px" id="city" name="city" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn tỉnh thành</option>
                                 </select>
-                                <br><br>
-                                <select class="form-control"  name="topic" id="topic" style="margin-right:18px;height:35px;width:175px">
-                                    <option value="" selected="selected">Quận/Huyện</option>
+
+                                <select class="form-control" style="margin-right:18px;height:35px;width:175px" id="district" name="district" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn quận huyện</option>
                                 </select>
-                                <br><br>
-                                <select class="form-control"  name="searchString3" id="searchString" style="margin-right:18px;height:35px;width:175px">
-                                    <option value="" selected="selected">Phường/Thị xã</option>
+
+                                <select class="form-control" style="margin-right:18px;height:35px;width:175px" id="ward" name="ward" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn phường xã</option>
                                 </select>
-                                <br><br>
                             </form>
 
                             <div class="col-md-4">
