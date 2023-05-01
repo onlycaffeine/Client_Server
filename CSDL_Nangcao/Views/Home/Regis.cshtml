@@ -297,7 +297,7 @@
 
                                 <div class="content-input-row2-col2">
                                     <div class="content-input-row-text">Ngày tiêm<span style="color: red;">(*)</span></div>
-                                    <input min="2018-01-01" max="2018-12-31" type="date" id="ngaytiem1" name="ngaytiem1" class="m-input content-input-row2" placeholder="Ngày tiêm" onblur="validateday()" oninput="validateday()">
+                                    <input min="2018-01-01" max="2023-1-1" type="date" id="ngaytiem1" name="ngaytiem1" class="m-input content-input-row2" placeholder="Ngày tiêm" onblur="validateday()" oninput="validateday()">
                                     <div id="validateday" class="validate-input">Vui lòng  nhập thời gian tiêm</div>
                                 </div>
 
@@ -402,11 +402,11 @@
                                         {
                                             <td></td>
                                         }
-                                    <td class="content-checkbox-1">
-                                        <input value="0" type="hidden" id="checkts" name="checkts">
-                                        <input value="1" type="checkbox" id="checkts" name="checkts">
+                                        <td class="content-checkbox-1">
+                                            <input value="0" type="hidden" id="checkts" name="checkts">
+                                            <input value="1" type="checkbox" id="checkts" name="checkts">
 
-                                    </td>
+                                        </td>
                                         @*<td class="content-checkbox-1">
                                                 <input type="radio" id="test2" name="radio-group">
                                                 <label for="test2"></label>
@@ -1378,10 +1378,11 @@
         $(".mcombobox input ").keypress(function (e) {
             console.log("keypress ")
         });
+
+        //document.getElementById("button1").disabled = true;
         $(".checkbox-model input").checked = "false"
 
         // $(".mcombobox input ").keydown(inputComboboxOnKeyDown);
-
         // $(".mcombobox input ").keyup(inputComboboxOnKeyUp);
 
         // Lưu trữ thông tin combobox data:
@@ -1391,7 +1392,6 @@
             $(combobox).data("itemDataElement ", itemDataElements);
             // $(combobox).find('.m-combobox-data').empty();
         }
-
     })
 
     function inputComboboxOnKeyUp() {
@@ -1515,7 +1515,7 @@
 
     function btnComboboxOnClick() {
 
-        console.log(1111);
+        //console.log(1111);
         // Hiển thị combobox data của chính combobox hiện tại:
         // 1 - xác định combobox- data của combobox hiện tại:
         let comboboxData = $(this).siblings('.m-combobox-data');
@@ -1652,10 +1652,10 @@
         if (x == "" || x == null) {
             document.getElementById('validatedate').style.display = "block";
             document.getElementById('button1').style.cursor = "no-drop";
-            document.getElementById("button1").disabled = true;
+            ////document.getElementById("button1").disabled = true;
         } else {
             document.getElementById('validatedate').style.display = "none";
-            document.getElementById("button1").disabled = false;
+            ////document.getElementById("button1").disabled = false;
         }
         var date = new Date(x);
         if (date.getDate() > 0) {
@@ -1715,7 +1715,8 @@
         var input_phone_guardian = document.getElementById('input_phone_guardian').value;
         var ngaytiem1 = document.getElementById('ngaytiem1').value;
         var tenvc1 = document.getElementById('tenvc1').value;
-
+        console.log('Tôi log ra thông tin này')
+        debugger
         //mũi tiếp đki cho người thân
         if (document.getElementById('test2').checked == true && loaimui == "Mũi tiêm tiếp theo") {
             if (hotendk == ""
@@ -1738,12 +1739,6 @@
                 || district == null
                 || validateward == ""
                 || validateward == null
-                || input_name_guardian == ""
-                || input_name_guardian == null
-                || input_relation == ""
-                || input_relation == null
-                || input_phone_guardian == ""
-                || input_phone_guardian == null
                 || ngaytiem1 == ""
                 || ngaytiem1 == null
                 || tenvc1 == ""
@@ -1767,6 +1762,22 @@
                     if (age <= 12) {
                         document.getElementById('toatmessage').style.display = 'flex';
                         setTimeout(check, 3000);
+                    }
+                    else if (age < 18) {
+                        if (input_name_guardian == ""
+                            || input_name_guardian == null
+                            || input_relation == ""
+                            || input_relation == null
+                            || input_phone_guardian == ""
+                            || input_phone_guardian == null) {
+                            document.getElementById('toatmessage1').style.display = 'flex';
+                            setTimeout(check, 3000);
+                        }
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
                     }
                     else {
                         document.getElementById("m-dialog-modal").style.display = "block";
@@ -1797,17 +1808,17 @@
                 || district == null
                 || validateward == ""
                 || validateward == null
-                || input_name_guardian == ""
-                || input_name_guardian == null
-                || input_relation == ""
-                || input_relation == null
-                || input_phone_guardian == ""
-                || input_phone_guardian == null) {
+                //|| input_name_guardian == ""
+                //|| input_name_guardian == null
+                //|| input_relation == ""
+                //|| input_relation == null
+                //|| input_phone_guardian == ""
+            ) {
                 document.getElementById('toatmessage1').style.display = 'flex';
                 setTimeout(show, 3000);
             }
             else {
-
+                //Trường hợp người đăng ký chưa đủ 18 tuổi
                 let a = document.getElementById("dateof").value;
                 var date = new Date(a);
                 if (date.getDate() > 0) {
@@ -1823,6 +1834,21 @@
                     if (age <= 12) {
                         document.getElementById('toatmessage').style.display = 'flex';
                         setTimeout(check, 3000);
+                    }
+                    else if (age < 18) {
+                        if (input_name_guardian == ""
+                            || input_name_guardian == null
+                            || input_relation == ""
+                            || input_relation == null
+                            || input_phone_guardian == "") {
+                            document.getElementById('toatmessage1').style.display = 'flex';
+                            setTimeout(check, 3000);
+                        }
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
                     }
                     else {
                         document.getElementById("m-dialog-modal").style.display = "block";
@@ -1856,12 +1882,6 @@
                 || district == null
                 || validateward == ""
                 || validateward == null
-                || input_name_guardian == ""
-                || input_name_guardian == null
-                || input_relation == ""
-                || input_relation == null
-                || input_phone_guardian == ""
-                || input_phone_guardian == null
             ) {
                 document.getElementById('toatmessage1').style.display = 'flex';
                 setTimeout(show, 3000);
@@ -1882,6 +1902,22 @@
                     if (age <= 12) {
                         document.getElementById('toatmessage').style.display = 'flex';
                         setTimeout(check, 3000);
+                    }
+                    else if (age < 18) {
+                        if (input_name_guardian == ""
+                            || input_name_guardian == null
+                            || input_relation == ""
+                            || input_relation == null
+                            || input_phone_guardian == ""
+                            || input_phone_guardian == null) {
+                            document.getElementById('toatmessage1').style.display = 'flex';
+                            setTimeout(check, 3000);
+                        }
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
                     }
                     else {
                         document.getElementById("m-dialog-modal").style.display = "block";
@@ -1912,20 +1948,17 @@
                 || district == null
                 || validateward == ""
                 || validateward == null
-                || input_name_guardian == ""
-                || input_name_guardian == null
-                || input_relation == ""
-                || input_relation == null
-                || input_phone_guardian == ""
-                || input_phone_guardian == null
                 || ngaytiem1 == ""
                 || ngaytiem1 == null
                 || tenvc1 == ""
                 || tenvc1 == null) {
+                console.log(111111111)
                 document.getElementById('toatmessage1').style.display = 'flex';
                 setTimeout(show, 3000);
             }
             else {
+                debugger
+                console.log(1111)
                 let a = document.getElementById("dateof").value;
                 var date = new Date(a);
                 if (date.getDate() > 0) {
@@ -1942,6 +1975,17 @@
                         document.getElementById('toatmessage').style.display = 'flex';
                         setTimeout(check, 3000);
                     }
+                    else if (age < 18) {
+                        if (input_name_guardian == "" || input_name_guardian == null || input_relation == "" || input_relation == null || input_phone_guardian == "" || input_phone_guardian == null) {
+                            document.getElementById('toatmessage1').style.display = 'flex';
+                            setTimeout(show, 3000);
+                        }
+                        document.getElementById("m-dialog-modal").style.display = "block";
+                        document.getElementById("content").style.display = "none";
+                        document.documentElement.scrollTop = 0;
+                        document.getElementById("step2").classList.add("content-steps-1");
+                        document.getElementById("step1").classList.remove("content-steps-1");
+                    }
                     else {
                         document.getElementById("m-dialog-modal").style.display = "block";
                         document.getElementById("content").style.display = "none";
@@ -1954,7 +1998,6 @@
         }
         //trường hợp còn lại
         else {
-
             document.getElementById('loaimui').focus();
             document.documentElement.scrollTop = 0;
             document.getElementById('toatmessage2').style.display = 'flex';
@@ -1964,7 +2007,6 @@
 
     function loaimuitiem() {
         document.getElementById('mui1').style.display = 'none';
-
     }
     function loaimuitiem1() {
         document.getElementById('mui1').style.display = 'block';
@@ -1972,13 +2014,11 @@
     function validatename() {
         var x = document.getElementById('fullname').value;
         if (x == "" || x == null) {
-
             document.getElementById('validateName').style.display = "block";
-
-            document.getElementById("button1").disabled = true;
+            ////document.getElementById("button1").disabled = true;
         } else {
             document.getElementById('validateName').style.display = "none";
-            document.getElementById("button1").disabled = false;
+            ////document.getElementById("button1").disabled = false;
         }
 
     }
@@ -2000,10 +2040,10 @@
 
             document.getElementById('validatecity').style.display = "block";
 
-            document.getElementById("button1").disabled = true;
+            //document.getElementById("button1").disabled = true;
         } else {
             document.getElementById('validatecity').style.display = "none";
-            document.getElementById("button1").disabled = false;
+            //document.getElementById("button1").disabled = false;
         }
     }
     function choosedistrict() {
@@ -2015,13 +2055,11 @@
     function validatedistrict() {
         var x = document.getElementById('district').value;
         if (x == "" || x == null) {
-
             document.getElementById('validatedistrict').style.display = "block";
-
-            document.getElementById("button1").disabled = true;
+            //document.getElementById("button1").disabled = true;
         } else {
             document.getElementById('validatedistrict').style.display = "none";
-            document.getElementById("button1").disabled = false;
+            //document.getElementById("button1").disabled = false;
         }
     }
     function chooserelation() {
@@ -2035,11 +2073,8 @@
         if (x == "" || x == null) {
 
             document.getElementById('validaterelation').style.display = "block";
-
-            document.getElementById("button1").disabled = true;
         } else {
             document.getElementById('validaterelation').style.display = "none";
-            document.getElementById("button1").disabled = false;
         }
     }
     function choosetype() {
@@ -2103,10 +2138,7 @@
     function validate3() {
         var x = document.getElementById('loaimui').value;
         if (x == "" || x == null) {
-
             document.getElementById('validate3').style.display = "block";
-
-
         } else {
             document.getElementById('validate3').style.display = "none";
 
@@ -2195,8 +2227,6 @@
         if (x == "" || x == null) {
 
             document.getElementById('validate_phone_guardian').style.display = "block";
-
-
         } else {
             document.getElementById('validate_phone_guardian').style.display = "none";
 
