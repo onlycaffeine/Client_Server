@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Microsoft.Office.Interop.Word;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace CSDL_Nangcao.Areas.Admin.Controllers
 {
@@ -93,7 +95,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //else
             //    return RedirectToAction("Fail1", "Nhaptuncc");
 
-            if (nsx > hsd )
+            if (nsx > hsd)
             {
                 return RedirectToAction("Fail1", "Nhaptuncc");
             }
@@ -212,8 +214,69 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             var dao1 = new LoDao();
             var model = dao1.ListAllPagingWithSohd(pr);
+            ViewBag.id = id;
             return View(model);
+        }
 
+        [HttpPost]
+        public FileResult ExporttoW(string id)
+        {
+
+            var dao = new HoadonnhapDao();
+            var pr = dao.ViewDetail(id);
+
+            var dao1 = new LoDao();
+            var model = dao1.ListAllPagingWithSohd(pr);
+            // Đường dẫn đến file word gốc
+            string filePath = @"D:\TemplateHoadonnhap";
+
+            // Tạo đối tượng Word.Application
+            Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+            wordApp.Visible = false;
+            wordApp.DisplayAlerts = Microsoft.Office.Interop.Word.WdAlertLevel.wdAlertsNone;
+            // Mở file Word
+            Microsoft.Office.Interop.Word.Document wordDoc = wordApp.Documents.Open(filePath);
+            wordApp.Visible = true;
+            wordApp.DisplayAlerts = Microsoft.Office.Interop.Word.WdAlertLevel.wdAlertsAll;
+            // Thực hiện các thao tác chỉnh sửa file Word ở đây
+            // Ví dụ: thay thế nội dung "old text" bằng "new text"
+            string a = pr.Ngaynhap.ToString("d/M/yyyy");
+            string b = pr.Sohoadon.ToString();
+            wordDoc.Content.Find.Execute(FindText: "<Ngày nhập>", ReplaceWith: "Ngày Nhập: " + a);
+            wordDoc.Content.Find.Execute(FindText: "<Số hợp đồng>", ReplaceWith: "Số hóa đơn: " + b);
+            // Get reference to the first table in the document
+            Table table = wordDoc.Tables[1];
+            // Create a new row object and add it to the table
+            int i = 1;
+            foreach (var item in model)
+            {
+                Row newRow = table.Rows.Add();
+
+                // Set the values of each cell in the new row
+                //newRow.Cells[1].Range.Text = item.Sohoadon;
+                newRow.Cells[1].Range.Text = item.Malo;
+                newRow.Cells[2].Range.Text = item.Solieutrenmotcai.ToString();
+                newRow.Cells[3].Range.Text = item.SLnhap.ToString();
+                newRow.Cells[4].Range.Text = item.Dongia.ToString();
+                newRow.Cells[5].Range.Text = (item.SLnhap * item.Dongia).ToString();
+                i++;
+            }
+
+            // Save the changes to the document
+            // Lưu file Word với tên "new_a.docx"
+            string newFilePath = @"D:\Grid1.docx";
+            object fileName = newFilePath;
+            object fileFormat = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatXMLDocument;
+            wordDoc.SaveAs(ref fileName, ref fileFormat);
+
+            // Đóng file Word và đối tượng Word.Application
+            wordDoc.Close();
+            wordApp.Quit();
+
+            // Trả về file mới vừa chỉnh sửa
+            byte[] fileBytes = System.IO.File.ReadAllBytes(newFilePath);
+            string fileName1 = "Grid1.docx";
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName1);
         }
 
         [HttpGet]

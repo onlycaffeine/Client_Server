@@ -141,11 +141,11 @@
                                         <td style="width:98px">@Html.Raw(b)</td>
                                         <td>
 
-                                            <a title="Sửa" href="/Admin/Capphat/Edithd/@item.Sophieuxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
-                                            @Ajax.ActionLink(" ", "Deletehd", new { @id = item.Sophieuxuat }, new AjaxOptions
+                                            @*<a title="Sửa" href="/Admin/Capphat/Edithd/@item.Sophieuxuat"><i class="fas fa-pen" style="margin-right:5px"></i></a>|*@
+                                            @*@Ajax.ActionLink(" ", "Deletehd", new { @id = item.Sophieuxuat }, new AjaxOptions
                                             { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Sophieuxuat + "').remove()", },
-                                            new { @class = "fas fa-trash", @title = "Xóa" })
-                                            |<a title="Chi tiết" href="/Admin/Capphat/Detailhd/@item.Sophieuxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
+                                            new { @class = "fas fa-trash", @title = "Xóa" })*@
+                                            @*|*@<a title="Chi tiết" href="/Admin/Capphat/Detailhd/@item.Sophieuxuat"><i class="fas fa-info-circle" style="margin-left:5px"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -194,12 +194,12 @@
                                 </button>
                             </p>
 
-                            <p>
+                            @*<p>
                                 <button id="btnExportPdf" name="btnExportPdf" type="button" title="Xuất pdf" class="btn btn-primary" style="margin: -130px 0 -3px 116px;">
                                     <b style="font-size: 14px;
                              margin-left: 5px"> Xuất pdf</b>
                                 </button>
-                            </p>
+                            </p>*@
                         </div>
                     </div>
                 }

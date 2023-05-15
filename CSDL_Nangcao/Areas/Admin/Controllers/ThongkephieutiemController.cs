@@ -41,14 +41,19 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //Session["maquyen"] = session.Maquyen;
             ViewBag.Maquyen = session.Maquyen;
             ViewBag.khuvuc = khuvuc;
-            if(a != null && b != null)
+            ViewBag.a = a;
+            ViewBag.b = b;
+            if (a != null && b != null && khuvuc != null)
             {
                 TempData["a"] = a;
                 TempData["b"] = b;
+                TempData["khuvuc"] = khuvuc;
             }
 
             return View(model);
         }
+
+        //public File()
 
         [HttpPost]
         public FileResult Export(string a, string b, string khuvuc = "")
@@ -58,20 +63,63 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
             var emplist = dao.ListAllPagingQG(session.Matp, session.Maquan, session.Maphuong, a, b, khuvuc, session.Maquyen);
 
+            DateTime myDatea = DateTime.Parse(a);
+            DateTime myDateb = DateTime.Parse(b);
+            string start = myDatea.ToString("dd-MM-yyyy");
+            string end = myDateb.ToString("dd-MM-yyyy");
+
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            string tentinhthanhpho = new DiemtiemDao().Tenthanhpho(session.Matp);
+            string tenquanhuyen = new DiemtiemDao().Tenquan(session.Maquan);
+            string tenphuongxa = new DiemtiemDao().Tenphuong(session.Maphuong);
+            //ViewBag.tongslasta1 = tongslasta1;
 
+            if (session.Maquyen == "n_account" || session.Maquyen == "admin")
+            {
+                ws.Cells["B7"].Value = "Tỉnh/thành phố: ";
+                ws.Cells["H7"].Value = "Xã gửi lên huyện trước ngày 05 tháng sau";
+                ws.Cells["B8"].Value = "Huyện/Quận/Thị xã: ";
+                ws.Cells["H8"].Value = "Huyện/quận gửi lên Tỉnh trước ngày 10 tháng sau";
+                ws.Cells["B9"].Value = "Phường/xã: ";
+            }
+            else if (session.Maquyen == "c_account")
+            {
+                ws.Cells["B7"].Value = "Tỉnh/thành phố: " + tentinhthanhpho;
+                ws.Cells["H7"].Value = "Xã gửi lên huyện trước ngày 05 tháng sau";
+                ws.Cells["B8"].Value = "Huyện/Quận/Thị xã: " ;
+                ws.Cells["H8"].Value = "Huyện/quận gửi lên Tỉnh trước ngày 10 tháng sau";
+                ws.Cells["B9"].Value = "Phường/xã: " ;
+            }
+            else if (session.Maquyen == "d_account")
+            {
+                ws.Cells["B7"].Value = "Tỉnh/thành phố: " + tentinhthanhpho;
+                ws.Cells["H7"].Value = "Xã gửi lên huyện trước ngày 05 tháng sau";
+                ws.Cells["B8"].Value = "Huyện/Quận/Thị xã: " + tenquanhuyen;
+                ws.Cells["H8"].Value = "Huyện/quận gửi lên Tỉnh trước ngày 10 tháng sau";
+                ws.Cells["B9"].Value = "Phường/xã: ";
+            }
+            else if (session.Maquyen == "w_account")
+            {
+                ws.Cells["B7"].Value = "Tỉnh/thành phố: " + tentinhthanhpho;
+                ws.Cells["H7"].Value = "Xã gửi lên huyện trước ngày 05 tháng sau";
+                ws.Cells["B8"].Value = "Huyện/Quận/Thị xã: " + tenquanhuyen;
+                ws.Cells["H8"].Value = "Huyện/quận gửi lên Tỉnh trước ngày 10 tháng sau";
+                ws.Cells["B9"].Value = "Phường/xã: " + tenphuongxa;
+            }
+
+            ws.Cells["C3"].Value = "Mẫu 03/13-TCMR";
             ws.Cells["C3"].Value = "BỘ Y TẾ";
+            ws.Cells["C3"].Style.Font.Bold = true;
+            //ws.Cells["D3"].Value = khuvuc;
+            //ws.Cells["E3"].Value = ViewBag.khuvuc;
             ws.Cells["G4"].Value = "KẾT QUẢ TIÊM CHỦNG COVID-19 TRONG NĂM";
             ws.Cells["G4"].Style.Font.Size = 16;
             ws.Cells["G4"].Style.Font.Bold = true;
-
-            ws.Cells["I5"].Value = "Tháng /";
-            ws.Cells["B7"].Value = "Tỉnh/thành phố:";
-            ws.Cells["H7"].Value = "Xã gửi lên huyện trước ngày 05 tháng sau";
-            ws.Cells["B8"].Value = "Huyện/Quận/Thị xã:";
-            ws.Cells["H8"].Value = "Huyện/quận gửi lên Tỉnh trước ngày 10 tháng sau";
-            ws.Cells["B9"].Value = "Phường/xã:";
+            ws.Cells["H5"].Value = "         Thời gian: " + start + " đến " + end;
+            
+            //if(khuvuc != "")
+            
             ws.Cells["H9"].Value = "Tỉnh gửi TCMRQG trước ngày 15 tháng sau";
 
             ws.Cells["B11"].Value = "TT";
@@ -126,10 +174,37 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             int rowStart = 14;
             int cnt = 1;
+            int tongslastra1 = 0; int tongslastra2 = 0; int tongslastra3 = 0; int tongslpfizer1 = 0;int tongslpfizer2 = 0; int tongslpfizer3 = 0; int tongslverocell1 = 0;int tongslverocell2 = 0;
+            int tongslverocell3 = 0; int tongsl3mui = 0;int tongslnhe = 0;int tongslnang = 0;
             foreach (var item in emplist)
             {
                 ws.Cells[string.Format("B{0}", rowStart)].Value = cnt;
                 ws.Cells[string.Format("C{0}", rowStart)].Value = item.Madiemtiem;
+                ws.Cells[string.Format("C{0}", rowStart + 1)].Value = "Tổng";
+                tongslastra1 += item.SLastra1;
+                tongslastra2 += item.SLastra2;
+                tongslastra3 += item.SLastra3;
+                tongslpfizer1 += item.SLpfi1;
+                tongslpfizer2 += item.SLpfi2;
+                tongslpfizer3 += item.SLpfi3;
+                tongslverocell1 += item.SLvero1;
+                tongslverocell2 += item.SLvero2;
+                tongslverocell3 += item.SLvero3;
+                tongsl3mui += item.SLtiem;
+                tongslnhe += item.SLtcnhe;
+                tongslnang += item.SLtcnang;
+                ws.Cells[string.Format("D{0}", rowStart + 1)].Value = tongslastra1;
+                ws.Cells[string.Format("E{0}", rowStart + 1)].Value = tongslastra2;
+                ws.Cells[string.Format("F{0}", rowStart + 1)].Value = tongslastra3;
+                ws.Cells[string.Format("G{0}", rowStart + 1)].Value = tongslpfizer1;
+                ws.Cells[string.Format("H{0}", rowStart + 1)].Value = tongslpfizer2;
+                ws.Cells[string.Format("I{0}", rowStart + 1)].Value = tongslpfizer3;
+                ws.Cells[string.Format("J{0}", rowStart + 1)].Value = tongslverocell1;
+                ws.Cells[string.Format("K{0}", rowStart + 1)].Value = tongslverocell2;
+                ws.Cells[string.Format("L{0}", rowStart + 1)].Value = tongslverocell3;
+                ws.Cells[string.Format("M{0}", rowStart + 1)].Value = tongsl3mui;
+                ws.Cells[string.Format("N{0}", rowStart + 1)].Value = tongslnhe;
+                ws.Cells[string.Format("O{0}", rowStart + 1)].Value = tongslnang;
                 ws.Cells[string.Format("D{0}", rowStart)].Value = item.SLastra1;
                 ws.Cells[string.Format("E{0}", rowStart)].Value = item.SLastra2;
                 ws.Cells[string.Format("F{0}", rowStart)].Value = item.SLastra3;
@@ -142,9 +217,19 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 ws.Cells[string.Format("M{0}", rowStart)].Value = item.SLtiem;
                 ws.Cells[string.Format("N{0}", rowStart)].Value = item.SLtcnhe;
                 ws.Cells[string.Format("O{0}", rowStart)].Value = item.SLtcnang;
-                rowStart++;
+                rowStart++; 
                 cnt++;
             }
+            ws.Cells[string.Format("C{0}", rowStart + cnt + 1)].Value = "Người lập báo cáo";
+            ws.Cells[string.Format("C{0}", rowStart + cnt + 2)].Value = "(Ký, ghi rõ họ tên)";
+            ws.Cells[string.Format("C{0}", rowStart + cnt + 2)].Style.Font.Italic = true;
+
+            ws.Cells[string.Format("O{0}", rowStart + cnt + 0)].Value = "Ngày      Tháng      Năm";
+            ws.Cells[string.Format("O{0}", rowStart + cnt + 1)].Value = "Thủ trưởng";
+            ws.Cells[string.Format("O{0}", rowStart + cnt + 1)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            ws.Cells[string.Format("O{0}", rowStart + cnt + 2)].Value = "(Ký, ghi rõ họ tên)";
+            ws.Cells[string.Format("O{0}", rowStart + cnt + 2)].Style.Font.Italic = true;
+            //ws.Cells["D17"].Value = tongslastra1;
 
             ws.Column(13).BestFit = true;
             ws.Cells[11, 2, rowStart, 15].AutoFitColumns();
@@ -191,6 +276,12 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         {
             var dao1 = new ThongkephieutiemDao();
             var model2 = dao1.ListAllPaging(a, b);
+
+            if (a != null && b != null)
+            {
+                TempData["a"] = a;
+                TempData["b"] = b;
+            }
 
             if (passtp == "thanhpho")
                 return View(model2);
