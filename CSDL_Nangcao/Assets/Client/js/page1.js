@@ -15,9 +15,9 @@
 }
 
 window.onload = function () {
-    var subjectSel = document.getElementById("subject");
-    var topicSel = document.getElementById("topic");
-    var chapterSel = document.getElementById("searchString");
+    var subjectSel = document.getElementById("province");
+    var topicSel = document.getElementById("district");
+    var chapterSel = document.getElementById("tenphuong");
     for (var x in subjectObject) {
         subjectSel.options[subjectSel.options.length] = new Option(x, x);
     }

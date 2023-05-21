@@ -115,6 +115,7 @@ namespace Model1.Dao
 
         public string Maphuongdk(string ten)
         {
+         ten=   ten.Replace("Phường", "").Replace("Xã", "").Trim();
             var p = db.Phuongs.SingleOrDefault(x => x.Tenphuong == ten);
             return p.Maphuong;
         }

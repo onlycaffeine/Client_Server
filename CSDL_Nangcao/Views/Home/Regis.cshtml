@@ -196,21 +196,19 @@
             </div>
             <div id="validateward" class="validate-input">Vui lòng chọn xã phường</div>
         </div>*@
-                            <form class="col-md-4">
                                 @*<input name="cc" id="cc" value=" @ViewBag.sltiem[30]" style="height:35px;width:175px; margin-right:18px ">*@
-                                <select name="subject" id="subject" style="height:35px;width:175px; margin-right:18px">
+                                <select name="province" id="province" style="height:35px;width:175px; margin-right:18px">
                                     <option value="" selected="selected">Tỉnh/Thành phố</option>
                                 </select>
                                 <br><br>
-                                <select name="topic" id="topic" style="margin-right:18px;height:35px;width:175px">
+                                <select name="district" id="district" style="margin-right:18px;height:35px;width:175px">
                                     <option value="" selected="selected">Quận/Huyện</option>
                                 </select>
                                 <br><br>
-                                <select name="searchString" id="searchString" style="margin-right:18px;height:35px;width:175px">
+                                <select name="tenphuong" id="tenphuong" style="margin-right:18px;height:35px;width:175px">
                                     <option value="" selected="selected">Phường/Thị xã</option>
                                 </select>
                                 <br><br>
-                            </form>
 
                         </div>
                         <div class="content-input-row2 content-input-row content-input-row5">
@@ -2048,7 +2046,7 @@
         document.getElementById('validatecity').style.display = "none";
     }
     function validatecity() {
-        var x = document.getElementById('province').value;
+        var x = document.getElementById('suprovincebject').value;
         if (x == "" || x == null) {
 
             document.getElementById('validatecity').style.display = "block";
