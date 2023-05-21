@@ -99,6 +99,24 @@ namespace Model1.Dao
             return dt.Tendiemtiem;
         }
 
+        public string Tenphuong(string id)
+        {
+            Phuong p = db.Phuongs.Find(id);
+            return p.Tenphuong;
+        }
+
+        public string Tenquan(string id)
+        {
+            Quan q = db.Quans.Find(id);
+            return q.Tenquan;
+        }
+
+        public string Tenthanhpho(string id)
+        {
+            Thanhpho tp = db.Thanhphoes.Find(id);
+            return tp.Tenthanhpho;
+        }
+
         public long Sldong()
         {
             long a = db.Diemtiems.LongCount();
@@ -295,7 +313,7 @@ namespace Model1.Dao
 
         public int Sltiem(int ngaytiem)
         {
-            string connString = @"Data Source=DESKTOP-LLN1SST;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -317,7 +335,7 @@ namespace Model1.Dao
 
         public int Sltiem1(string matp)
         {
-            string connString = @"Data Source=DESKTOP-LLN1SST;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand();

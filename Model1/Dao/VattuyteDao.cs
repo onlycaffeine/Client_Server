@@ -71,7 +71,7 @@ namespace Model1.Dao
         {
             return db.Vattuytes.Where(x => x.Tenvattu.Contains(keyword)).Select(x => x.Tenvattu).ToList();
         }
-        public IEnumerable<VattuyteDTO> ListAllPaging(string searchString)//string searchString, int page, int pageSize, int minp, int maxp)
+        public IEnumerable<VattuyteDTO> ListAllPaging(string tenvattu)//string searchString, int page, int pageSize, int minp, int maxp)
         {
             List<VattuyteDTO> listLinks = new List<VattuyteDTO>();
             var model = from l in db.Vattuytes // lấy toàn bộ sp
@@ -80,9 +80,9 @@ namespace Model1.Dao
                         where c.Maloaivattu == "lvt001"
                         select new { l.Mavattu, l.Tenvattu , c.Tenloaivattu,q.Tennsx};
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(tenvattu))
             {
-                model = model.Where(x => x.Tenvattu.Contains(searchString) || x.Tenvattu.Contains(searchString));
+                model = model.Where(x => x.Tenvattu.Contains(tenvattu) || x.Tenvattu.Contains(tenvattu));
             }
 
             foreach (var item in model)

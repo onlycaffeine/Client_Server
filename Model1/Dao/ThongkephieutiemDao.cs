@@ -13,7 +13,6 @@ namespace Model1.Dao
     public class ThongkephieutiemDao
     {
         CSDL_NangcaoDbContext db = null;
-        string connString = @"Data Source=DESKTOP-LLN1SST;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
         public ThongkephieutiemDao()
         {
             db = new CSDL_NangcaoDbContext();
@@ -67,6 +66,7 @@ namespace Model1.Dao
 
         public IEnumerable<ThongkephieutiemQuanDTO> ListAllPaging(string a, string b)
         {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             List<ThongkephieutiemQuanDTO> listLinks = new List<ThongkephieutiemQuanDTO>();
 
             using (SqlConnection conn = new SqlConnection(connString))
@@ -120,6 +120,7 @@ namespace Model1.Dao
 
         public IEnumerable<ThongkephieutiemQuanDTO> ListAllPagingWithMaquan(string maquan, string a, string b)
         {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             List<ThongkephieutiemQuanDTO> listLinks = new List<ThongkephieutiemQuanDTO>();
 
             using (SqlConnection conn = new SqlConnection(connString))
@@ -179,6 +180,7 @@ namespace Model1.Dao
 
         public IEnumerable<ThongkephieutiemQuanDTO> ListAllPagingWithMadt(Diemtiem dt, string a, string b)
         {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             List<ThongkephieutiemQuanDTO> listLinks = new List<ThongkephieutiemQuanDTO>();
 
             using (SqlConnection conn = new SqlConnection(connString))
@@ -238,6 +240,7 @@ namespace Model1.Dao
 
         public IEnumerable<ThongkephieutiemQuanDTO> ListAllPagingQG(string matp, string maquan, string map, string a, string b, string khuvuc, string maquyen)
         {
+            string connString = @"Data Source=.\sqlexpress;Initial Catalog=CSDL_Nangcao;Integrated Security=True";
             List<ThongkephieutiemQuanDTO> listLinks = new List<ThongkephieutiemQuanDTO>();
 
             using (SqlConnection conn = new SqlConnection(connString))

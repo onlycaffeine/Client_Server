@@ -268,7 +268,7 @@ namespace Model1.Dao
                     }
                     else
                     {
-                        if (result.Matkhau.Trim() == passWord)
+                        if (result.Matkhau == passWord)
                             return 1;
                         else
                             return -2;
