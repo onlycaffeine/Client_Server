@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Model1.PhieutiemViewModel>
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="text text-center">
+                <h6>
+                    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+                </h6>
+                <h4>Độc lập - Tự do - Hạnh phúc</h4>
+            </div>
+            <h4 class="text-center" style="font-weight: bold;">CHỨNG NHẬN TIÊM CHỦNG COVID-19</h4>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered" style="text-align:center">
+                        <thead style="font-weight:bold; text-align:center">
+                            <tr>
+                                <th>Họ và tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Số lô</th>
+                                <th>Tên điểm tiêm</th>
+                                <th scope="col">Mũi số</th>
+                                <th scope="col">Thời gian tiêm</th>
+                                <th scope="col">Tên vắc xin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{DateTime a = @item.Chitietphhieutiem.Ngaytiem;
+                                        string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+
+                                        DateTime c = @item.Phieutiem.Ngaysinh;
+                                        string d = c.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                    }
+                                    <td>@item.Phieutiem.Tennguoidan</td>
+                                    <td style="text-align:center">@Html.Raw(d)</td>
+                                    <td>@item.Chitietphhieutiem.Malo</td>
+                                    <td>@item.tendiemtiem</td>
+                                    <td style="text-align:center">@item.Chitietphhieutiem.Loaimui</td>
+                                    <td style="text-align:center">@Html.Raw(b)</td>
+                                    <td>@item.tenthuoc</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

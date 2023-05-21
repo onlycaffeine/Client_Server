@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/page/employee.css">
+    <link rel="stylesheet" href="~/Content/themes/base/font/fontawesome-5.15.1/css/all.css">
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="main__header" style="justify-content:space-between">
+            <h2 style="max-width:330px">Tra cứu chứng nhận tiêm</h2>
+        </div>
+        <section class="main__content mt-4 align-self-md-center">
+            <div class="container">
+                <div class="row" style="border: 1px solid #f8f8f8; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;">
+                    <form method="post" action="/Home/Result">
+                        <div class="col-12">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="Tennguoidan">
+                                            Họ và tên
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input type="text" name="ten" placeholder="Họ và tên">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="cccd">
+                                            CCCD/Số CMT
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input type="text" name="cccd" placeholder="CCCD/ CMT">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="sdt">
+                                            Số điện thoại
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input type="text" name="sdt" placeholder="Số điện thoại">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="dob">
+                                            Ngày sinh
+                                            @*<span class="text-danger">(*)</span>*@
+                                        </label>
+                                        <input type="text" name="dob" placeholder="Ngày sinh">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" style="display:flex">
+                            <span class="text-danger" style="font-style:italic; min-width: 60px; filter:contrast(300%); font-weight:600">Ghi chú: </span>
+                            <span class="text-danger" style="font-style:italic; font-weight:500; margin-left:5px">
+                                Nếu bạn đã tiêm nhưng chưa được ghi nhận, hãy liên hệ với cơ sở tiêm và đề nghị cập nhật
+                                thông tin lên Nền tảng tiêm chủng để có thể nhận được Chứng nhận tiêm hoặc phản ánh thông tin mũi tiêm
+                            </span>
+                        </div>
+                        <div class="col-12 mt-2 mb-4 text-center">
+                            <button class="btn" type="submit"><i class="fas fa-search" style="margin-right:13px"></i>Tra cứu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
