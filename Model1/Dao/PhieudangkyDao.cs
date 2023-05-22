@@ -307,5 +307,25 @@ namespace Model1.Dao
                 return false;
             }
         }
+
+        public bool getByIdentity(string CCCD)
+        {
+            try
+            {
+                var phieuDki = db.Phieudangkies.FirstOrDefault(x => x.CCCD == CCCD);
+                if(phieuDki == null)
+                {
+                    return false;
+                }
+                if(phieuDki.Matrangthai == "tt001")
+                {
+                    return true;
+                }
+                return false;
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

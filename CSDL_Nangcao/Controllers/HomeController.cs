@@ -136,6 +136,12 @@ namespace CSDL_Nangcao.Controllers
             {
                 mathuocdk = dao2.Mathuocdk(tenvc1);
             }
+
+            var a = dao2.getByIdentity(identity);
+            if (a == true)
+            {
+                return View("Notify");
+            }
             string manhomdk = dao2.Manhomdk(uutien);
 
             var order = new Phieudangky();
@@ -174,7 +180,6 @@ namespace CSDL_Nangcao.Controllers
             else
                 order.Phanungtiem1 = phanung;
             order.Matrangthai = "tt001";
-
 
             var id = new PhieudangkyDao().Insert(order);
 
