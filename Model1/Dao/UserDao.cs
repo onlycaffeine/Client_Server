@@ -118,6 +118,7 @@ namespace Model1.Dao
                     user.Matkhau = entity.Matkhau;
                 }
                 user.SDT = entity.SDT;
+                user.Madiemtiem = entity.Madiemtiem;
                 //user.Manhom = entity.Manhom;
                 db.SaveChanges();
                 return true;
@@ -249,7 +250,7 @@ namespace Model1.Dao
                         }
                         else
                         {
-                            if (result.Matkhau == passWord)
+                            if (result.Matkhau.Trim() == passWord)
                                 return 1;
                             else
                                 return 1;
@@ -268,7 +269,7 @@ namespace Model1.Dao
                     }
                     else
                     {
-                        if (result.Matkhau == passWord)
+                        if (result.Matkhau.Trim() == passWord)
                             return 1;
                         else
                             return -2;

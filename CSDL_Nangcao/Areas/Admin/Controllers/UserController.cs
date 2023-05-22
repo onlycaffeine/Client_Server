@@ -137,7 +137,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             {
                 madt = dao.Madtdk(dt);
             }
-
+            
             long sldonglo = dao.Sldong() + 1;
             string maloauto = "nv00" + sldonglo.ToString();
             if (sldonglo > 9)
@@ -199,7 +199,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             emp.Manhom = nhom;
             emp.Trangthai = trangthai;
             emp.Taikhoan = tk;
-            emp.Matkhau = mk;
+            emp.Matkhau = Encryptor.MD5Hash(mk);
             emp.Mathanhpho = matp;
             emp.Maquan = maquan;
             emp.Maphuong = maphuong;

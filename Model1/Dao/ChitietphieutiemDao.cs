@@ -25,7 +25,7 @@ namespace Model1.Dao
 
         public DateTime ngaytiemtruoc(string maphieutiem, int loaimuitruoc)
         {
-            var p = db.Chitietphhieutiems.SingleOrDefault(x => x.Sophieutiem == maphieutiem && x.Loaimui == (loaimuitruoc - 1).ToString());
+            var p = db.Chitietphhieutiems.FirstOrDefault(x => x.Sophieutiem == maphieutiem && x.Loaimui == (loaimuitruoc - 1).ToString());
             return p.Ngaytiem;
         }
 
