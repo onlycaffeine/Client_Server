@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Model1.DTO.LoDTO>
+﻿@model IEnumerable<Model1.DTO.DongxuatDTO>
 @{
     ViewBag.Title = "Index11";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -14,7 +14,7 @@
     <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/Admin/css/lib/combobox.js"></script>
     <script src="~/Assets/Admin/js/controller/tonkho.js"></script>
-    
+
 }
 
 <head>
@@ -50,7 +50,7 @@
                     Danh sách vắc xin/Vật tư còn trong kho
                 </b>
 
-                @using (Html.BeginForm("Index1", "Lo", FormMethod.Get))
+                @using (Html.BeginForm("Index111", "Lo", FormMethod.Get))
                 {
                     <div class="form-group">
                         <div class="form-group" style=" display:flex;  width:100%;">
@@ -58,11 +58,11 @@
                             <label style="margin-left: 1px;line-height: 55px;margin-right:10px">Tên vật tư </label>
                             @*@Html.DropDownList("nguon", null, "Tất cả", new { @style = " height:38px; width:184px; margin:10px 0 0px 2px", @class = "form-control", @name = "nguon", @id = "nguon" })*@
                             @*<select name="tenvts" id="tenvts" class="form-control" style="height:38px; width:184px; margin:10px 0 0px 2px">
-            <option value="tatca">Tất cả</option>
-            <option value="vt001">AstraZeneca</option>
-            <option value="vt002">Pfizer</option>
-            <option value="vt003">Vero Cell</option>
-        </select>*@
+                                <option value="tatca">Tất cả</option>
+                                <option value="vt001">AstraZeneca</option>
+                                <option value="vt002">Pfizer</option>
+                                <option value="vt003">Vero Cell</option>
+                            </select>*@
                             @Html.DropDownList("tenvts", new List<SelectListItem>
                                      {
                                          new SelectListItem { Text = "Tất cả", Value = "tatca" },
@@ -72,11 +72,11 @@
                                      }, "Tất cả", new { @class = "form-control", @style = "margin:10px 0 0px 2px; height: 38px; width: 184px" })
                             <label style="margin-left: 17px;line-height: 55px;margin-right:10px">Hạn sử dụng </label>
                             @*<select name="hsds" id="hsds" class="form-control" style="height:38px; width:184px; margin:10px 0 0px 2px">
-                                <option value="tatca">Tất cả</option>
-                                <option value="saphethan">Sắp hết hạn</option>
-                                <option value="dahethan">Đã hết hạn</option>
-                                <option value="chuahethan">Chưa hết hạn</option>
-                            </select>*@
+            <option value="tatca">Tất cả</option>
+            <option value="saphethan">Sắp hết hạn</option>
+            <option value="dahethan">Đã hết hạn</option>
+            <option value="chuahethan">Chưa hết hạn</option>
+        </select>*@
                             @Html.DropDownList("tenvts", new List<SelectListItem>
                                      {
                                          new SelectListItem { Text = "Tất cả", Value = "tatca" },
@@ -103,7 +103,7 @@
                                 <td>Mã vật tư</td>
                                 <td>Tên vật tư</td>
                                 <td>Số liều trên lọ</td>
-                                <td>Số liều tồn</td>
+                                <td>Số lượng tồn</td>
                                 <td>Hạn sử dụng</td>
                                 <td>Tên kho chứa</td>
                                 <td>Nhà sản xuất</td>
@@ -128,7 +128,7 @@
                                         <td>@item.Mavattu</td>
                                         <td>@item.Tenvattu</td>
                                         <td>@item.Solieutrenmotcai.GetValueOrDefault(0).ToString("N0")</td>
-                                        <td>@item.SLnhap.GetValueOrDefault(0).ToString("N0")</td>
+                                        <td>@item.SLxuat</td>
                                         <td>@Html.Raw(b)</td>
                                         <td>@item.Tenkho</td>
                                         <td>@item.Tennsx</td>

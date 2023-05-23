@@ -2,6 +2,7 @@
 using Model1.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -123,7 +124,7 @@ namespace Model1.Dao
             return db.Dongxuats.Find(id);
         }
 
-        public IEnumerable<DongxuatDTO> ListAllPagingdt(string madt)
+        public IEnumerable<DongxuatDTO> ListAllPagingdt(string madt, string tenvt, string hsd) // sohoadon # null
         {
             List<DongxuatDTO> listLinks = new List<DongxuatDTO>();
 
@@ -131,9 +132,35 @@ namespace Model1.Dao
                         join p in db.Loes on l.Malo equals p.Malo
                         join k in db.Vattuytes on p.Mavattu equals k.Mavattu
                         join q in db.Phieuxuats on l.Sophieuxuat equals q.Sophieuxuat
+                        join m in db.Hoadonnhaps on p.Sohoadon equals m.Sohoadon //p not l
+                        join n in db.Khoes on m.Makhonhap equals n.Makho
+                        join a in db.Nhasanxuats on k.Mansx equals a.Mansx
+                        join b in db.Nguons on m.Manguon equals b.Manguon
                         where q.Madiemtiem == madt
-                        select new { l.Malo, k.Tenvattu, l.SLxuat, l.Dongia, l.Thanhtien, l.Madongxuat, p.HSD, l.Sophieuxuat, q.Ngayxuat };
+                        select new { l.Malo, k.Tenvattu, k.Mavattu,p.Solieutrenmotcai, l.SLxuat, l.Dongia, l.Thanhtien, l.Madongxuat, p.HSD, l.Sophieuxuat, q.Ngayxuat,
+                            n.Tenkho,
+                            a.Tennsx,
+                            b.Tennguon
+                        };
+            if (tenvt != "tatca" && !string.IsNullOrEmpty(tenvt))
+            {
+                model = model.Where(x => x.Mavattu.Contains(tenvt) || x.Mavattu.Contains(tenvt));
+            }
 
+            if (hsd == "saphethan")
+            {
+                model = model.Where(x => EntityFunctions.AddDays(x.HSD, -30) < DateTime.Now && (x.HSD) > DateTime.Now);
+            }
+
+            if (hsd == "dahethan")
+            {
+                model = model.Where(x => ((x.HSD) < DateTime.Now) || (x.HSD) == DateTime.Now);
+            }
+
+            if (hsd == "chuahethan")
+            {
+                model = model.Where(x => ((x.HSD) > DateTime.Now));
+            }
 
             foreach (var item in model)
             {
@@ -148,6 +175,12 @@ namespace Model1.Dao
                 temp.Sophieuxuat = item.Sophieuxuat;
                 temp.Tenthuoc = item.Tenvattu;
                 temp.Ngayxuat = item.Ngayxuat;
+
+                temp.Tenkho = item.Tenkho;
+                temp.Tenvattu = item.Tenvattu;
+                temp.Tennsx = item.Tennsx;
+                temp.Tennguon = item.Tennguon;
+                temp.Solieutrenmotcai = item.Solieutrenmotcai;
                 listLinks.Add(temp);
             }
 

@@ -57,99 +57,99 @@
 
     <div class="all">
         <div style="display:flex">
-            <div class="block">
-                <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
-                    Dữ liệu tiêm từng địa phương
-                </div>
-                <canvas id="MeSeStatusCanvas1" style="max-height:328px; max-width:600px"></canvas>
-                <script>
-                    var MeSeContext = document.getElementById("MeSeStatusCanvas1").getContext("2d");
-                    var MeSeData = {
-                        labels: [
-                            "Hà Nội",
-                            "Quảng Ninh",
-                            "Vĩnh Phúc",
-                            "Huế",
-                            "Thanh Hóa",
-                            "Đà Nẵng",
-                            "Nghệ An",
+            @*<div class="block">
+                    <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
+                        Dữ liệu tiêm từng địa phương
+                    </div>
+                    <canvas id="MeSeStatusCanvas1" style="max-height:328px; max-width:600px"></canvas>
+                    <script>
+                        var MeSeContext = document.getElementById("MeSeStatusCanvas1").getContext("2d");
+                        var MeSeData = {
+                            labels: [
+                                "Hà Nội",
+                                "Quảng Ninh",
+                                "Vĩnh Phúc",
+                                "Huế",
+                                "Thanh Hóa",
+                                "Đà Nẵng",
+                                "Nghệ An",
 
-                        ],
-                        datasets: [{
-                            label: "Đã tiêm",
-                            data: [@ViewBag.sltiem1, 1, 1, 1, 1, 1, 1],
-                            backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
-                            hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
-                            //hoverBackgroundColor: ["#119966", "#119966", "#119966", "#119966", "#119966", "#119966", "#119966"]
-                        }]
-                    };
+                            ],
+                            datasets: [{
+                                label: "Đã tiêm",
+                                data: [@ViewBag.sltiem1, @ViewBag.sltiem5, @ViewBag.sltiem4, @ViewBag.sltiem6, @ViewBag.sltiem7, @ViewBag.sltiem8, @ViewBag.sltiem9],
+                                backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
+                                hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
+                                //hoverBackgroundColor: ["#119966", "#119966", "#119966", "#119966", "#119966", "#119966", "#119966"]
+                            }]
+                        };
 
-                    var MeSeChart = new Chart(MeSeContext, {
-                        type: 'horizontalBar',
-                        data: MeSeData,
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                    ticks: {
-                                        min: 1
-                                    }
-                                }],
-                                yAxes: [{
-                                    stacked: true
-                                }]
+                        var MeSeChart = new Chart(MeSeContext, {
+                            type: 'horizontalBar',
+                            data: MeSeData,
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            min: 1
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        stacked: true
+                                    }]
+                                }
+
                             }
-
-                        }
-                    });
-                </script>
-            </div>
-
-            <div class="block" style="margin-left:7px; margin-right:25px">
-                <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
-                    Dữ liệu tiêm từng địa phương
+                        });
+                    </script>
                 </div>
-                <canvas id="MeSeStatusCanvas" style="max-height:328px; max-width:600px"></canvas>
-                <script>
-                    var MeSeContext = document.getElementById("MeSeStatusCanvas").getContext("2d");
-                    var MeSeData = {
-                        labels: [
-                            "Hồ Chí Minh",
-                            "Quảng Bình",
-                            "Lạng Sơn",
-                            "Hòa Bình",
-                            "Hà Giang",
-                            "Cao Bằng",
-                            "Phú Thọ",
-                        ],
-                        datasets: [{
-                            label: "Đã tiêm",
-                            data: [1, 1, 1, 1, 1, 1, 1],
-                            backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
-                            hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
-                            //backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
-                            //hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
-                        }]
-                    };
 
-                    var MeSeChart = new Chart(MeSeContext, {
-                        type: 'horizontalBar',
-                        data: MeSeData,
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                    ticks: {
-                                        min: 1
-                                    }
-                                }],
-                                yAxes: [{
-                                    stacked: true
-                                }]
+                <div class="block" style="margin-left:7px; margin-right:25px">
+                    <div class="panel-heading" style="font-size:15px; font-weight:bold; margin-bottom:30px">
+                        Dữ liệu tiêm từng địa phương
+                    </div>
+                    <canvas id="MeSeStatusCanvas" style="max-height:328px; max-width:600px"></canvas>
+                    <script>
+                        var MeSeContext = document.getElementById("MeSeStatusCanvas").getContext("2d");
+                        var MeSeData = {
+                            labels: [
+                                "Hồ Chí Minh",
+                                "Quảng Bình",
+                                "Lạng Sơn",
+                                "Hòa Bình",
+                                "Hà Giang",
+                                "Cao Bằng",
+                                "Phú Thọ",
+                            ],
+                            datasets: [{
+                                label: "Đã tiêm",
+                                data: [@ViewBag.sltiem3, @ViewBag.sltiem10, @ViewBag.sltiem11, @ViewBag.sltiem12, @ViewBag.sltiem13, @ViewBag.sltiem14, @ViewBag.sltiem15],
+                                backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
+                                hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
+                                //backgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"],
+                                //hoverBackgroundColor: ["#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF", "#FF33FF"]
+                            }]
+                        };
+
+                        var MeSeChart = new Chart(MeSeContext, {
+                            type: 'horizontalBar',
+                            data: MeSeData,
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            min: 1
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        stacked: true
+                                    }]
+                                }
+
                             }
-
-                        }
-                    });
-                </script>
-            </div>
+                        });
+                    </script>
+                </div>*@
 
         </div>
         <div class="block">
@@ -185,7 +185,7 @@
                     options: {
                         legend: { display: false },
                         scales: {
-                            yAxes: [{ ticks: { min: 0, max: 10 } }],
+                            yAxes: [{ ticks: { min: 0, max: 30 } }],
                         }
                     }
                 });
@@ -272,7 +272,7 @@
                         <p></p>
                         <div class="pagination" style="margin-left: 4px; display:flex; justify-content:space-between">
                             <div>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)( tổng số @Model.PageCount trang ) </div>
-                            <div style="margin-right:560px">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))</div>
+                            <div style="margin-right:460px">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))</div>
                         </div>
                     </div>
                 </div>

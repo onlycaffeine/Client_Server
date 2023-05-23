@@ -26,6 +26,13 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             ViewBag.muidk = muidk;
             ViewBag.nhomut = nhomut;
             ViewBag.vc1 = vc1;
+            if (tt != null && muidk != null && nhomut != null & vc1 != null)
+            {
+                TempData["tt"] = tt;
+                TempData["muidk"] = muidk;
+                TempData["nhomut"] = nhomut;
+                TempData["vc1"] = vc1;
+            }
             return View(model);
         }
 

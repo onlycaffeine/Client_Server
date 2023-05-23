@@ -16,3 +16,21 @@ D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.csproj.C
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.dll
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.pdb
 D:\nam4\4_Thứ5_Cơ sở dữ liệu nâng cao\Model1\obj\Debug\Model1.csproj.AssemblyReference.cache
+E:\Git\Model1\bin\Debug\Model1.dll.config
+E:\Git\Model1\bin\Debug\Model1.dll
+E:\Git\Model1\bin\Debug\Model1.pdb
+E:\Git\Model1\bin\Debug\Common.dll
+E:\Git\Model1\bin\Debug\EntityFramework.dll
+E:\Git\Model1\bin\Debug\EntityFramework.SqlServer.dll
+E:\Git\Model1\bin\Debug\PagedList.dll
+E:\Git\Model1\bin\Debug\PagedList.Mvc.dll
+E:\Git\Model1\bin\Debug\Common.pdb
+E:\Git\Model1\bin\Debug\EntityFramework.xml
+E:\Git\Model1\bin\Debug\EntityFramework.SqlServer.xml
+E:\Git\Model1\bin\Debug\PagedList.xml
+E:\Git\Model1\bin\Debug\PagedList.Mvc.xml
+E:\Git\Model1\obj\Debug\Model1.csproj.AssemblyReference.cache
+E:\Git\Model1\obj\Debug\Model1.csproj.CoreCompileInputs.cache
+E:\Git\Model1\obj\Debug\Model1.csproj.CopyComplete
+E:\Git\Model1\obj\Debug\Model1.dll
+E:\Git\Model1\obj\Debug\Model1.pdb

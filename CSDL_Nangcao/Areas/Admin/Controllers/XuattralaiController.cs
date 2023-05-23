@@ -34,7 +34,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             var model1 = dao1.ListAllPagingXuatTL(searchString, a, b, madt);
             var model2 = dao2.ListAllPaging(nguon);
-            var model4 = dao4.ListAllPagingdt(madt);
+            var model4 = dao4.ListAllPagingdt(madt, "tatca", "tatca");
 
             ModelCollection model = new ModelCollection();
 
@@ -213,7 +213,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
             var dao1 = new DongtralaiDao();
             var dao3 = new DongxuatDao();
-            var model3 = dao3.ListAllPagingdt(session.Madiemtiem);
+            var model3 = dao3.ListAllPagingdt(session.Madiemtiem, "tatca", "tatca");
             int[] arr = new int[100];
             int i = 0, j = 0, k = 0;
 

@@ -29,5 +29,18 @@ namespace Model1.DTO
         public string Mathuoc { get; set; }
 
         public DateTime Ngayxuat { get; set; } //DateTime?
+
+        public string Tenkho { get; set; }
+
+        public string Tennsx { get; set; }
+
+        public string Tennguon { get; set; }
+
+        public string Mavattu { get; set; }
+
+        public string Tenvattu { get; set; }
+
+        public int? Solieutrenmotcai { get; set; }
+
     }
 }

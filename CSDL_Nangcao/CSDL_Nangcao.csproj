@@ -5102,6 +5102,7 @@
     <Content Include="Areas\Admin\Views\Vattuyte\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Vattuyte\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Capphat\PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Lo\Index111.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

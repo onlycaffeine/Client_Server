@@ -91,10 +91,10 @@
                                         <td>@Html.Raw(b)</td>
 
                                         <td style="text-align: center">
-                                            <a title="Cập nhật" href="/Admin/Chitietphieutiem/Edit/@item.Machitietphieutiem"><i class="fas fa-pen" style="margin-right:5px"></i></a>|
-                                            @Ajax.ActionLink(" ", "DeleteCT", new { @id = item.Machitietphieutiem }, new AjaxOptions
+                                            <a title="Cập nhật" href="/Admin/Chitietphieutiem/Edit/@item.Machitietphieutiem"><i class="fas fa-pen" style="margin-right:5px"></i></a>
+                                            @*|@Ajax.ActionLink(" ", "DeleteCT", new { @id = item.Machitietphieutiem }, new AjaxOptions
                                             { HttpMethod = "Delete", Confirm = "Bạn có muốn xoá bản ghi này?", OnComplete = "$('#row_" + @item.Machitietphieutiem + "').remove()", },
-                                            new { @class = "fas fa-trash", @title = "Xóa" })
+                                            new { @class = "fas fa-trash", @title = "Xóa" })*@
                                         </td>
                                     </tr>
                                 }

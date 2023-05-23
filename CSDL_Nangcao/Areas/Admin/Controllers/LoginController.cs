@@ -25,7 +25,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             {
                 var dao = new UserDao();
                 //var result = dao.Login(model.UserName, model.Password); //Encryptor.MD5Hash(model.Password)
-                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password));
+                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password.Trim()));
                 if (result == 1)
                 {
                     var user = dao.GetById(model.UserName);

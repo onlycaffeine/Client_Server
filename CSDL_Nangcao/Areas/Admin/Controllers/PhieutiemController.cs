@@ -15,7 +15,7 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         CSDL_NangcaoDbContext db = new CSDL_NangcaoDbContext();
         // GET: Admin/Phieutiem
         [HasCredential(RoleID = "NHAP_TTT")]
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 3)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 4)
         {
             //var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
             //Session["madt"] = session.Madiemtiem;

@@ -136,12 +136,18 @@
                         }
                         <h6 class="collapse-header">Xuất kho:</h6>
                         @{
-                            if (q == "admin" || q == "storage"||q== "cadres")
+                            if (q == "admin" || q == "storage" )
                             {
                                 <a class="collapse-item" href="/Admin/Capphat/Index">Cấp phát vaccine, vật tư</a>
                                 <a class="collapse-item" href="/Admin/Duyetdutru/Index">Duyệt dự trù vaccine</a>
                                 <a class="collapse-item" href="/Admin/Lo/Index1">Tồn kho:</a>}
                             @*<h6 class="collapse-item" href="/Admin/Capphat/Index">Kế hoạch vaccine:</h6>*@
+
+                            if (q == "cadres")
+                            {
+                                <a class="collapse-item" href="/Admin/Capphat/Index">Cấp phát vaccine, vật tư</a>
+                                <a class="collapse-item" href="/Admin/Duyetdutru/Index">Duyệt dự trù vaccine</a>
+                                <a class="collapse-item" href="/Admin/Lo/Index111">Tồn kho:</a>}
 
                             if (q == "cadres" || q == "admin")
                             {

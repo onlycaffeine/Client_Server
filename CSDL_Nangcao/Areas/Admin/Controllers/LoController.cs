@@ -33,7 +33,31 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //ViewBag.nguon = new SelectList(nguons, "Mavattu", "Tenvattu");
             ViewBag.tenvts = tenvts;
             ViewBag.hsds = hsds;
+            if (tenvts != null && hsds != null)
+            {
+                TempData["tenvts"] = tenvts;
+                TempData["hsds"] = hsds;
+            }
             return View(model);
+        }
+
+        [HasCredential(RoleID = "TONKHO")]
+        public ActionResult Index111(string tenvts, string hsds)
+        {
+            var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+            string madt = session.Madiemtiem;
+            var dao4 = new DongxuatDao();
+            //var nguons = from n in db.Vattuytes where n.Maloaivattu == "lvt001" select n;
+            //ViewBag.nguon = new SelectList(nguons, "Mavattu", "Tenvattu");
+            var model4 = dao4.ListAllPagingdt(madt, tenvts,  hsds); // sohoadon # null
+            ViewBag.tenvts = tenvts;
+            ViewBag.hsds = hsds;
+            if (tenvts != null && hsds != null)
+            {
+                TempData["tenvts"] = tenvts;
+                TempData["hsds"] = hsds;
+            }
+            return View(model4);
         }
 
         [HttpGet]
