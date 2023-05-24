@@ -82,6 +82,12 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Fail0", "Phieutiem");
                 }
+
+                var session = (UserLogin)Session[CSDL_Nangcao.Common.CommonConstants.USER_SESSION];
+                var ok = db.Dongxuats.FirstOrDefault(p => p.Malo == pr.Malo && p.Phieuxuat.Madiemtiem == session.Madiemtiem);
+                ok.SLnhap = ok.SLnhap - 1;
+                db.SaveChanges();
+
                 string id = dao.Insert(pr);
                 if (id != null)
                 {

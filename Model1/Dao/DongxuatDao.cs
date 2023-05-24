@@ -176,6 +176,7 @@ namespace Model1.Dao
                 temp.Tenthuoc = item.Tenvattu;
                 temp.Ngayxuat = item.Ngayxuat;
 
+                temp.Mavattu = item.Mavattu;
                 temp.Tenkho = item.Tenkho;
                 temp.Tenvattu = item.Tenvattu;
                 temp.Tennsx = item.Tennsx;
