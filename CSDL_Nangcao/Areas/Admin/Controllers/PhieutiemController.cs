@@ -25,9 +25,13 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
 
             long sldonghoadon = dao.Sldong() + 1;
             string mahoadonauto = "pt00" + sldonghoadon.ToString();
-            if (sldonghoadon > 9)
+            if (sldonghoadon > 9 && sldonghoadon < 100)
             {
                 mahoadonauto = "pt0" + sldonghoadon.ToString();
+            }
+            if (sldonghoadon > 99)
+            {
+                mahoadonauto = "pt" + sldonghoadon.ToString();
             }
 
             ViewBag.SearchString = searchString;
@@ -41,9 +45,14 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             var dao = new ChitietphieutiemDao();
             long sldonghoadon = dao.Sldong() + 1;
             string mahoadonauto = "ctpt00" + sldonghoadon.ToString();
-            if (sldonghoadon > 9)
+            if (sldonghoadon > 9 && sldonghoadon < 100)
             {
                 mahoadonauto = "ctpt0" + sldonghoadon.ToString();
+            }
+
+            if (sldonghoadon > 99)
+            {
+                mahoadonauto = "ctpt" + sldonghoadon.ToString();
             }
 
             //var dao = new PhieutiemDao();
@@ -102,6 +111,12 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             order.CCCD = cccd;
             order.SDT = sdt;
             order.Ngaysinh = ngaysinh;
+
+            bool exists_ = db.Phieutiems.Any(p => p.CCCD == cccd);
+            if (exists_)
+            {
+                return View("~/Areas/Admin/Views/Phieutiem/Fail1.cshtml");
+            }
 
             try
             {

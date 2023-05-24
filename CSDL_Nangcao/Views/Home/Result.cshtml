@@ -36,7 +36,7 @@
                                         string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
 
                                         DateTime c = @item.Phieutiem.Ngaysinh;
-                                        string d = c.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                        string d = c.Day.ToString() + "/" + c.Month.ToString() + "/" + c.Year.ToString();
                                     }
                                     <td>@item.Phieutiem.Tennguoidan</td>
                                     <td style="text-align:center">@Html.Raw(d)</td>

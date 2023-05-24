@@ -17,6 +17,7 @@
     <script src="~/Assets/Admin/js/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/Admin/css/lib/combobox.js"></script>
     <script src="~/Assets/Admin/js/controller/regis.js"></script>
+    <script src="~/Assets/Admin/js/controller/Regis1.js"></script>
 
 }
 
@@ -147,50 +148,23 @@
                 <div class="form-group">
                     <div class="form-group" style="display: flex ;  width:100%;align-items:center">
                         Trạng thái:
-                        <!--<select class="form-control" name="tt" id="tt" style="margin:0 18px 0 18px;height:35px;width:110px">
-                            <option value="tt001">Chưa duyệt</option>
-                            <option value="tt002">Đã duyệt</option>
-                            <option value="tt003">Đã xác nhận</option>-->
-                            @*<option value="tt004">Đã tiêm</option>*@
-                        <!--</select>-->
                         @Html.DropDownList("tt", new List<SelectListItem>
              {
                  new SelectListItem { Text = "Chưa duyệt", Value = "tt001" },
                  new SelectListItem { Text = "Đã duyệt", Value = "tt002" },
-                 new SelectListItem { Text = "Đã xác nhận", Value = "tt003" }
+                 new SelectListItem { Text = "Đã xác nhận", Value = "tt003" },
+                 new SelectListItem { Text = "Đã tiêm", Value = "tt004" },
+                 new SelectListItem { Text = "Đã hủy", Value = "tt005" },
+                 new SelectListItem { Text = "Đã thêm phiếu tiêm", Value = "tt006" }
              }, "Tất cả", new { @class = "form-control", @style = "margin:0 18px 0 18px; height: 35px; width: 110px" })
                         Mũi đăng ký:
-                        @*<select class="form-control" name="muidk" id="muidk" style="margin:0 18px 0 18px;height:35px;width:110px">
-                                <option value="tatca">Tất cả</option>
-                                <option value="Mũi đầu tiên">Mũi đầu tiên</option>
-                                <option value="Mũi tiêp theo">Mũi tiếp theo</option>
-                            </select>*@
                         @Html.DropDownList("muidk", new List<SelectListItem>
                                      {
                                          new SelectListItem { Text = "Mũi đầu tiên", Value = "Mui tiêm th? nh?t" },
                                          new SelectListItem { Text = "Mũi tiếp theo", Value = "Mui tiêm ti?p theo" }
                                      }, "Tất cả", new { @class = "form-control", @style = "margin:0 18px 0 18px; height: 35px; width: 110px" })
 
-                        
-                        @*<div class="content-input-row1 content-input-row">
-                                <div class="content-input-row-text">Đăng ký mũi tiêm thứ <span style="color: red;">(*)</span></div>
-                                <div id="div-department" class="mcombobox">
-                                    <input class="m-combobox m-combobox-input" type="text" id="loaimui" name="loaimui" placeholder="Đăng ký mũi tiêm thứ" />
-                                    <button type="button" tabindex="-1" class="m-combobox-button"><i class="fas fa-chevron-down"></i></button>
-                                    <div id="m-combobox-data" class="m-combobox-data">
-                                        <div class="m-combobox-item" value="0">Mũi tiêm thứ nhất</div>
-                                        <div class="m-combobox-item" value="1">Mũi tiêp theo</div>
-                                    </div>
-                                </div>
-                            </div>*@
                         Nhóm ưu tiên:
-                        @*<select class="form-control" name="nhomut" id="nhomut" style="margin:0 18px 0 18px;height:35px;width:110px">
-                                <option value="tatca">Tất cả</option>
-                                <option value="ut1">Nhân viên y tế</option>
-                                <option value="ut2">Quân nhân</option>
-                                <option value="ut3">Giáo viên</option>
-                                <option value="ut4">Không</option>
-                            </select>*@
                         @Html.DropDownList("nhomut", new List<SelectListItem>
                                      {
                                          new SelectListItem { Text = "Tất cả", Value = "tatca" },
@@ -199,7 +173,7 @@
                                          new SelectListItem { Text = "Giáo Viên", Value = "ut3" },
                                          new SelectListItem { Text = "Không", Value = "ut4" }
                                      }, "Tất cả", new { @class = "form-control", @style = "margin:0 18px 0 18px; height: 35px; width: 110px" })
-                        
+
                         Vaccin lần 1:
                         @Html.DropDownList("vc1", new List<SelectListItem>
                                      {
@@ -208,13 +182,7 @@
                                          new SelectListItem { Text = "Pfizer", Value = "tt002" },
                                          new SelectListItem { Text = "Vero Cell", Value = "tt003" }
                                      }, "Tất cả", new { @class = "form-control", @style = "margin:0 18px 0 18px; height: 35px; width: 90px" })
-                        
-                        @*<select class="form-control" name="vc1" id="vc1" style="margin:0 18px 0 18px;height:35px;width:90px">
-                                <option value="tatca">Tất cả</option>
-                                <option value="vt001">AstraZeneca</option>
-                                <option value="vt002">Pfizer</option>
-                                <option value="vt003">Vero Cell</option>
-                            </select>*@
+
                         <p><button type="submit" class="btn btn-primary" style=" margin:15px 0 0 20px">Phân loại</button></p>
                     </div>
                 </div>
@@ -236,12 +204,10 @@
                                 <th>Tên người dân</th>
                                 <th>Trạng thái</th>
                                 <th>Vắc xin lần 1</th>
-                                @*<th>Ngày sinh</th>*@
                                 <th>Loại mũi đăng ký</th>
                                 <th style="width: 120px">Ngày mong muốn</th>
                                 <th>Buổi mong muốn</th>
                                 <th>Nhóm ưu tiên</th>
-                                @*<th>Trạng thái</th>*@
                                 <th></th>
                             </tr>
                         </thead>
@@ -250,29 +216,29 @@
                             {
                                 foreach (var item in Model.Where(item => item != null))
                                 {
-                            <tr id="row_@item.Sophieudangky">
-                                @{//DateTime a = @item.Ngaymongmuon;*@
-                                    //string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
-                                    //int i = 0;
-                                    //string btnadd = "btnAddEmployee" + i.ToString();
-                                    string btnadd = "btnAddEmployee" + item.Sophieudangky;
-                                    //i += 1;
-                                }
-                                <td>@item.Tennguoidan</td>
-                                <td>@item.Tentt</td>
-                                <td>@item.Tenthuoc1</td>
-                                @*<td>@item.CCCD</td>
-        <td>@item.SDT</td>*@
-                                @{ string lm = ""; if (item.Loaimui == "Mui tiêm th? nh?t") { lm = "Mũi tiêm thứ nhất"; }; if (item.Loaimui == "Mui tiêm ti?p theo") { lm = "Mũi tiêm tiếp theo"; }
-                                }
-                                <td>@lm</td>
-                                @{ string sqlFormattedDate = item.Ngaymongmuon.HasValue ? item.Ngaymongmuon.Value.ToString("dd-MM-yyyy") : "<trống>";}
-                                <td>@Html.Raw(sqlFormattedDate)</td>
-                                <td>@item.Buoimongmuon</td>
-                                <td>@item.Tennhomuutien</td>
+                                    <tr id="row_@item.Sophieudangky">
+                                        @{//DateTime a = @item.Ngaymongmuon;*@
+                                            //string b = a.Day.ToString() + "/" + a.Month.ToString() + "/" + a.Year.ToString();
+                                            //int i = 0;
+                                            //string btnadd = "btnAddEmployee" + i.ToString();
+                                            string btnadd = "btnAddEmployee" + item.Sophieudangky;
+                                            string btnadd1 = "btnAddEmployee1" + item.Sophieudangky;
+                                            //i += 1;
+                                        }
+                                        <td>@item.Tennguoidan</td>
+                                        <td>@item.Tentt</td>
+                                        <td>@item.Tenthuoc1</td>
+                                        @{ string lm = ""; if (item.Loaimui == "Mui tiêm th? nh?t") { lm = "Mũi tiêm thứ nhất"; }; if (item.Loaimui == "Mui tiêm ti?p theo") { lm = "Mũi tiêm tiếp theo"; }
+                                        }
+                                        <td>@lm</td>
+                                        @{ string sqlFormattedDate = item.Ngaymongmuon.HasValue ? item.Ngaymongmuon.Value.ToString("dd-MM-yyyy") : "<trống>";}
+                                        <td>@Html.Raw(sqlFormattedDate)</td>
+                                        <td>@item.Buoimongmuon</td>
+                                        <td>@item.Tennhomuutien</td>
 
-                                <td><a id="@Html.Raw(btnadd)" title="Sửa" class="btn btn-primary" style=" margin:0 0 0 16px"><i class="fas fa-pen"></i></a></td>
-                            </tr>
+                                        <td style="display:flex"><a id="@Html.Raw(btnadd)" title="Sửa" class="btn btn-primary" style=" margin:0 0 0 16px"><i class="fas fa-pen"></i></a>
+                                        <a id="@Html.Raw(btnadd1)" title="Thêm" class="btn btn-primary" style=" margin:0 0 0 16px"><i class="fas fa-plus"></i></a></td>
+                                    </tr>
                                 }
                             }
 
@@ -311,27 +277,25 @@
                                     <p><input value="@item.SDT" name="solieu" class="form-control" style="width:145px; margin:0 0px 0 19px" /></p>
 
                                     <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Trạng thái:</label>
-                                    @*<p>@Html.DropDownList("mattduyet", null, new { @style = "width:130px; margin:-2px 18px 15px 18px", @class = "form-control", @name = "mattduyet", @value = item.Matrangthai })</p>*@
 
                                     <select class="form-control" name="trangthaichitiet" id="trangthaichitiet" style="margin:-2px 18px 15px 18px;height:39px;width:175px">
                                         <option></option>
                                         <option value="tt001">Chưa duyệt</option>
                                         <option value="tt002">Đã duyệt</option>
                                         <option value="tt003">Đã xác nhận</option>
+                                        <option value="tt004">Đã tiêm</option>
+                                        <option value="tt005">Đã hủy</option>
+                                        <option value="tt006">Đã thêm phiếu tiêm</option>
                                     </select>
-
-                                    @*<script>
-                                            $("document").ready(function () {
-                                                $('#mattduyet').val('@item.Matrangthai');
-                                                        });
-                                        </script> *@
                                 </div>
                             </div>
 
                             <div class="form-group" style="">
                                 <div class="form-group" style="display: flex ;  width:100%;align-items:center">
                                     <label style=" width: 100px; margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Loại mũi:</label>
-                                    <p><input value="@item.Loaimui" name="hs" class="form-control" style="width:152px; margin:0 16px 0 0px" /></p>
+                                    @{ string l_m = ""; if (item.Loaimui == "Mui tiêm th? nh?t") { l_m = "Mũi tiêm thứ nhất"; }; if (item.Loaimui == "Mui tiêm ti?p theo") { l_m = "Mũi tiêm tiếp theo"; }
+                                    }
+                                    <p><input value="@l_m" name="hs" class="form-control" style="width:152px; margin:0 16px 0 0px" /></p>
 
 
                                     <label style=" margin-left:6px;width: 76px; box-sizing:border-box; flex-wrap:nowrap">Giới tính:</label>
@@ -351,7 +315,6 @@
 
                                     <label style="width: 130px;margin-left:24px">Tên vaccine lần 1:</label>
                                     <p><input value="@item.Tenthuoc1" name="nsx" class="form-control" style="width:145px; margin-left: 13px;" /></p>
-                                    @*@Html.ValidationMessage("NSX", "", "text-danger")*@
 
                                     <label style=" margin-left:42px;width: 73px; box-sizing:border-box; flex-wrap:nowrap">Phản ứng:</label>
                                     <p><input value="@item.Phanungtiem1" name="ns" class="form-control" style="width:145px; margin: 0 18px 0 18px" /></p>
@@ -371,6 +334,64 @@
                                 align-items: center; justify-content: end; margin:-7px 0 0 -1px; width:929px">
                                 <button id="@Html.Raw(cancel)" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
                                 <button id="@Html.Raw(save)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Lưu</button>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+    @foreach (var item in Model.Where(item => item != null))
+    {
+        string pop1 = "dlgPopup1" + item.Sophieudangky;
+        string save1 = "btnSave1" + item.Sophieudangky;
+        string close1 = "btnCloseDialog1" + item.Sophieudangky;
+        string cancel1 = "btnCancel1" + item.Sophieudangky;
+
+        <div id="@Html.Raw(pop1)" class="m-dialog">
+            <div class="m-row">
+                <div class="m-popup" style="height: 300px; width: 631px ">
+                    <div class="m-popup-header">
+                        <div class="m-popup-header-title">Thêm thông tin người đăng ký vào phiếu tiêm</div>
+                        <div id="@Html.Raw(close1)" class="m-popup-close"><i class="fas fa-times"></i></div>
+                        <hr />
+                    </div>
+                    <div class="m-popup-content">
+                        @using (Html.BeginForm("InsertPhieutiem", "Regis", FormMethod.Post, new { style = " width: 631px" }))
+                        {
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style="margin-left: 24px;width: 100px;">Họ và tên:</label>
+                                    <p><input value="@item.Tennguoidan" name="tennd_" class="form-control" style="width:175px;margin-left: 15px;" /></p>
+
+                                    <label style="margin-left:24px">Số điện thoại:</label>
+                                    <p><input value="@item.SDT" name="sodt_" class="form-control" style="width:145px; margin:0 0px 0 19px" /></p>
+
+                                    <p><input value="@item.Sophieudangky" id="sophieudk" name="sophieudk" class="form-control" style=" display:none" /></p>
+                                    @*<select class="form-control" name="trangthaichitiet" id="trangthaichitiet" style="margin:-2px 18px 15px 18px;height:39px;width:175px">*@
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
+                                <div class="form-group" style="display: flex ;  width:100%;align-items:center">
+                                    <label style=" margin-left:24px; box-sizing:border-box; flex-wrap:nowrap">Ngày sinh:</label>
+                                    @{ string sqlFormattedDatet11 = item.Ngaysinh.HasValue ? item.Ngaysinh.Value.ToString("dd-MM-yyyy") : "<trống>";}
+                                    <p><input value="@Html.Raw(sqlFormattedDatet11)" name="ns_" class="form-control" style="width:130px;margin:0 16px" /></p>
+                                    @*<p><input value="@item.Ngaysinh.ToString("d") name="ns_" class="form-control" style="width:130px;margin:0 16px" /></p>*@
+
+                                    <label style="width: 104px;margin-left:75px">CCCD</label>
+                                    <p><input value="@item.CCCD" name="cccd_" class="form-control" style="width:145px; margin-left: 13px;" /></p>
+
+                                </div>
+                            </div>
+
+                            <div class="panel-heading" style="color:blue; font-size:large;display: flex; height: 60px;background-color: #E9EBEE;
+                                align-items: center; justify-content: end; margin:-7px 0 0 -1px; width:629px">
+                                <button id="@Html.Raw(cancel1)" type="button" class='m-btn m-btn-nobackground'>Hủy</button>
+                                <button id="@Html.Raw(save1)" type="submit" class="btn btn-primary" style=" margin:0 24px 0 8px">Thêm</button>
                             </div>
                         }
 

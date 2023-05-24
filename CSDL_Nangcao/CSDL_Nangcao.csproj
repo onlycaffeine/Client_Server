@@ -1199,6 +1199,7 @@
     <Content Include="Assets\Admin\js\controller\nhaptuncc.js" />
     <Content Include="Assets\Admin\js\controller\productController.js" />
     <Content Include="Assets\Admin\js\controller\regis.js" />
+    <Content Include="Assets\Admin\js\controller\Regis1.js" />
     <Content Include="Assets\Admin\js\controller\thongkephtiem.js" />
     <Content Include="Assets\Admin\js\controller\tonkho.js" />
     <Content Include="Assets\Admin\js\controller\userController.js" />
@@ -5103,6 +5104,9 @@
     <Content Include="Areas\Admin\Views\Vattuyte\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Capphat\PartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Lo\Index111.cshtml" />
+    <Content Include="Areas\Admin\Views\Phieutiem\Fail1.cshtml" />
+    <Content Include="Areas\Admin\Views\Phieutiem\Fail.cshtml" />
+    <Content Include="Areas\Admin\Views\Phieutiem\Fail2.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -18,9 +18,9 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //Session["madt"] = session.Maphuong;
 
             var dao = new PhieudangkyDao();
-            var model = dao.ListAllPaging(tt, muidk, nhomut, vc1,session.Maphuong,1,10);
+            var model = dao.ListAllPaging(tt, muidk, nhomut, vc1, session.Maphuong, 1, 1000);
 
-            var mattduyets = from n in db.Tinhtrangphieudks where n.Matrangthai != "tt004" select n;
+            var mattduyets = from n in db.Tinhtrangphieudks where n.Matrangthai != "" select n;
             ViewBag.mattduyet = new SelectList(mattduyets, "Matrangthai", "Tentranthai");
             ViewBag.tt = tt;
             ViewBag.muidk = muidk;
@@ -54,8 +54,8 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //if (ModelState.IsValid)
             //{
             var pr = new PhieudangkyDao();
-                //pr.Matrangthai = trangthaichitiet;
-                //db.SaveChanges();
+            //pr.Matrangthai = trangthaichitiet;
+            //db.SaveChanges();
             bool ok = pr.Updatett(sophieudk, trangthaichitiet);
             //string id = dao.Insert(pr);
             //if (pr.Tentt != null)
@@ -69,6 +69,56 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
             //}
             //}
             return RedirectToAction("Index", "Regis");
+        }
+
+
+        [HttpPost]
+        public ActionResult InsertPhieutiem(string sophieudk)
+        {
+            var order = new Phieutiem();
+
+            var dao = new PhieutiemDao();
+
+            long sldonghoadon = dao.Sldong() + 1;
+            string mahoadonauto = "pt00" + sldonghoadon.ToString();
+            if (sldonghoadon > 9 && sldonghoadon < 100)
+            {
+                mahoadonauto = "pt0" + sldonghoadon.ToString();
+            }
+            if (sldonghoadon > 99)
+            {
+                mahoadonauto = "pt" + sldonghoadon.ToString();
+            }
+
+            var pr = db.Phieudangkies.Find(sophieudk);
+
+            bool exists_ = db.Phieutiems.Any(p => p.CCCD == pr.CCCD);
+            if (exists_)
+            {
+                return View("~/Areas/Admin/Views/Phieutiem/Fail1.cshtml");
+            }
+
+            if (pr.Matrangthai != "tt004") // trang thai da tiem moi co the them vao phieu tiem
+            {
+                return View("~/Areas/Admin/Views/Phieutiem/Fail2.cshtml");
+            }
+            order.Sophieu = mahoadonauto;
+            order.Tennguoidan = pr.Tennguoidan;
+            order.CCCD = pr.CCCD;
+            order.SDT = pr.SDT;
+            order.Ngaysinh = (DateTime)pr.Ngaysinh;
+            try
+            {
+                var id = new PhieutiemDao().Insert(order);
+                pr.Matrangthai = "tt006";
+                db.SaveChanges();
+                return View("~/Areas/Admin/Views/Phieutiem/Success.cshtml");
+            }
+            catch (Exception ex)
+            {
+                return View("~/Areas/Admin/Views/Phieutiem/Fail.cshtml");
+            }
+
         }
     }
 }

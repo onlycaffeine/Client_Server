@@ -271,7 +271,7 @@
                         <p></p>
                         <p></p>
                         <div class="pagination" style="margin-left: 4px; display:flex; justify-content:space-between">
-                            <div>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)( tổng số @Model.PageCount trang ) </div>
+                            <div>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) (tổng số @Model.PageCount trang) </div>
                             <div style="margin-right:460px">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))</div>
                         </div>
                     </div>
