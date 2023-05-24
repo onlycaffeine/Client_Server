@@ -2,6 +2,7 @@
 using Model1.EF;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,14 +50,18 @@ namespace CSDL_Nangcao.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(string sophieudk, string trangthaichitiet)
+        public ActionResult Update(string sophieudk, string trangthaichitiet, string hsd)
         {
             //if (ModelState.IsValid)
             //{
             var pr = new PhieudangkyDao();
+            string format = "dd-MM-yyyy";
+            DateTime dateTime;
+            DateTime.TryParseExact(hsd, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+            var b = dateTime;
             //pr.Matrangthai = trangthaichitiet;
             //db.SaveChanges();
-            bool ok = pr.Updatett(sophieudk, trangthaichitiet);
+            bool ok = pr.Updatett(sophieudk, trangthaichitiet,b);
             //string id = dao.Insert(pr);
             //if (pr.Tentt != null)
             //{

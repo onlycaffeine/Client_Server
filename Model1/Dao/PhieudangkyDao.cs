@@ -285,10 +285,11 @@ namespace Model1.Dao
             return db.Phieudangkies.Find(id);
         }
 
-        public bool Updatett(string id, string tt)
+        public bool Updatett(string id, string tt,DateTime thoiGianMuon)
         {
             var pr = db.Phieudangkies.Find(id);
             pr.Matrangthai = tt;
+            pr.Ngaymongmuon = (DateTime)thoiGianMuon;
             db.SaveChanges();
             return true;
         }
